@@ -14,12 +14,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_layout_main);
+        setContentView(R.layout.act_main);
 
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             FragCalculate fragment = new FragCalculate();
-            transaction.replace(R.id.sample_content_fragment, fragment);
+            transaction.replace(R.id.act_main_content_fragment, fragment);
             transaction.commit();
         }
     }

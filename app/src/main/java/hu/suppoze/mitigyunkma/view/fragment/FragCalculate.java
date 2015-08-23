@@ -17,30 +17,25 @@
 package hu.suppoze.mitigyunkma.view.fragment;
 
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import hu.suppoze.mitigyunkma.R;
 import hu.suppoze.mitigyunkma.view.adapter.MainPagerAdapter;
 import hu.suppoze.mitigyunkma.view.slidingtab.SlidingTabLayout;
 
 public class FragCalculate extends Fragment {
 
-    static final String LOG_TAG = "FragCalculate";
-
-    /**
-     * A custom {@link ViewPager} title strip which looks much like Tabs present in Android v4.0 and
-     * above, but is designed to give continuous feedback to the user when scrolling.
-     */
-    private SlidingTabLayout mSlidingTabLayout;
-
-    /**
-     * A {@link ViewPager} which will be used in conjunction with the {@link SlidingTabLayout} above.
-     */
-    private ViewPager mViewPager;
+    @InjectView(R.id.frag_main_viewpager)
+    ViewPager mViewPager;
+    @InjectView(R.id.frag_main_sliding_tabs)
+    SlidingTabLayout mSlidingTabLayout;
 
     /**
      * Inflates the {@link View} which will be displayed by this {@link Fragment}, from the app's
@@ -49,10 +44,11 @@ public class FragCalculate extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.frag_layout_main, container, false);
+        View view = inflater.inflate(R.layout.frag_main, container, false);
+        ButterKnife.inject(this, view);
+        return view;
     }
 
-    // BEGIN_INCLUDE (fragment_onviewcreated)
     /**
      * This is called after the {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} has finished.
      * Here we can pick out the {@link View}s we need to configure from the content view.
@@ -64,19 +60,12 @@ public class FragCalculate extends Fragment {
      */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        // BEGIN_INCLUDE (setup_viewpager)
         // Get the ViewPager and set it's PagerAdapter so that it can display items
-        mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
         mViewPager.setAdapter(new MainPagerAdapter(getContext()));
-        // END_INCLUDE (setup_viewpager)
 
-        // BEGIN_INCLUDE (setup_slidingtablayout)
         // Give the SlidingTabLayout the ViewPager, this must be done AFTER the ViewPager has had
         // it's PagerAdapter set.
-        mSlidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setDistributeEvenly(true);
         mSlidingTabLayout.setViewPager(mViewPager);
-        // END_INCLUDE (setup_slidingtablayout)
     }
-    // END_INCLUDE (fragment_onviewcreated)
 }

@@ -1,12 +1,12 @@
 package hu.suppoze.mitigyunkma.view.adapter;
 
 import android.content.Context;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import hu.suppoze.mitigyunkma.R;
 import hu.suppoze.mitigyunkma.view.slidingtab.SlidingTabLayout;
@@ -66,13 +66,13 @@ public class MainPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         // Inflate a new layout from our resources
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view  = inflater.inflate(R.layout.pager_item, container, false);
+        View view  = inflater.inflate(R.layout.frag_calculate, container, false);
         // Add the newly created View to the ViewPager
         container.addView(view);
 
         // Retrieve a TextView from the inflated View, and update it's text
-        TextView title = (TextView) view.findViewById(R.id.item_title);
-        title.setText(String.valueOf(position + 1));
+        TextInputLayout title = (TextInputLayout) view.findViewById(R.id.calculate_view_percentage);
+        title.getEditText().setText(String.valueOf(position + 1));
 
         // Return the View
         return view;
