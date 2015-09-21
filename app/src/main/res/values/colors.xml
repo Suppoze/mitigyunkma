@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="accent">#E7B100</color>
-    <color name="sliding_tab_selected_indicator">@color/accent</color>
+    <color name="color_primary">#dbdbdb</color>
+    <color name="color_primary_dark">#b8b8b8</color>
+
+    <color name="button_accent_color">@color/accent</color>
+    <color name="button_with_accent_text_color">#E8E8E8</color>
 </resources>

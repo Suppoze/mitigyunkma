@@ -1,14 +1,12 @@
 <resources>
     <string name="app_name">Mit igyunk ma?</string>
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
     <string name="calculate_view_percentage_hint">Százalék</string>
     <string name="calculate_view_capacity_hint">Űrtartalom</string>
     <string name="calculate_view_price_hint">Ár</string>
+    <string name="calculate_view_drink_index">Pia Hatásfok Index (PHI)</string>
+
+    <string name="button_text_save">Mentés</string>
 </resources>
