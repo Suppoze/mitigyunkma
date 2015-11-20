@@ -2,7 +2,6 @@ package hu.suppoze.mitigyunkma.activity;
 
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
     @InjectView(R.id.activity_main_tablayout) TabLayout tabLayout;
     @InjectView(R.id.activity_main_viewpager) ViewPager viewPager;
 
-    private static final float TOOLBAR_ELEVATION = 2;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeActionBar() {
         setSupportActionBar(toolbar);
-        ViewCompat.setElevation(appBarLayout, TOOLBAR_ELEVATION);
     }
 
     private void initializeTabLayout() {
