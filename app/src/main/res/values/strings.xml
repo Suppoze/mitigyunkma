@@ -8,5 +8,7 @@
     <string name="calculate_view_price_hint">Ár</string>
     <string name="calculate_view_drink_index">Pia Hatásfok Index (PHI)</string>
 
-    <string name="button_text_save">Mentés</string>
+    <string name="save">Mentés</string>
+    <string name="calculate">Számítás</string>
+    <string name="clear">Törlés</string>
 </resources>

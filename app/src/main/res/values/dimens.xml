@@ -5,6 +5,10 @@
 
     <dimen name="height_text_input_layout">72dp</dimen>
 
+    <dimen name="calculate_button_height">56dp</dimen>
+    <dimen name="calculate_button_margin">16dp</dimen>
+    <dimen name="calculate_button_text_size">@dimen/text_size_l</dimen>
+
     <dimen name="padding_s">4dp</dimen>
     <dimen name="padding_m">8dp</dimen>
 
@@ -13,4 +17,6 @@
     <dimen name="text_size_index">64sp</dimen>
     <dimen name="text_size_s">12sp</dimen>
     <dimen name="text_size_m">16sp</dimen>
+    <dimen name="text_size_l">20sp</dimen>
+
 </resources>

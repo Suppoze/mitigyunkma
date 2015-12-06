@@ -15,17 +15,10 @@ import hu.suppoze.mitigyunkma.view.adapter.MainPagerAdapter
 
 class MainActivity : AppCompatActivity() {
 
-    @Bind(R.id.activity_main_appbar)
-    lateinit var appBarLayout: AppBarLayout
-
-    @Bind(R.id.activity_main_toolbar)
-    lateinit var toolbar: Toolbar
-
-    @Bind(R.id.activity_main_tablayout)
-    lateinit var tabLayout: TabLayout
-
-    @Bind(R.id.activity_main_viewpager)
-    lateinit var viewPager: ViewPager
+    @Bind(R.id.activity_main_appbar) lateinit var appBarLayout: AppBarLayout
+    @Bind(R.id.activity_main_toolbar) lateinit var toolbar: Toolbar
+    @Bind(R.id.activity_main_tablayout) lateinit var tabLayout: TabLayout
+    @Bind(R.id.activity_main_viewpager) lateinit var viewPager: ViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +33,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeActionBar() {
         setSupportActionBar(toolbar)
+        supportActionBar.setDisplayHomeAsUpEnabled(true)
+        supportActionBar.setHomeAsUpIndicator(R.mipmap.ic_launcher)
     }
 
     private fun initializeTabLayout() {
