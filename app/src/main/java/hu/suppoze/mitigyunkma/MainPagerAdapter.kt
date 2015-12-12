@@ -1,11 +1,11 @@
-package hu.suppoze.mitigyunkma.view.adapter
+package hu.suppoze.mitigyunkma
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.util.Log
 
-import hu.suppoze.mitigyunkma.view.fragment.CalculateFragment
+import hu.suppoze.mitigyunkma.calculate.CalculateFragment
 
 class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 

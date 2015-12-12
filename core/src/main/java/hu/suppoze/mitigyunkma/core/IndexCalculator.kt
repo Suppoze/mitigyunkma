@@ -2,24 +2,29 @@ package hu.suppoze.mitigyunkma.core
 
 object IndexCalculator {
 
-    private val suruseg: Double = 0.789
-    private val molarisTomeg: Double = 46.07
+    private const val density: Double = 0.80207
+    private const val molecularWeight: Double = 46.06844
 
-    data class CalculationParameters(
-        val percent: Double,
-        val capacity: Double,
-        val price: Double,
-        val 
-    );
+    private var percent: Double = .0
+    private var capacity: Double = .0
+    private var price: Double = .0
 
-    fun calculateIndex(percent: Double, capacity: Double, price: Double): Double {
-        var index: Double
-
-        index = capacity * (percent / 100) * 100
-        index *= (suruseg / molarisTomeg)
-        index = (price / (index * 100) * 100)
-
-        return index;
+    fun calculateIndex(bundle: ParameterBundle): Int {
+        convert(bundle)
+        var index = price / (capacity * percent * (density / molecularWeight) * 100) * 100
+        return index.toInt();
     }
 
+    // TODO: presenter layer
+    fun convert(bundle: ParameterBundle) {
+        percent = bundle.percent.toDouble()
+        capacity = bundle.capacity.toDouble()
+        price = bundle.price.toDouble()
+    }
+
+    public data class ParameterBundle(
+            val percent: String,
+            val capacity: String,
+            val price: String
+    )
 }

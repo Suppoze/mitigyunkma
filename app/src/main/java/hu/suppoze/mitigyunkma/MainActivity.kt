@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.activity
+package hu.suppoze.mitigyunkma
 
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.TabLayout
@@ -11,7 +11,7 @@ import android.view.MenuItem
 
 import butterknife.*
 import hu.suppoze.mitigyunkma.R
-import hu.suppoze.mitigyunkma.view.adapter.MainPagerAdapter
+import hu.suppoze.mitigyunkma.MainPagerAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -57,11 +57,8 @@ class MainActivity : AppCompatActivity() {
                 viewPager.currentItem = tab.position
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab) {
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab) {
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab) { }
+            override fun onTabReselected(tab: TabLayout.Tab) { }
         })
     }
 
