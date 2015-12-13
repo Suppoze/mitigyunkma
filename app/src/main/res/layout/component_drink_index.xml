@@ -6,14 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:animateLayoutChanges="true" >
+    android:layout_margin="@dimen/drink_index_margin"
+    android:background="@drawable/drink_index_background">
 
     <TextView
         android:id="@+id/component_drink_index_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/drink_index_shadow"
         android:maxLines="1"
-        android:textSize="@dimen/text_size_index" />
+        android:textSize="@dimen/drink_index_text_size"
+        android:textColor="@color/drink_index_text"
+        android:shadowColor="@color/drink_index_text_shadow"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="2"/>
 
 </LinearLayout>

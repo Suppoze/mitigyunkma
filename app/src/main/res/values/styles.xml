@@ -7,4 +7,5 @@
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="android:homeAsUpIndicator">@null</item>
     </style>
+
 </resources>

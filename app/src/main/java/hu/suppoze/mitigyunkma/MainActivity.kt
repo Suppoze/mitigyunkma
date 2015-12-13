@@ -38,9 +38,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeTabLayout() {
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"))
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"))
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 3"))
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.calculate_view_title))
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.history_view_title))
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.bestof_view_title))
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
     }
 

@@ -1,5 +1,7 @@
 package hu.suppoze.mitigyunkma.calculate
 
+import android.animation.ObjectAnimator
+import android.graphics.drawable.TransitionDrawable
 import android.os.Bundle
 import android.support.design.widget.TextInputLayout
 import android.support.v4.app.Fragment
@@ -9,9 +11,10 @@ import android.view.ViewGroup
 import android.widget.*
 import butterknife.Bind
 import butterknife.ButterKnife
+import butterknife.OnClick
 
 import hu.suppoze.mitigyunkma.R
-import hu.suppoze.mitigyunkma.core.IndexCalculator
+import org.jetbrains.anko.support.v4.alert
 
 
 class CalculateFragment : Fragment() {
@@ -20,7 +23,11 @@ class CalculateFragment : Fragment() {
     @Bind(R.id.calculate_view_percentage) lateinit var percentageField: TextInputLayout
     @Bind(R.id.calculate_view_price) lateinit var priceField: TextInputLayout
     @Bind(R.id.component_drink_index_textview) lateinit var drinkIndex: TextView
-    @Bind(R.id.button_calculate) lateinit var calculateButton: RelativeLayout
+    @Bind(R.id.button_save) lateinit var saveButton: RelativeLayout
+    @Bind(R.id.button_save_background) lateinit var saveButtonBackground: RelativeLayout
+    @Bind(R.id.button_reset) lateinit var resetButton: RelativeLayout
+
+    val presenter: CalculatePresenter = CalculatePresenter(this)
 
     override fun onCreateView(inflater: LayoutInflater?,
                               container: ViewGroup?,
@@ -28,11 +35,11 @@ class CalculateFragment : Fragment() {
         val view = inflater!!.inflate(R.layout.fragment_calculate, container, false)
         ButterKnife.bind(this, view)
 
-        val textChangeHandler: TextChangeHandler = TextChangeHandler(drinkIndex, calculate())
+        percentageField.editText.addTextChangedListener(presenter)
+        capacityField.editText.addTextChangedListener(presenter)
+        priceField.editText.addTextChangedListener(presenter)
 
-        percentageField.editText.addTextChangedListener(textChangeHandler)
-        capacityField.editText.addTextChangedListener(textChangeHandler)
-        priceField.editText.addTextChangedListener(textChangeHandler)
+        setSaveButtonEnabled(false)
 
         return view
     }
@@ -45,14 +52,38 @@ class CalculateFragment : Fragment() {
         super.onPause()
     }
 
-    fun calculate(): () -> Int {
-        return {
-            IndexCalculator.calculateIndex(
-                    IndexCalculator.ParameterBundle(
-                            percent = percentageField.editText.text.toString(),
-                            capacity = capacityField.editText.text.toString(),
-                            price = priceField.editText.text.toString()))
+    fun setSaveButtonEnabled(isEnabled: Boolean) {
+        saveButton.isClickable = isEnabled
+        animateSaveButtonColor(isEnabled)
+    }
+
+    private fun animateSaveButtonColor(isEnabled: Boolean) {
+        var background: TransitionDrawable? = saveButtonBackground.background as TransitionDrawable?
+        if (background != null) {
+            if (isEnabled) {
+                background.startTransition(300)
+            } else {
+                background.reverseTransition(300)
+            }
         }
+    }
+
+    @OnClick(R.id.button_reset)
+    fun onResetClicked() {
+        drinkIndex.text = ""
+
+        percentageField.editText.text.clear()
+        capacityField.editText.text.clear()
+        priceField.editText.text.clear()
+
+        percentageField.requestFocus()
+    }
+
+    @OnClick(R.id.button_save)
+    fun onSaveClicked() {
+        alert("Save button clicked") {
+            positiveButton("Cool, brah") {}
+        }.show()
     }
 
 }

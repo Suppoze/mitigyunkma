@@ -4,7 +4,16 @@
     <color name="color_primary">#e0e0e0</color>
     <color name="color_primary_dark">#bdbdbd</color>
 
-    <color name="calculate_button_color">@color/accent</color>
-    <color name="calculate_button_text_color">#FFFFFF</color>
-    <color name="calculate_button_text_shadow_color">#b43e2723</color>
+    <color name="button_text">#FFFFFF</color>
+    <color name="button_text_shadow">#263238</color>
+
+    <color name="calculate_button_background">@color/accent</color>
+    <color name="save_button_enabled">#4caf50</color>
+    <color name="save_button_disabled">#666666</color>
+    <color name="reset_button_background">#f44336</color>
+
+    <color name="drink_index_background_shadow">#e0e0e0</color>
+    <color name="drink_index_background">#fafafa</color>
+    <color name="drink_index_text">#fdb201</color>
+    <color name="drink_index_text_shadow">#783e3423</color>
 </resources>
