@@ -7,9 +7,9 @@
     <color name="button_text">#FFFFFF</color>
     <color name="button_text_shadow">#263238</color>
 
-    <color name="calculate_button_background">@color/accent</color>
-    <color name="save_button_enabled">#4caf50</color>
-    <color name="save_button_disabled">#666666</color>
+    <color name="action_button_save">#4caf50</color>
+    <color name="action_button_disabled">#666666</color>
+    <color name="action_button_next">@color/accent</color>
     <color name="reset_button_background">#f44336</color>
 
     <color name="drink_index_background_shadow">#e0e0e0</color>

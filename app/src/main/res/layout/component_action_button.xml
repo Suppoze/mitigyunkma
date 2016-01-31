@@ -13,15 +13,14 @@
         android:layout_height="@dimen/button_height"
         android:layout_centerHorizontal="true"
         android:foreground="?android:attr/selectableItemBackground"
-        card_view:cardBackgroundColor="#d9d9d9"
         card_view:cardCornerRadius="2dp"
         card_view:cardElevation="1dp">
 
         <RelativeLayout
-            android:id="@+id/button_save_background"
+            android:id="@+id/button_action_background"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/save_button_background">
+            android:background="@color/action_button_disabled">
 
             <TextView
                 android:layout_width="wrap_content"

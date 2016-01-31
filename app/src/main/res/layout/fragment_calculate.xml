@@ -22,7 +22,6 @@
             android:id="@+id/calculate_view_percentage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_text_input_layout"
-            android:layout_marginRight="@dimen/margin_l"
             android:layout_weight="1">
 
             <EditText android:layout_width="match_parent"
@@ -73,8 +72,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="7" />
 
-        <include layout="@layout/component_save_button"
-            android:id="@+id/button_save"
+        <include layout="@layout/component_action_button"
+            android:id="@+id/button_action"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -108,9 +107,9 @@
         <Button android:id="@+id/numpad_7"
             android:text="7"/>
         <Button android:id="@+id/numpad_8"
-            android:text="7"/>
-        <Button android:id="@+id/numpad_9"
             android:text="8"/>
+        <Button android:id="@+id/numpad_9"
+            android:text="9"/>
         <Button android:id="@+id/numpad_delete"
             android:text="del"/>
         <Button android:id="@+id/numpad_0"

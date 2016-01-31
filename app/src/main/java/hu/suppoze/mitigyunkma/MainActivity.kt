@@ -10,8 +10,6 @@ import android.view.Menu
 import android.view.MenuItem
 
 import butterknife.*
-import hu.suppoze.mitigyunkma.R
-import hu.suppoze.mitigyunkma.MainPagerAdapter
 
 class MainActivity : AppCompatActivity() {
 
