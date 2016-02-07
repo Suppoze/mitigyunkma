@@ -1,16 +1,18 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 buildscript {
-    ext.kotlin_version = '1.0.0-beta-4589'
+    ext.kotlin_version = '1.0.0-rc-1036'
     ext.realm_version = '0.87.4'
     repositories {
         mavenCentral()
         jcenter()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
-        classpath "io.realm:realm-gradle-plugin:${realm_version}"
+        classpath "io.realm:realm-gradle-plugin:$realm_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
     }
 }
 
@@ -50,18 +52,18 @@ dependencies {
     kapt 'com.jakewharton:butterknife:7.0.1'
 
     //Kotlin//
-    compile "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     //Anko//
-    compile "org.jetbrains.anko:anko-sdk23:0.8.1"
-    compile "org.jetbrains.anko:anko-appcompat-v7:0.8.1"
-    compile "org.jetbrains.anko:anko-support-v4:0.8.1"
+    compile "org.jetbrains.anko:anko-sdk23:0.8.2"
+    compile "org.jetbrains.anko:anko-appcompat-v7:0.8.2"
+    compile "org.jetbrains.anko:anko-support-v4:0.8.2"
 
     //Realm//
-    compile "io.realm:realm-android-library:${realm_version}@aar"
-    compile "io.realm:realm-annotations:${realm_version}"
-    kapt "io.realm:realm-annotations:${realm_version}"
-    kapt "io.realm:realm-annotations-processor:${realm_version}"
+    compile "io.realm:realm-android-library:$realm_version@aar"
+    compile "io.realm:realm-annotations:$realm_version"
+    kapt "io.realm:realm-annotations:$realm_version"
+    kapt "io.realm:realm-annotations-processor:$realm_version"
 }
 repositories {
     mavenCentral()

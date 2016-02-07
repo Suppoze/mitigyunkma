@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_save_view"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/dialog_padding"
+    android:paddingRight="@dimen/dialog_padding">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_save_description"
+        android:paddingTop="@dimen/padding_m"
+        android:paddingBottom="@dimen/padding_m"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/dialog_save_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_text_input_layout">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dialog_save_hint"
+            android:textSize="@dimen/edit_text_size"
+            android:inputType="text" />
+
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>

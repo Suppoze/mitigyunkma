@@ -1,8 +1,7 @@
 package hu.suppoze.mitigyunkma.calculate
 
 import android.animation.ArgbEvaluator
-import android.animation.ObjectAnimator
-import android.graphics.drawable.ColorDrawable
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.support.design.widget.TextInputLayout
 import android.support.v4.content.ContextCompat
@@ -16,6 +15,8 @@ import butterknife.OnClick
 
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.base.BaseFragment
+import kotlinx.android.synthetic.main.dialog_save.view.*
+import org.jetbrains.anko.support.v4.alert
 
 class CalculateFragment : BaseFragment() {
 
@@ -41,7 +42,7 @@ class CalculateFragment : BaseFragment() {
     @Bind(R.id.numpad_delete) lateinit var numDelete: Button
     @Bind(R.id.numpad_decimal) lateinit var numDecimal: Button
 
-    var previousActionButtonState: ActionButtonState = ActionButtonState.DISABLED
+    var currentActionButtonState: ActionButtonState = ActionButtonState.DISABLED
     lateinit var colorToState: Map<ActionButtonState, Int>
 
     val presenter: CalculatePresenter = CalculatePresenter(this)
@@ -58,13 +59,13 @@ class CalculateFragment : BaseFragment() {
         val view = inflater!!.inflate(R.layout.fragment_calculate, container, false)
         ButterKnife.bind(this, view)
 
-        percentField.editText.addTextChangedListener(presenter)
-        capacityField.editText.addTextChangedListener(presenter)
-        priceField.editText.addTextChangedListener(presenter)
+        percentField.editText?.addTextChangedListener(presenter)
+        capacityField.editText?.addTextChangedListener(presenter)
+        priceField.editText?.addTextChangedListener(presenter)
 
-        percentField.editText.showSoftInputOnFocus = false
-        capacityField.editText.showSoftInputOnFocus = false
-        priceField.editText.showSoftInputOnFocus = false
+        percentField.editText?.showSoftInputOnFocus = false
+        capacityField.editText?.showSoftInputOnFocus = false
+        priceField.editText?.showSoftInputOnFocus = false
 
         initializeNumpad()
 
@@ -112,44 +113,66 @@ class CalculateFragment : BaseFragment() {
     }
 
     private fun determineFocused(): EditText? {
-        if (capacityField.editText.isFocused) return capacityField.editText
-        else if (percentField.editText.isFocused) return percentField.editText
-        else if (priceField.editText.isFocused) return priceField.editText
+        if (capacityField.editText!!.isFocused) return capacityField.editText
+        else if (percentField.editText!!.isFocused) return percentField.editText
+        else if (priceField.editText!!.isFocused) return priceField.editText
         throw RuntimeException("CalculateFragment: Determining focus failed.")
     }
 
-    fun switchActionButtonState(state: ActionButtonState) {
-        if (previousActionButtonState != state) {
-            animateActionButton(previousActionButtonState, state)
-            previousActionButtonState = state
+    fun switchActionButtonState(newActionButtonState: ActionButtonState) {
+        if (currentActionButtonState != newActionButtonState) {
+            animateActionButton(currentActionButtonState, newActionButtonState)
+            currentActionButtonState = newActionButtonState
         }
-        actionButton.isClickable = (state != ActionButtonState.DISABLED)
+        actionButton.isClickable = (newActionButtonState != ActionButtonState.DISABLED)
     }
 
     private fun animateActionButton(oldState: ActionButtonState, newState: ActionButtonState) {
         val fromColor = colorToState[oldState]
         val toColor = colorToState[newState]
 
-        val animator: ObjectAnimator = ObjectAnimator.ofObject(
-                actionButtonBackground, "background", ArgbEvaluator(), fromColor, toColor)
-        animator.setDuration(200)
-        animator.start()
+        val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), fromColor, toColor)
+        colorAnimation.duration = 200
+        colorAnimation.addUpdateListener { actionButtonBackground.setBackgroundColor(it.animatedValue as Int) }
+        colorAnimation.start()
     }
 
     @OnClick(R.id.button_reset)
     fun onResetClicked() {
         drinkIndex.text = ""
 
-        percentField.editText.text.clear()
-        capacityField.editText.text.clear()
-        priceField.editText.text.clear()
+        percentField.editText!!.text.clear()
+        capacityField.editText!!.text.clear()
+        priceField.editText!!.text.clear()
 
         percentField.requestFocus()
     }
 
     @OnClick(R.id.button_action)
-    fun onSaveClicked() {
-        presenter.saveDrink()
+    fun onActionButtonClicked() {
+        when (currentActionButtonState) {
+            ActionButtonState.NEXT -> selectNextEmptyField()?.requestFocus()
+            ActionButtonState.SAVE -> showSaveDialog()
+            else -> { throw RuntimeException() }
+        }
+    }
+
+    private fun showSaveDialog() {
+        alert {
+
+            val dialogView = View.inflate(context, R.layout.dialog_save, null);
+
+            title(R.string.dialog_save_title)
+            customView(dialogView)
+            positiveButton(R.string.save) { presenter.saveDrink(dialogView.dialog_save_name.editText!!.text.toString()) }
+        }.show()
+    }
+
+    private fun selectNextEmptyField(): TextInputLayout? {
+        if (percentField.editText!!.text.isNullOrEmpty()) return percentField
+        if (priceField.editText!!.text.isNullOrEmpty()) return priceField
+        if (capacityField.editText!!.text.isNullOrEmpty()) return capacityField
+        else return null;
     }
 
     enum class ActionButtonState {

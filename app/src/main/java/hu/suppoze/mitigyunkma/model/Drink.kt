@@ -4,15 +4,15 @@ import io.realm.RealmObject
 import io.realm.annotations.Ignore
 import io.realm.annotations.PrimaryKey
 
-public open class Drink (
+open class Drink (
 
         @PrimaryKey
-        public open var name: String = "",
+        open var name: String = "",
 
-        public open var index: Double = .0,
-        public open var percent: Double = .0,
-        public open var capacity: Double  = .0,
-        public open var price: Double = .0
+        open var index: Double = .0,
+        open var percent: Double = .0,
+        open var capacity: Double  = .0,
+        open var price: Double = .0
 
 ) : RealmObject() {
 

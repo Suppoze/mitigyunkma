@@ -8,6 +8,9 @@
     <string name="calculate_view_capacity_hint">Űrtartalom</string>
     <string name="calculate_view_price_hint">Ár</string>
     <string name="calculate_view_drink_index">Pia Hatásfok Index (PHI)</string>
+    <string name="dialog_save_title">Mentés</string>
+    <string name="dialog_save_description">Kérlek, adj nevet az italnak!</string>
+    <string name="dialog_save_hint">Név</string>
 
     <string name="history_view_title">Előzmények</string>
     <string name="bestof_view_title">Legjobbak</string>

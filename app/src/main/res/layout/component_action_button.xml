@@ -19,8 +19,7 @@
         <RelativeLayout
             android:id="@+id/button_action_background"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@color/action_button_disabled">
+            android:layout_height="fill_parent">
 
             <TextView
                 android:layout_width="wrap_content"

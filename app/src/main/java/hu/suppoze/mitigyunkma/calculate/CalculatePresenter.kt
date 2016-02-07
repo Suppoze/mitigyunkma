@@ -3,11 +3,14 @@ package hu.suppoze.mitigyunkma.calculate
 import android.support.v4.app.Fragment
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import hu.suppoze.mitigyunkma.core.IndexCalculator
 import hu.suppoze.mitigyunkma.model.Drink
 import io.realm.Realm
+import io.realm.RealmResults
 import org.jetbrains.anko.async
 import org.jetbrains.anko.uiThread
+import java.util.logging.Logger
 
 class CalculatePresenter(fragment: Fragment) : TextWatcher {
 
@@ -30,37 +33,44 @@ class CalculatePresenter(fragment: Fragment) : TextWatcher {
         realm.close()
     }
 
-    override fun afterTextChanged(s: Editable?) {    }
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {    }
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
+    override fun afterTextChanged(s: Editable?) {
+
         async() {
 
             if (noEmptyFields()) {
-                capacity = view.capacityField.editText.text.toString().toDouble()
-                percent = view.percentField.editText.text.toString().toDouble()
-                price = view.priceField.editText.text.toString().toDouble()
+                capacity = view.capacityField.editText!!.text.toString().toDouble()
+                percent = view.percentField.editText!!.text.toString().toDouble()
+                price = view.priceField.editText!!.text.toString().toDouble()
 
                 if (zeroCheck()) {
                     val index = calculate().toInt()
-
                     uiThread {
                         view.drinkIndex.text = index.toString()
                         view.switchActionButtonState(CalculateFragment.ActionButtonState.SAVE)
                     }
+
                 } else {
                     uiThread {
-                        view.switchActionButtonState(CalculateFragment.ActionButtonState.DISABLED)
                         view.drinkIndex.text = ""
+                        view.switchActionButtonState(CalculateFragment.ActionButtonState.DISABLED)
                     }
+                }
+
+            } else {
+                uiThread {
+                    view.drinkIndex.text = ""
+                    view.switchActionButtonState(CalculateFragment.ActionButtonState.NEXT)
                 }
             }
         }
     }
 
     private fun noEmptyFields(): Boolean =
-        view.capacityField.editText.text.isNotEmpty() &&
-        view.percentField.editText.text.isNotEmpty() &&
-        view.priceField.editText.text.isNotEmpty()
+        view.capacityField.editText!!.text.isNotEmpty() &&
+        view.percentField.editText!!.text.isNotEmpty() &&
+        view.priceField.editText!!.text.isNotEmpty()
 
     private fun zeroCheck(): Boolean = capacity > 0 && percent > 0 && price > 0
 
@@ -71,20 +81,29 @@ class CalculatePresenter(fragment: Fragment) : TextWatcher {
                 price = price
         )
 
-    fun saveDrink() {
+    fun saveDrink(drinkName: String) {
+
         async() {
-            realm.executeTransaction {
-                realm.copyToRealm(Drink (
-                        name = "Test",
-                        index = calculate(),
-                        capacity = capacity,
-                        percent = percent,
-                        price = price
-                ))
+
+            val realmInstance = Realm.getInstance(this@CalculatePresenter.view.context)
+
+            realmInstance.executeTransaction {
+
+                var drink = it.createObject(Drink::class.java)
+                drink.capacity = capacity
+                drink.percent = percent
+                drink.price = price
+                drink.name = drinkName
+                drink.index = calculate()
+
+                val drinks = it.where(Drink::class.java).findAll()
+                Log.d("SaveDrink", drinks.toString())
             }
 
+            realmInstance.close()
+
             uiThread {
-                view.showAlert("Pia hozzáadása sikeres")
+                // TODO: navigate to drink history list
             }
         }
     }

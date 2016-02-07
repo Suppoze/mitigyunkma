@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="@dimen/fragment_padding"
     android:orientation="vertical">
 
     <include layout="@layout/component_drink_index"
@@ -26,7 +26,7 @@
 
             <EditText android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="@dimen/edit_text_size"
                 android:inputType="numberDecimal"
                 android:hint="@string/calculate_view_percentage_hint" />
         </android.support.design.widget.TextInputLayout>
@@ -39,7 +39,7 @@
 
             <EditText android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="@dimen/edit_text_size"
                 android:inputType="number"
                 android:hint="@string/calculate_view_price_hint" />
         </android.support.design.widget.TextInputLayout>
@@ -52,7 +52,7 @@
 
             <EditText android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="@dimen/edit_text_size"
                 android:inputType="numberDecimal"
                 android:hint="@string/calculate_view_capacity_hint" />
         </android.support.design.widget.TextInputLayout>
@@ -110,12 +110,12 @@
             android:text="8"/>
         <Button android:id="@+id/numpad_9"
             android:text="9"/>
-        <Button android:id="@+id/numpad_delete"
-            android:text="del"/>
-        <Button android:id="@+id/numpad_0"
-            android:text="0"/>
         <Button android:id="@+id/numpad_decimal"
             android:text="."/>
+        <Button android:id="@+id/numpad_0"
+            android:text="0"/>
+        <Button android:id="@+id/numpad_delete"
+            android:text="del"/>
 
     </GridLayout>
 
