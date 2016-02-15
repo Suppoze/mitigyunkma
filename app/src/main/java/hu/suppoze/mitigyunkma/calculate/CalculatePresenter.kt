@@ -4,12 +4,16 @@ import android.support.v4.app.Fragment
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import hu.suppoze.mitigyunkma.R
+import hu.suppoze.mitigyunkma.base.Navigator
 import hu.suppoze.mitigyunkma.core.IndexCalculator
 import hu.suppoze.mitigyunkma.model.Drink
+import hu.suppoze.mitigyunkma.util.ResourceHelper
 import io.realm.Realm
 import io.realm.RealmResults
 import org.jetbrains.anko.async
 import org.jetbrains.anko.uiThread
+import java.util.*
 import java.util.logging.Logger
 
 class CalculatePresenter(fragment: Fragment) : TextWatcher {
@@ -83,6 +87,8 @@ class CalculatePresenter(fragment: Fragment) : TextWatcher {
 
     fun saveDrink(drinkName: String) {
 
+        val predicatedName = if (drinkName.isNullOrBlank()) ResourceHelper.getStringRes(R.string.unnamed_drink) else drinkName
+
         async() {
 
             val realmInstance = Realm.getInstance(this@CalculatePresenter.view.context)
@@ -93,17 +99,16 @@ class CalculatePresenter(fragment: Fragment) : TextWatcher {
                 drink.capacity = capacity
                 drink.percent = percent
                 drink.price = price
-                drink.name = drinkName
+                drink.name = predicatedName
                 drink.index = calculate()
+                drink.lastmod = Date()
 
-                val drinks = it.where(Drink::class.java).findAll()
-                Log.d("SaveDrink", drinks.toString())
             }
 
             realmInstance.close()
 
             uiThread {
-                // TODO: navigate to drink history list
+                Navigator.navigate(Navigator.Pages.HISTORY)
             }
         }
     }

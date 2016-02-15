@@ -3,6 +3,7 @@ package hu.suppoze.mitigyunkma.model
 import io.realm.RealmObject
 import io.realm.annotations.Ignore
 import io.realm.annotations.PrimaryKey
+import java.util.*
 
 open class Drink (
 
@@ -12,14 +13,8 @@ open class Drink (
         open var index: Double = .0,
         open var percent: Double = .0,
         open var capacity: Double  = .0,
-        open var price: Double = .0
+        open var price: Double = .0,
 
-) : RealmObject() {
+        open var lastmod: Date = Date()
 
-    @Ignore val NAME: String = "name"
-    @Ignore val INDEX: String = "index"
-    @Ignore val PERCENT: String = "percent"
-    @Ignore val CAPACITY: String = "capacity"
-    @Ignore val PRICE: String = "price"
-
-}
+) : RealmObject() { }

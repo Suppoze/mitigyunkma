@@ -52,9 +52,7 @@ class CalculateFragment : BaseFragment() {
         presenter.onCreate();
     }
 
-    override fun onCreateView(inflater: LayoutInflater?,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater!!.inflate(R.layout.fragment_calculate, container, false)
         ButterKnife.bind(this, view)
@@ -74,6 +72,7 @@ class CalculateFragment : BaseFragment() {
                 Pair(ActionButtonState.NEXT, ContextCompat.getColor(context, R.color.action_button_next)),
                 Pair(ActionButtonState.SAVE, ContextCompat.getColor(context, R.color.action_button_save))
         )
+
         switchActionButtonState(ActionButtonState.NEXT)
 
         return view
@@ -108,6 +107,7 @@ class CalculateFragment : BaseFragment() {
 
     private fun deleteFromFocused() {
         val focusedTextField = determineFocused()?.text
+
         if (focusedTextField.isNullOrEmpty()) return
         focusedTextField?.delete(focusedTextField.length - 1, focusedTextField.length)
     }
@@ -130,8 +130,8 @@ class CalculateFragment : BaseFragment() {
     private fun animateActionButton(oldState: ActionButtonState, newState: ActionButtonState) {
         val fromColor = colorToState[oldState]
         val toColor = colorToState[newState]
-
         val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), fromColor, toColor)
+
         colorAnimation.duration = 200
         colorAnimation.addUpdateListener { actionButtonBackground.setBackgroundColor(it.animatedValue as Int) }
         colorAnimation.start()
@@ -153,18 +153,25 @@ class CalculateFragment : BaseFragment() {
         when (currentActionButtonState) {
             ActionButtonState.NEXT -> selectNextEmptyField()?.requestFocus()
             ActionButtonState.SAVE -> showSaveDialog()
-            else -> { throw RuntimeException() }
+            else -> {
+                throw RuntimeException()
+            }
         }
     }
 
     private fun showSaveDialog() {
         alert {
-
-            val dialogView = View.inflate(context, R.layout.dialog_save, null);
-
             title(R.string.dialog_save_title)
+
+            val dialogView = View.inflate(context, R.layout.dialog_save, null)
             customView(dialogView)
-            positiveButton(R.string.save) { presenter.saveDrink(dialogView.dialog_save_name.editText!!.text.toString()) }
+            showKeyboard(context, dialogView.dialog_save_name)
+
+            positiveButton(R.string.save) {
+                hideKeyboard(context, dialogView.dialog_save_name)
+                presenter.saveDrink(dialogView.dialog_save_name.editText!!.text.toString())
+            }
+            negativeButton(R.string.cancel) { hideKeyboard(context, dialogView.dialog_save_name) }
         }.show()
     }
 

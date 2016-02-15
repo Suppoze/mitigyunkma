@@ -16,4 +16,9 @@
     <color name="drink_index_background">#fafafa</color>
     <color name="drink_index_text">#fdb201</color>
     <color name="drink_index_text_shadow">#783e3423</color>
+
+    <color name="icon_percent">#bf360c</color>
+    <color name="icon_price">#b77700</color>
+    <color name="icon_capacity">#01579b</color>
+
 </resources>

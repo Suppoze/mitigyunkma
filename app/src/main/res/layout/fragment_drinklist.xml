@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/drinklist_view_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/fragment_padding"
+        android:paddingLeft="@dimen/fragment_padding"
+        android:paddingRight="@dimen/fragment_padding"/>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 
 import butterknife.*
+import hu.suppoze.mitigyunkma.base.Navigator
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,7 +46,9 @@ class MainActivity : AppCompatActivity() {
     private fun initializeViewPager() {
         val adapter = MainPagerAdapter(supportFragmentManager)
         viewPager.adapter = adapter
+        viewPager.offscreenPageLimit = adapter.count
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+        Navigator.viewPager = viewPager
     }
 
     private fun setListenerForTabLayout() {
