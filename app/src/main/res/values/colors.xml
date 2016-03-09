@@ -20,5 +20,6 @@
     <color name="icon_percent">#bf360c</color>
     <color name="icon_price">#b77700</color>
     <color name="icon_capacity">#01579b</color>
+    <color name="drinklist_card_popup_icon">#616161</color>
 
 </resources>

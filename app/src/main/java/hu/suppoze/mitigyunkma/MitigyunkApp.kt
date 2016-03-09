@@ -14,8 +14,8 @@ class MitigyunkApp : Application() {
 
         if (BuildConfig.BUILD_TYPE == "debug") {
 
-            val config = RealmConfiguration.Builder(this).build()
-            Realm.deleteRealm(config)
+//            val config = RealmConfiguration.Builder(this).build()
+//            Realm.deleteRealm(config)
 
         } else {
 

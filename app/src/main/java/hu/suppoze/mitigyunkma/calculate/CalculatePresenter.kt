@@ -3,18 +3,15 @@ package hu.suppoze.mitigyunkma.calculate
 import android.support.v4.app.Fragment
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.base.Navigator
 import hu.suppoze.mitigyunkma.core.IndexCalculator
 import hu.suppoze.mitigyunkma.model.Drink
 import hu.suppoze.mitigyunkma.util.ResourceHelper
 import io.realm.Realm
-import io.realm.RealmResults
 import org.jetbrains.anko.async
 import org.jetbrains.anko.uiThread
 import java.util.*
-import java.util.logging.Logger
 
 class CalculatePresenter(fragment: Fragment) : TextWatcher {
 

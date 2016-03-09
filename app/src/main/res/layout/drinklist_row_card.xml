@@ -2,108 +2,129 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/accent"
-    android:layout_marginBottom="@dimen/drinklist_card_margin">
+    android:layout_marginBottom="@dimen/drinklist_card_margin"
+    android:background="@color/accent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="@dimen/drinklist_card_padding">
 
         <TextView
             android:id="@+id/drinklist_card_name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:paddingBottom="@dimen/padding_m"
             android:textSize="@dimen/drinklist_card_name_size"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/drinklist_card_index"
+        <ImageView
+            android:id="@+id/drinklist_card_popup_icon"
+            android:layout_width="@dimen/drinklist_card_popup_icon_size"
+            android:layout_height="@dimen/drinklist_card_popup_icon_size"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_more_vert_black_24dp"
+            android:tint="@color/drinklist_card_popup_icon" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingBottom="@dimen/padding_m"
-            android:paddingTop="@dimen/padding_s"
-            android:maxLines="1"
-            android:textSize="@dimen/text_size_xl"
-            android:textColor="@color/drink_index_text"
-            android:shadowColor="@color/drink_index_text_shadow"
-            android:shadowDx="2"
-            android:shadowDy="2"
-            android:shadowRadius="2"/>
+            android:layout_below="@id/drinklist_card_name"
+            android:layout_toLeftOf="@id/drinklist_card_popup_icon"
+            android:gravity="top">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/drinklist_card_index"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:maxLines="1"
+                android:paddingBottom="@dimen/padding_m"
+                android:paddingRight="@dimen/padding_m"
+                android:shadowColor="@color/drink_index_text_shadow"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="2"
+                android:textColor="@color/drink_index_text"
+                android:textSize="@dimen/text_size_xl" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@id/drinklist_card_index"
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="@dimen/drinklist_card_icon_size"
-                    android:layout_height="@dimen/drinklist_card_icon_size"
-                    android:layout_marginRight="@dimen/margin_m"
-                    android:src="@drawable/ic_percent"
-                    android:tint="@color/icon_percent"/>
-
-                <TextView
-                    android:id="@+id/drinklist_card_percent"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/drinklist_card_name_size"/>
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/drinklist_card_icon_size"
+                        android:layout_height="@dimen/drinklist_card_icon_size"
+                        android:src="@drawable/ic_percent"
+                        android:tint="@color/icon_percent" />
+
+                    <TextView
+                        android:id="@+id/drinklist_card_percent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/drinklist_card_name_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/drinklist_card_icon_size"
+                        android:layout_height="@dimen/drinklist_card_icon_size"
+                        android:src="@drawable/ic_price"
+                        android:tint="@color/icon_price" />
+
+                    <TextView
+                        android:id="@+id/drinklist_card_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/drinklist_card_name_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/drinklist_card_icon_size"
+                        android:layout_height="@dimen/drinklist_card_icon_size"
+                        android:src="@drawable/ic_capacity"
+                        android:tint="@color/icon_capacity" />
+
+                    <TextView
+                        android:id="@+id/drinklist_card_capacity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/drinklist_card_name_size" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical">
+        </RelativeLayout>
 
-                <ImageView
-                    android:layout_width="@dimen/drinklist_card_icon_size"
-                    android:layout_height="@dimen/drinklist_card_icon_size"
-                    android:layout_marginRight="@dimen/margin_m"
-                    android:src="@drawable/ic_price"
-                    android:tint="@color/icon_price"/>
-
-                <TextView
-                    android:id="@+id/drinklist_card_price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/drinklist_card_name_size"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="@dimen/drinklist_card_icon_size"
-                    android:layout_height="@dimen/drinklist_card_icon_size"
-                    android:layout_marginRight="@dimen/margin_m"
-                    android:src="@drawable/ic_capacity"
-                    android:tint="@color/icon_capacity"/>
-
-                <TextView
-                    android:id="@+id/drinklist_card_capacity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/drinklist_card_name_size"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

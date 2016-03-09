@@ -1,5 +1,4 @@
 package hu.suppoze.mitigyunkma.util
-
 import hu.suppoze.mitigyunkma.MitigyunkApp
 
 object ResourceHelper {
