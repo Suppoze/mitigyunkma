@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import hu.suppoze.mitigyunkma.R
+import hu.suppoze.mitigyunkma.base.Navigator
+import hu.suppoze.mitigyunkma.calculate.CalculatePresenter
 import hu.suppoze.mitigyunkma.extensions.showPopup
 import hu.suppoze.mitigyunkma.model.Drink
 import io.realm.Realm
 import io.realm.RealmResults
 import io.realm.Sort
 import org.jetbrains.anko.onClick
-import org.jetbrains.anko.onLongClick
-import org.jetbrains.anko.toast
 
 class DrinkListAdapter(realm: Realm, sortByField: String) : RecyclerView.Adapter<DrinkListAdapter.DrinkViewHolder>() {
 
@@ -41,15 +41,26 @@ class DrinkListAdapter(realm: Realm, sortByField: String) : RecyclerView.Adapter
         return DrinkViewHolder(view)
     }
 
-    private fun setupPopup(view: View) {
+    private fun setupPopup(view: View, drink: Drink) {
         view.onClick {
             it?.showPopup(R.menu.drinklist_row_menu) { menuItem ->
                 when (menuItem.itemId) {
-                    R.id.drinklist_row_menu_edit -> it.context.toast("Edit this shit")
-                    R.id.drinklist_row_menu_delete -> it.context.toast("Delete this shit")
+                    R.id.drinklist_row_menu_edit -> edit(drink)
+                    R.id.drinklist_row_menu_delete -> delete(drink)
                 }
                 true
             }
+        }
+    }
+
+    private fun edit(drink: Drink) {
+        CalculatePresenter.instance.editDrink(drink)
+        Navigator.navigate(Navigator.Pages.CALCULATE)
+    }
+
+    private fun delete(drink: Drink) {
+        realm.executeTransaction {
+            drink.removeFromRealm()
         }
     }
 
@@ -62,7 +73,7 @@ class DrinkListAdapter(realm: Realm, sortByField: String) : RecyclerView.Adapter
             holder.drinkPercent.text = drink.percent.toString()
             holder.drinkPrice.text = drink.price.toString()
             holder.drinkCapacity.text = drink.capacity.toString()
-            setupPopup(holder.popupButton)
+            setupPopup(holder.popupButton, realmDrinkDataSet[holder.adapterPosition])
         }
     }
 

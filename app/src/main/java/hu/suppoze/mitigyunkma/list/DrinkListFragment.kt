@@ -1,6 +1,7 @@
 package hu.suppoze.mitigyunkma.list
 
 import android.os.Bundle
+import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -30,7 +31,8 @@ class DrinkListFragment(sortByField: String) : BaseFragment() {
 
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = DrinkListAdapter(Realm.getInstance(context), sortByField);
+        recyclerView.adapter = DrinkListAdapter(Realm.getDefaultInstance(), sortByField)
+        recyclerView.itemAnimator = DefaultItemAnimator()
 
         return view;
     }

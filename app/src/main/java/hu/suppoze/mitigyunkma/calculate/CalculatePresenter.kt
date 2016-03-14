@@ -22,12 +22,17 @@ class CalculatePresenter(fragment: Fragment) : TextWatcher {
     var capacity: Double = .0
     var price: Double = .0
 
+    companion object {
+        var instance: CalculatePresenter by DelegatesExt.notNullSingleValue()
+    }
+
     init {
         this.view = fragment as CalculateFragment
+        instance = this
     }
 
     fun onCreate() {
-        realm = Realm.getInstance(view.context)
+        realm = Realm.getDefaultInstance()
     }
 
     fun onDestroy() {
@@ -88,7 +93,7 @@ class CalculatePresenter(fragment: Fragment) : TextWatcher {
 
         async() {
 
-            val realmInstance = Realm.getInstance(this@CalculatePresenter.view.context)
+            val realmInstance = Realm.getDefaultInstance()
 
             realmInstance.executeTransaction {
 
@@ -108,5 +113,11 @@ class CalculatePresenter(fragment: Fragment) : TextWatcher {
                 Navigator.navigate(Navigator.Pages.HISTORY)
             }
         }
+    }
+
+    fun editDrink(drink: Drink) {
+        view.capacityField.editText?.setText(drink.capacity.toString())
+        view.priceField.editText?.setText(drink.price.toString())
+        view.percentField.editText?.setText(drink.percent.toString())
     }
 }

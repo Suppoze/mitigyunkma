@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 buildscript {
     ext.kotlin_version = '1.0.0'
-    ext.realm_version = '0.87.5'
+    ext.realm_version = '0.88.0'
     repositories {
         mavenCentral()
         jcenter()
@@ -45,10 +45,10 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     //Support//
-    compile "com.android.support:appcompat-v7:23.2.0"
-    compile "com.android.support:support-v4:23.2.0"
-    compile "com.android.support:design:23.2.0"
-    compile "com.android.support:cardview-v7:23.2.0"
+    compile "com.android.support:appcompat-v7:23.2.1"
+    compile "com.android.support:support-v4:23.2.1"
+    compile "com.android.support:design:23.2.1"
+    compile "com.android.support:cardview-v7:23.2.1"
 
     //Butterknife//
     compile 'com.jakewharton:butterknife:7.0.1'
