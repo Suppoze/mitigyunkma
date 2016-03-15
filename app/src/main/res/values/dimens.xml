@@ -34,7 +34,7 @@
     <dimen name="drinklist_card_height">112dp</dimen>
     <dimen name="drinklist_card_padding">@dimen/padding_m</dimen>
     <dimen name="drinklist_card_name_size">@dimen/text_size_m</dimen>
-    <dimen name="drinklist_card_margin">@dimen/margin_m</dimen>
+    <dimen name="drinklist_card_margin">@dimen/margin_s</dimen>
     <dimen name="drinklist_card_icon_size">18dp</dimen>
     <dimen name="drinklist_card_popup_icon_size">24dp</dimen>
 
