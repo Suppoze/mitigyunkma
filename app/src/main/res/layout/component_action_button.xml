@@ -15,12 +15,12 @@
         card_view:cardElevation="1dp">
 
         <RelativeLayout
-            android:id="@+id/button_action_background"
+            android:id="@+id/actionButtonBackground"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
             <TextView
-                android:id="@+id/action_button_text"
+                android:id="@+id/actionButtonText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

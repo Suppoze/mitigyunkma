@@ -3,20 +3,18 @@ package hu.suppoze.mitigyunkma.list
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.Bind
-import butterknife.ButterKnife
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.base.BaseFragment
 import hu.suppoze.mitigyunkma.model.Drink
+import kotlinx.android.synthetic.main.fragment_drinklist.*
 import io.realm.Realm
 
 class DrinkListFragment(sortByField: String) : BaseFragment() {
 
-    @Bind(R.id.drinklist_view_recycler_view) lateinit var recyclerView: RecyclerView
+    constructor() : this(Drink::lastmod.name)
 
     val sortByField: String
 
@@ -25,15 +23,15 @@ class DrinkListFragment(sortByField: String) : BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater!!.inflate(R.layout.fragment_drinklist, container, false)
+    }
 
-        val view = inflater!!.inflate(R.layout.fragment_drinklist, container, false)
-        ButterKnife.bind(this, view)
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = DrinkListAdapter(Realm.getDefaultInstance(), sortByField)
-        recyclerView.itemAnimator = DefaultItemAnimator()
-
-        return view;
+        drinkRecyclerView.setHasFixedSize(true)
+        drinkRecyclerView.layoutManager = LinearLayoutManager(context)
+        drinkRecyclerView.adapter = DrinkListAdapter(Realm.getDefaultInstance(), sortByField)
+        drinkRecyclerView.itemAnimator = DefaultItemAnimator()
     }
 }

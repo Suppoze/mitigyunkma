@@ -9,41 +9,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import butterknife.ButterKnife
-import butterknife.Bind
-import butterknife.OnClick
 
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.base.BaseFragment
 import hu.suppoze.mitigyunkma.extensions.onFinishedAnimation
 import hu.suppoze.mitigyunkma.util.ResourceHelper
 import kotlinx.android.synthetic.main.dialog_save.view.*
+import kotlinx.android.synthetic.main.component_action_button.*
+import kotlinx.android.synthetic.main.fragment_calculate.*
+import org.jetbrains.anko.onClick
 import org.jetbrains.anko.support.v4.alert
 
 class CalculateFragment : BaseFragment() {
-
-    @Bind(R.id.calculate_view_capacity) lateinit var capacityField: TextInputLayout
-    @Bind(R.id.calculate_view_percentage) lateinit var percentField: TextInputLayout
-    @Bind(R.id.calculate_view_price) lateinit var priceField: TextInputLayout
-    @Bind(R.id.component_drink_index_textview) lateinit var drinkIndex: TextView
-    @Bind(R.id.button_action) lateinit var actionButton: RelativeLayout
-    @Bind(R.id.action_button_text) lateinit var actionButtonText: TextView
-    @Bind(R.id.button_action_background) lateinit var actionButtonBackground: RelativeLayout
-    @Bind(R.id.button_reset) lateinit var resetButton: RelativeLayout
-
-    // TODO: Create custom numpad view
-    @Bind(R.id.numpad_0) lateinit var num0: Button
-    @Bind(R.id.numpad_1) lateinit var num1: Button
-    @Bind(R.id.numpad_2) lateinit var num2: Button
-    @Bind(R.id.numpad_3) lateinit var num3: Button
-    @Bind(R.id.numpad_4) lateinit var num4: Button
-    @Bind(R.id.numpad_5) lateinit var num5: Button
-    @Bind(R.id.numpad_6) lateinit var num6: Button
-    @Bind(R.id.numpad_7) lateinit var num7: Button
-    @Bind(R.id.numpad_8) lateinit var num8: Button
-    @Bind(R.id.numpad_9) lateinit var num9: Button
-    @Bind(R.id.numpad_delete) lateinit var numDelete: Button
-    @Bind(R.id.numpad_decimal) lateinit var numDecimal: Button
 
     var currentActionButtonState: ActionButtonState = ActionButtonState.DISABLED
     lateinit var colorToState: Map<ActionButtonState, Int>
@@ -53,13 +30,18 @@ class CalculateFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter.onCreate();
+        presenter.onCreate()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater!!.inflate(R.layout.fragment_calculate, container, false)
+    }
 
-        val view = inflater!!.inflate(R.layout.fragment_calculate, container, false)
-        ButterKnife.bind(this, view)
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        resetButton.onClick { onResetClicked() }
+        actionButton.onClick { onActionButtonClicked() }
 
         percentField.editText?.addTextChangedListener(presenter)
         capacityField.editText?.addTextChangedListener(presenter)
@@ -85,8 +67,6 @@ class CalculateFragment : BaseFragment() {
         )
 
         switchActionButtonState(ActionButtonState.NEXT)
-
-        return view
     }
 
     override fun onDestroy() {
@@ -97,18 +77,18 @@ class CalculateFragment : BaseFragment() {
     private fun initializeNumpad() {
 
         // TODO: Create custom numpad view
-        num0.setOnClickListener { writeInFocused("0") }
-        num1.setOnClickListener { writeInFocused("1") }
-        num2.setOnClickListener { writeInFocused("2") }
-        num3.setOnClickListener { writeInFocused("3") }
-        num4.setOnClickListener { writeInFocused("4") }
-        num5.setOnClickListener { writeInFocused("5") }
-        num6.setOnClickListener { writeInFocused("6") }
-        num7.setOnClickListener { writeInFocused("7") }
-        num8.setOnClickListener { writeInFocused("8") }
-        num9.setOnClickListener { writeInFocused("9") }
-        numDecimal.setOnClickListener { writeInFocused(".") }
-        numDelete.setOnClickListener { deleteFromFocused() }
+        numpad_0.setOnClickListener { writeInFocused("0") }
+        numpad_1.setOnClickListener { writeInFocused("1") }
+        numpad_2.setOnClickListener { writeInFocused("2") }
+        numpad_3.setOnClickListener { writeInFocused("3") }
+        numpad_4.setOnClickListener { writeInFocused("4") }
+        numpad_5.setOnClickListener { writeInFocused("5") }
+        numpad_6.setOnClickListener { writeInFocused("6") }
+        numpad_7.setOnClickListener { writeInFocused("7") }
+        numpad_8.setOnClickListener { writeInFocused("8") }
+        numpad_9.setOnClickListener { writeInFocused("9") }
+        numpadDecimal.setOnClickListener { writeInFocused(".") }
+        numpadDelete.setOnClickListener { deleteFromFocused() }
     }
 
 
@@ -166,7 +146,6 @@ class CalculateFragment : BaseFragment() {
         textColorAnimation.start()
     }
 
-    @OnClick(R.id.button_reset)
     fun onResetClicked() {
         drinkIndex.text = ""
 
@@ -177,7 +156,6 @@ class CalculateFragment : BaseFragment() {
         percentField.requestFocus()
     }
 
-    @OnClick(R.id.button_action)
     fun onActionButtonClicked() {
         when (currentActionButtonState) {
             ActionButtonState.NEXT -> selectNextEmptyField()?.requestFocus()
@@ -194,13 +172,13 @@ class CalculateFragment : BaseFragment() {
 
             val dialogView = View.inflate(context, R.layout.dialog_save, null)
             customView(dialogView)
-            showKeyboard(context, dialogView.dialog_save_name)
+            showKeyboard(context, dialogView.saveDialogName)
 
             positiveButton(R.string.save) {
-                hideKeyboard(context, dialogView.dialog_save_name)
-                presenter.saveDrink(dialogView.dialog_save_name.editText!!.text.toString())
+                hideKeyboard(context, dialogView.saveDialogName)
+                presenter.saveDrink(dialogView.saveDialogName.editText!!.text.toString())
             }
-            negativeButton(R.string.cancel) { hideKeyboard(context, dialogView.dialog_save_name) }
+            negativeButton(R.string.cancel) { hideKeyboard(context, dialogView.saveDialogName) }
         }.show()
     }
 

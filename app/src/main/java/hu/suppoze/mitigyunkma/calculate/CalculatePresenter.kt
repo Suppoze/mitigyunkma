@@ -8,6 +8,7 @@ import hu.suppoze.mitigyunkma.base.Navigator
 import hu.suppoze.mitigyunkma.core.IndexCalculator
 import hu.suppoze.mitigyunkma.model.Drink
 import hu.suppoze.mitigyunkma.util.ResourceHelper
+import kotlinx.android.synthetic.main.fragment_calculate.*
 import io.realm.Realm
 import org.jetbrains.anko.async
 import org.jetbrains.anko.uiThread
@@ -97,7 +98,7 @@ class CalculatePresenter(fragment: Fragment) : TextWatcher {
 
             realmInstance.executeTransaction {
 
-                var drink = it.createObject(Drink::class.java)
+                val drink = it.createObject(Drink::class.java)
                 drink.capacity = capacity
                 drink.percent = percent
                 drink.price = price

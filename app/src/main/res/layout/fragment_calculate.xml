@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/component_drink_index_textview"
+        android:id="@+id/drinkIndex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/drink_index_shadow"
@@ -26,10 +26,10 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/component_drink_index_textview">
+        android:layout_below="@id/drinkIndex">
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/calculate_view_percentage"
+            android:id="@+id/percentField"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_text_input_layout"
             android:layout_weight="1">
@@ -42,7 +42,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/calculate_view_price"
+            android:id="@+id/priceField"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_text_input_layout"
             android:layout_weight="1">
@@ -55,7 +55,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/calculate_view_capacity"
+            android:id="@+id/capacityField"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_text_input_layout"
             android:layout_weight="1">
@@ -77,13 +77,13 @@
         android:layout_alignParentBottom="true">
 
         <include layout="@layout/component_reset_button"
-            android:id="@+id/button_reset"
+            android:id="@+id/resetButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="7" />
 
         <include layout="@layout/component_action_button"
-            android:id="@+id/button_action"
+            android:id="@+id/actionButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -120,11 +120,11 @@
             android:text="8"/>
         <Button android:id="@+id/numpad_9"
             android:text="9"/>
-        <Button android:id="@+id/numpad_decimal"
+        <Button android:id="@+id/numpadDecimal"
             android:text="."/>
         <Button android:id="@+id/numpad_0"
             android:text="0"/>
-        <Button android:id="@+id/numpad_delete"
+        <Button android:id="@+id/numpadDelete"
             android:text="del"/>
 
     </GridLayout>
