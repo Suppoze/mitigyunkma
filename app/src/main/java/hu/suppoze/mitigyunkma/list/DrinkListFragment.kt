@@ -8,19 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.base.BaseFragment
+import hu.suppoze.mitigyunkma.base.Navigator
+import hu.suppoze.mitigyunkma.calculate.CalculatePresenter
 import hu.suppoze.mitigyunkma.model.Drink
 import kotlinx.android.synthetic.main.fragment_drinklist.*
 import io.realm.Realm
+import io.realm.Sort
 
-class DrinkListFragment(sortByField: String) : BaseFragment() {
+class DrinkListFragment(val sortByField: String) : BaseFragment() {
 
-    constructor() : this(Drink::lastmod.name)
-
-    val sortByField: String
+    val realm: Realm
 
     init {
-        this.sortByField = sortByField
+        realm = Realm.getDefaultInstance()
     }
+
+    constructor() : this(Drink::lastmod.name)
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_drinklist, container, false)
@@ -31,7 +34,24 @@ class DrinkListFragment(sortByField: String) : BaseFragment() {
 
         drinkRecyclerView.setHasFixedSize(true)
         drinkRecyclerView.layoutManager = LinearLayoutManager(context)
-        drinkRecyclerView.adapter = DrinkListAdapter(Realm.getDefaultInstance(), sortByField)
         drinkRecyclerView.itemAnimator = DefaultItemAnimator()
+
+        val realmResultDataSet = realm.where(Drink::class.java)
+                .findAllSorted(
+                        sortByField,
+                        if (sortByField == Drink::lastmod.name) Sort.DESCENDING else Sort.ASCENDING)
+
+        drinkRecyclerView.adapter = DrinkListAdapter(realmResultDataSet, { edit(it) }, { delete(it) })
+    }
+
+    private fun edit(drink: Drink) {
+        CalculatePresenter.instance.editDrink(drink)
+        Navigator.navigate(Navigator.Pages.CALCULATE)
+    }
+
+    private fun delete(drink: Drink) {
+        realm.executeTransaction {
+            drink.deleteFromRealm()
+        }
     }
 }
