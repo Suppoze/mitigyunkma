@@ -15,6 +15,8 @@ import butterknife.OnClick
 
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.base.BaseFragment
+import hu.suppoze.mitigyunkma.extensions.onFinishedAnimation
+import hu.suppoze.mitigyunkma.util.ResourceHelper
 import kotlinx.android.synthetic.main.dialog_save.view.*
 import org.jetbrains.anko.support.v4.alert
 
@@ -25,6 +27,7 @@ class CalculateFragment : BaseFragment() {
     @Bind(R.id.calculate_view_price) lateinit var priceField: TextInputLayout
     @Bind(R.id.component_drink_index_textview) lateinit var drinkIndex: TextView
     @Bind(R.id.button_action) lateinit var actionButton: RelativeLayout
+    @Bind(R.id.action_button_text) lateinit var actionButtonText: TextView
     @Bind(R.id.button_action_background) lateinit var actionButtonBackground: RelativeLayout
     @Bind(R.id.button_reset) lateinit var resetButton: RelativeLayout
 
@@ -44,6 +47,7 @@ class CalculateFragment : BaseFragment() {
 
     var currentActionButtonState: ActionButtonState = ActionButtonState.DISABLED
     lateinit var colorToState: Map<ActionButtonState, Int>
+    lateinit var actionButtonTextToState: Map<ActionButtonState, String>
 
     val presenter: CalculatePresenter = CalculatePresenter(this)
 
@@ -61,9 +65,10 @@ class CalculateFragment : BaseFragment() {
         capacityField.editText?.addTextChangedListener(presenter)
         priceField.editText?.addTextChangedListener(presenter)
 
-        percentField.editText?.showSoftInputOnFocus = false
-        capacityField.editText?.showSoftInputOnFocus = false
-        priceField.editText?.showSoftInputOnFocus = false
+        // Disable soft input from appearing
+        percentField.editText?.setOnTouchListener { view, motionEvent -> true }
+        capacityField.editText?.setOnTouchListener { view, motionEvent -> true }
+        priceField.editText?.setOnTouchListener { view, motionEvent -> true }
 
         initializeNumpad()
 
@@ -71,6 +76,12 @@ class CalculateFragment : BaseFragment() {
                 Pair(ActionButtonState.DISABLED, ContextCompat.getColor(context, R.color.action_button_disabled)),
                 Pair(ActionButtonState.NEXT, ContextCompat.getColor(context, R.color.action_button_next)),
                 Pair(ActionButtonState.SAVE, ContextCompat.getColor(context, R.color.action_button_save))
+        )
+
+        actionButtonTextToState = hashMapOf(
+                Pair(ActionButtonState.DISABLED, ResourceHelper.getStringRes(R.string.next)),
+                Pair(ActionButtonState.NEXT, ResourceHelper.getStringRes(R.string.next)),
+                Pair(ActionButtonState.SAVE, ResourceHelper.getStringRes(R.string.save))
         )
 
         switchActionButtonState(ActionButtonState.NEXT)
@@ -135,6 +146,24 @@ class CalculateFragment : BaseFragment() {
         colorAnimation.duration = 200
         colorAnimation.addUpdateListener { actionButtonBackground.setBackgroundColor(it.animatedValue as Int) }
         colorAnimation.start()
+
+        val textColor = ContextCompat.getColor(context, R.color.button_text)
+        val textFadeColor = ContextCompat.getColor(context, R.color.button_text_fade)
+        animateActionButtonText(newState, textColor, textFadeColor)
+    }
+
+    private fun animateActionButtonText(newState: ActionButtonState, fromTextColor: Int, toTextColor: Int, repeat: Boolean = true) {
+        val textColorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), fromTextColor, toTextColor)
+
+        textColorAnimation.duration = 100
+        textColorAnimation.addUpdateListener { actionButtonText.setTextColor(it.animatedValue as Int) }
+        textColorAnimation.onFinishedAnimation {
+            if (repeat) {
+                actionButtonText.text = actionButtonTextToState[newState]
+                animateActionButtonText(newState, toTextColor, fromTextColor, false)
+            }
+        }
+        textColorAnimation.start()
     }
 
     @OnClick(R.id.button_reset)

@@ -6,6 +6,7 @@
 
     <color name="button_text">#FFFFFF</color>
     <color name="button_text_shadow">#263238</color>
+    <color name="button_text_fade">#2dffffff</color>
 
     <color name="action_button_save">#4caf50</color>
     <color name="action_button_disabled">#666666</color>

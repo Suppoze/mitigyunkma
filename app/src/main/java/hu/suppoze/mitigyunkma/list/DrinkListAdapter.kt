@@ -23,10 +23,10 @@ class DrinkListAdapter(realm: Realm, sortByField: String) : RecyclerView.Adapter
 
     init {
         this.realm = realm
-        this.realmDrinkDataSet = realm.allObjectsSorted(
-                Drink::class.java,
-                sortByField,
-                if (sortByField == Drink::lastmod.name) Sort.DESCENDING else Sort.ASCENDING)
+        this.realmDrinkDataSet = realm.where(Drink::class.java)
+                .findAllSorted(
+                        sortByField,
+                        if (sortByField == Drink::lastmod.name) Sort.DESCENDING else Sort.ASCENDING)
         realmDrinkDataSet.addChangeListener { notifyDataSetChanged() }
     }
 
@@ -60,7 +60,7 @@ class DrinkListAdapter(realm: Realm, sortByField: String) : RecyclerView.Adapter
 
     private fun delete(drink: Drink) {
         realm.executeTransaction {
-            drink.removeFromRealm()
+            drink.deleteFromRealm()
         }
     }
 
