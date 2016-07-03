@@ -11,6 +11,8 @@
 
     <dimen name="padding_s">4dp</dimen>
     <dimen name="padding_m">8dp</dimen>
+    <dimen name="padding_l">16dp</dimen>
+    <dimen name="padding_xl">20dp</dimen>
 
     <dimen name="margin_s">4dp</dimen>
     <dimen name="margin_m">8dp</dimen>
@@ -19,9 +21,21 @@
     <dimen name="text_size_s">12sp</dimen>
     <dimen name="text_size_m">16sp</dimen>
     <dimen name="text_size_l">20sp</dimen>
+    <dimen name="text_size_xl">28sp</dimen>
 
     <dimen name="drink_index_margin">@dimen/margin_l</dimen>
     <dimen name="drink_index_text_size">64sp</dimen>
     <dimen name="drink_index_shadow">3dp</dimen>
+
+    <dimen name="dialog_padding">@dimen/padding_xl</dimen>
+    <dimen name="fragment_padding">@dimen/padding_l</dimen>
+    <dimen name="edit_text_size">@dimen/text_size_m</dimen>
+
+    <dimen name="drinklist_card_height">112dp</dimen>
+    <dimen name="drinklist_card_padding">@dimen/padding_m</dimen>
+    <dimen name="drinklist_card_name_size">@dimen/text_size_m</dimen>
+    <dimen name="drinklist_card_margin">@dimen/margin_s</dimen>
+    <dimen name="drinklist_card_icon_size">18dp</dimen>
+    <dimen name="drinklist_card_popup_icon_size">24dp</dimen>
 
 </resources>

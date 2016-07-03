@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_alert_title">Hoppá!</string>
+    <string name="error_alert_positive">No mindegy</string>
+
+    <string name="error_saving_drink">Hiba az ital mentése közben.</string>
+
+</resources>

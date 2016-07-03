@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/saveDialogName"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_text_input_layout"
+    android:paddingLeft="@dimen/dialog_padding"
+    android:paddingRight="@dimen/dialog_padding"
+    android:paddingTop="@dimen/dialog_padding">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/dialog_save_hint"
+        android:textSize="@dimen/edit_text_size"
+        android:inputType="text" />
+
+</android.support.design.widget.TextInputLayout>

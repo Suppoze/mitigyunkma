@@ -4,15 +4,24 @@
     <string name="action_settings">Settings</string>
 
     <string name="calculate_view_title">Számolás</string>
-    <string name="calculate_view_percentage_hint">Százalék</string>
-    <string name="calculate_view_capacity_hint">Űrtartalom</string>
-    <string name="calculate_view_price_hint">Ár</string>
     <string name="calculate_view_drink_index">Pia Hatásfok Index (PHI)</string>
+
+    <string name="percentage">Százalék</string>
+    <string name="capacity">Űrtartalom</string>
+    <string name="price">Ár</string>
+    <string name="unnamed_drink">Névtelen ital</string>
+
+    <string name="dialog_save_title">Adj nevet az italnak</string>
+    <string name="dialog_save_hint">Név</string>
 
     <string name="history_view_title">Előzmények</string>
     <string name="bestof_view_title">Legjobbak</string>
 
     <string name="save">Mentés</string>
-    <string name="calculate">Számítás</string>
     <string name="reset">Törlés</string>
+    <string name="cancel">Mégsem</string>
+    <string name="next">Következő</string>
+
+    <string name="edit">Szerkesztés</string>
+    <string name="delete">Törlés</string>
 </resources>

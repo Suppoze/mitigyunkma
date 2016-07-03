@@ -1,29 +1,19 @@
 package hu.suppoze.mitigyunkma
 
-import android.support.design.widget.AppBarLayout
 import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import kotlinx.android.synthetic.main.activity_main.*
 
-import butterknife.*
-import hu.suppoze.mitigyunkma.R
-import hu.suppoze.mitigyunkma.MainPagerAdapter
+import hu.suppoze.mitigyunkma.base.Navigator
 
 class MainActivity : AppCompatActivity() {
-
-    @Bind(R.id.activity_main_appbar) lateinit var appBarLayout: AppBarLayout
-    @Bind(R.id.activity_main_toolbar) lateinit var toolbar: Toolbar
-    @Bind(R.id.activity_main_tablayout) lateinit var tabLayout: TabLayout
-    @Bind(R.id.activity_main_viewpager) lateinit var viewPager: ViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        ButterKnife.bind(this)
 
         initializeActionBar()
         initializeTabLayout()
@@ -32,29 +22,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeActionBar() {
-        setSupportActionBar(toolbar)
-        supportActionBar.setDisplayHomeAsUpEnabled(true)
-        supportActionBar.setHomeAsUpIndicator(R.mipmap.ic_launcher)
+        setSupportActionBar(mainActivityToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.mipmap.ic_launcher)
     }
 
     private fun initializeTabLayout() {
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.calculate_view_title))
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.history_view_title))
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.bestof_view_title))
-        tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+        mainActivityTablayout.addTab(mainActivityTablayout.newTab().setText(R.string.calculate_view_title))
+        mainActivityTablayout.addTab(mainActivityTablayout.newTab().setText(R.string.history_view_title))
+        mainActivityTablayout.addTab(mainActivityTablayout.newTab().setText(R.string.bestof_view_title))
+        mainActivityTablayout.tabGravity = TabLayout.GRAVITY_FILL
     }
 
     private fun initializeViewPager() {
         val adapter = MainPagerAdapter(supportFragmentManager)
-        viewPager.adapter = adapter
-        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+        mainActivityViewpager.adapter = adapter
+        mainActivityViewpager.offscreenPageLimit = adapter.count
+        mainActivityViewpager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(mainActivityTablayout))
+        Navigator.viewPager = mainActivityViewpager
     }
 
     private fun setListenerForTabLayout() {
 
-        tabLayout.setOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        mainActivityTablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                viewPager.currentItem = tab.position
+                mainActivityViewpager.currentItem = tab.position
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) { }

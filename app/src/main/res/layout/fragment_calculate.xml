@@ -2,83 +2,131 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="@dimen/fragment_padding"
     android:orientation="vertical">
 
-    <include layout="@layout/component_drink_index"
-        android:id="@+id/component_drink_index"
-        android:layout_width="match_parent"
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/drinkIndex"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_l"/>
+        android:layout_marginBottom="@dimen/drink_index_shadow"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textSize="@dimen/drink_index_text_size"
+        android:textColor="@color/drink_index_text"
+        android:shadowColor="@color/drink_index_text_shadow"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="2" />
 
     <LinearLayout
-        android:id="@+id/calculate_view_first_row"
+        android:id="@+id/calculate_view_input_row"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/component_drink_index">
+        android:layout_below="@id/drinkIndex">
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/calculate_view_percentage"
+            android:id="@+id/percentField"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_text_input_layout"
-            android:layout_marginRight="@dimen/margin_l"
             android:layout_weight="1">
 
             <EditText android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:inputType="number"
-                android:hint="@string/calculate_view_percentage_hint"/>
+                android:textSize="@dimen/edit_text_size"
+                android:inputType="numberDecimal"
+                android:hint="@string/percentage" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/calculate_view_price"
+            android:id="@+id/priceField"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_text_input_layout"
             android:layout_weight="1">
 
             <EditText android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="@dimen/edit_text_size"
                 android:inputType="number"
-                android:hint="@string/calculate_view_price_hint"/>
+                android:hint="@string/price" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/capacityField"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_text_input_layout"
+            android:layout_weight="1">
+
+            <EditText android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/edit_text_size"
+                android:inputType="numberDecimal"
+                android:hint="@string/capacity" />
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/calculate_view_capacity"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_text_input_layout"
-        android:layout_below="@id/calculate_view_first_row">
-
-        <EditText android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:inputType="numberDecimal"
-            android:hint="@string/calculate_view_capacity_hint"/>
-    </android.support.design.widget.TextInputLayout>
-
     <LinearLayout
+        android:id="@+id/calculate_view_button_row"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
         <include layout="@layout/component_reset_button"
-            android:id="@+id/button_reset"
+            android:id="@+id/resetButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="7" />
 
-        <include layout="@layout/component_save_button"
-            android:id="@+id/button_save"
+        <include layout="@layout/component_action_button"
+            android:id="@+id/actionButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_weight="3" />
 
     </LinearLayout>
+
+    <GridLayout
+        android:id="@+id/calculate_view_numpad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/calculate_view_button_row"
+        android:layout_below="@id/calculate_view_input_row"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:columnCount="3">
+
+        <Button android:id="@+id/numpad_1"
+            android:text="1"/>
+        <Button android:id="@+id/numpad_2"
+            android:text="2"/>
+        <Button android:id="@+id/numpad_3"
+            android:text="3"/>
+        <Button android:id="@+id/numpad_4"
+            android:text="4"/>
+        <Button android:id="@+id/numpad_5"
+            android:text="5"/>
+        <Button android:id="@+id/numpad_6"
+            android:text="6"/>
+        <Button android:id="@+id/numpad_7"
+            android:text="7"/>
+        <Button android:id="@+id/numpad_8"
+            android:text="8"/>
+        <Button android:id="@+id/numpad_9"
+            android:text="9"/>
+        <Button android:id="@+id/numpadDecimal"
+            android:text="."/>
+        <Button android:id="@+id/numpad_0"
+            android:text="0"/>
+        <Button android:id="@+id/numpadDelete"
+            android:text="del"/>
+
+    </GridLayout>
 
 </RelativeLayout>

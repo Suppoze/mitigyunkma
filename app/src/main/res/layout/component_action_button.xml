@@ -5,25 +5,22 @@
     android:layout_height="wrap_content"
     android:clickable="true">
 
-    <android.support.v7.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/tools"
-        android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:layout_centerHorizontal="true"
         android:foreground="?android:attr/selectableItemBackground"
-        card_view:cardBackgroundColor="#d9d9d9"
         card_view:cardCornerRadius="2dp"
         card_view:cardElevation="1dp">
 
         <RelativeLayout
-            android:id="@+id/button_save_background"
+            android:id="@+id/actionButtonBackground"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/save_button_background">
+            android:layout_height="fill_parent">
 
             <TextView
+                android:id="@+id/actionButtonText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -31,14 +28,14 @@
                 android:minWidth="88dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:singleLine="true"
-                android:text="@string/save"
-                android:textColor="@color/button_text"
-                android:textSize="@dimen/button_text_size"
                 android:shadowColor="@color/button_text_shadow"
                 android:shadowDx="2"
                 android:shadowDy="2"
-                android:shadowRadius="2"/>
+                android:shadowRadius="2"
+                android:maxLines="1"
+                android:text="@string/save"
+                android:textColor="@color/button_text"
+                android:textSize="@dimen/button_text_size" />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
