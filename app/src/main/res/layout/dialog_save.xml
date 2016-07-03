@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/saveDialogName"
+    android:id="@+id/saveDialogField"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_text_input_layout"
     android:paddingLeft="@dimen/dialog_padding"

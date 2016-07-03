@@ -22,7 +22,7 @@
         android:shadowRadius="2" />
 
     <LinearLayout
-        android:id="@+id/calculate_view_input_row"
+        android:id="@+id/calculateViewInputRow"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/calculate_view_button_row"
+        android:id="@+id/calculateViewButtonRow"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -95,8 +95,8 @@
         android:id="@+id/calculate_view_numpad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/calculate_view_button_row"
-        android:layout_below="@id/calculate_view_input_row"
+        android:layout_above="@id/calculateViewButtonRow"
+        android:layout_below="@id/calculateViewInputRow"
         android:layout_alignParentRight="true"
         android:layout_gravity="center"
         android:orientation="horizontal"

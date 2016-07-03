@@ -172,13 +172,13 @@ class CalculateFragment : BaseFragment() {
 
             val dialogView = View.inflate(context, R.layout.dialog_save, null)
             customView(dialogView)
-            showKeyboard(context, dialogView.saveDialogName)
+            showKeyboard(context, dialogView.saveDialogField)
 
             positiveButton(R.string.save) {
-                hideKeyboard(context, dialogView.saveDialogName)
-                presenter.saveDrink(dialogView.saveDialogName.editText!!.text.toString())
+                hideKeyboard(context, dialogView.saveDialogField)
+                presenter.saveDrink(dialogView.saveDialogField.editText!!.text.toString())
             }
-            negativeButton(R.string.cancel) { hideKeyboard(context, dialogView.saveDialogName) }
+            negativeButton(R.string.cancel) { hideKeyboard(context, dialogView.saveDialogField) }
         }.show()
     }
 
