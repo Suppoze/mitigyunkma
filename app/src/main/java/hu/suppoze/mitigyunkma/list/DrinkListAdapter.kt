@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import hu.suppoze.mitigyunkma.R
+import hu.suppoze.mitigyunkma.extensions.prettyPrint
 import hu.suppoze.mitigyunkma.extensions.showPopup
 import hu.suppoze.mitigyunkma.model.Drink
 import io.realm.RealmResults
@@ -45,12 +46,12 @@ class DrinkListAdapter(
     class DrinkViewHolder(view: View, val optionsClick: (View, Drink) -> Unit) : RecyclerView.ViewHolder(view) {
 
         fun bindDrink(drink: Drink) {
-            itemView.drinkCardIndex.text = drink.index.toInt().toString()
+            itemView.drinkCardIndex.text = "${drink.index.toInt()}"
             itemView.drinkCardName.text = drink.name
-            itemView.drinkCardPercent.text = drink.percent.toString()
-            itemView.drinkCardPrice.text = drink.price.toString()
-            itemView.drinkCardCapacity.text = drink.capacity.toString()
-            itemView.drinkCardPopupIcon.onClick { optionsClick(it ?: itemView, drink) }
+            itemView.drinkCardPercent.text = "${drink.percent.prettyPrint()} %"
+            itemView.drinkCardPrice.text = "${drink.price.toInt()} Ft"  // TODO: manage currencies
+            itemView.drinkCardCapacity.text = "${drink.capacity.prettyPrint()} l"
+            itemView.drinkCardPopupIcon.onClick { optionsClick(it!!, drink) }
         }
     }
 }
