@@ -23,8 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeActionBar() {
         setSupportActionBar(mainActivityToolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.mipmap.ic_launcher)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
     private fun initializeTabLayout() {

@@ -53,7 +53,8 @@ class CalculateFragment : BaseFragment() {
         capacityField.editText?.setOnTouchListener { view, motionEvent -> true }
         priceField.editText?.setOnTouchListener { view, motionEvent -> true }
 
-        initializeNumpad()
+        numpadView.setInputListener { writeInFocused(it) }
+        numpadView.setDeleteListener { deleteFromFocused() }
 
         colorToState = hashMapOf(
                 Pair(ActionButtonState.DISABLED, ContextCompat.getColor(context, R.color.action_button_disabled)),
@@ -74,24 +75,6 @@ class CalculateFragment : BaseFragment() {
         super.onDestroy()
         presenter.onDestroy()
     }
-
-    private fun initializeNumpad() {
-
-        // TODO: Create custom numpad view
-        numpad_0.setOnClickListener { writeInFocused("0") }
-        numpad_1.setOnClickListener { writeInFocused("1") }
-        numpad_2.setOnClickListener { writeInFocused("2") }
-        numpad_3.setOnClickListener { writeInFocused("3") }
-        numpad_4.setOnClickListener { writeInFocused("4") }
-        numpad_5.setOnClickListener { writeInFocused("5") }
-        numpad_6.setOnClickListener { writeInFocused("6") }
-        numpad_7.setOnClickListener { writeInFocused("7") }
-        numpad_8.setOnClickListener { writeInFocused("8") }
-        numpad_9.setOnClickListener { writeInFocused("9") }
-        numpadDecimal.setOnClickListener { writeInFocused(".") }
-        numpadDelete.setOnClickListener { deleteFromFocused() }
-    }
-
 
     private fun writeInFocused(s: String) {
         determineFocused()?.text?.append(s)
@@ -189,7 +172,7 @@ class CalculateFragment : BaseFragment() {
         if (percentField.editText!!.text.isNullOrEmpty()) return percentField
         if (priceField.editText!!.text.isNullOrEmpty()) return priceField
         if (capacityField.editText!!.text.isNullOrEmpty()) return capacityField
-        else return null;
+        else return null
     }
 
     enum class ActionButtonState {
