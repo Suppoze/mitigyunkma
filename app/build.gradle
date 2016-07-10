@@ -59,7 +59,7 @@ dependencies {
     compile "org.jetbrains.anko:anko-design:0.8.3"
     compile "org.jetbrains.anko:anko-cardview-v7:0.8.3"
 
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha3'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
 }
 
 repositories {

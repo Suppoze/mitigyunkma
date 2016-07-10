@@ -18,15 +18,46 @@ class DrinkListAdapter(
         val deleteAction: (Drink) -> Unit) :
             RecyclerView.Adapter<DrinkListAdapter.DrinkViewHolder>() {
 
+    var cachedDrinkNameList: List<String>
+
     init {
-        realmDrinkDataSet.addChangeListener { notifyDataSetChanged() }
+        cachedDrinkNameList = realmDrinkDataSet.map { it.name }
+        realmDrinkDataSet.addChangeListener { cachedListComparatorListener() }
+    }
+
+    private fun cachedListComparatorListener() {
+        if (cachedDrinkNameList.count() > realmDrinkDataSet.count()) {
+            findDeletedIndex()
+        }
+        else if (cachedDrinkNameList.count() < realmDrinkDataSet.count()) {
+            findAddedIndex()
+        }
+        cachedDrinkNameList = realmDrinkDataSet.map { it.name }
+    }
+
+    private fun findDeletedIndex() {
+        realmDrinkDataSet.forEachIndexed { i, drink ->
+            if (!cachedDrinkNameList[i].equals(drink.name)) {
+                notifyItemRemoved(i)
+                return
+            }
+        }
+        notifyItemRemoved(realmDrinkDataSet.count())
+    }
+
+    private fun findAddedIndex() {
+        cachedDrinkNameList.forEachIndexed { i, drinkName ->
+            if (!realmDrinkDataSet[i].name.equals(drinkName)) {
+                notifyItemInserted(i)
+                return
+            }
+        }
+        notifyItemInserted(cachedDrinkNameList.count())
     }
 
     override fun getItemCount(): Int = realmDrinkDataSet.size
 
-    override fun getItemId(position: Int): Long {
-        return realmDrinkDataSet[position].index.toLong()
-    }
+    override fun getItemId(position: Int): Long = realmDrinkDataSet[position].index.toLong()
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): DrinkViewHolder? {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.drinklist_row_card, parent, false)
@@ -44,11 +75,10 @@ class DrinkListAdapter(
     override fun onBindViewHolder(holder: DrinkViewHolder, position: Int) = holder.bindDrink(realmDrinkDataSet[position])
 
     class DrinkViewHolder(view: View, val optionsClick: (View, Drink) -> Unit) : RecyclerView.ViewHolder(view) {
-
         fun bindDrink(drink: Drink) {
             itemView.drinkCardIndex.text = "${drink.index.toInt()}"
             itemView.drinkCardName.text = drink.name
-            itemView.drinkCardPercent.text = "${drink.percent.prettyPrint()} %"
+            itemView.drinkCardPercent.text = "${drink.percent.prettyPrint()}%"
             itemView.drinkCardPrice.text = "${drink.price.toInt()} Ft"  // TODO: manage currencies
             itemView.drinkCardCapacity.text = "${drink.capacity.prettyPrint()} l"
             itemView.drinkCardPopupIcon.onClick { optionsClick(it!!, drink) }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,149 +10,140 @@
     android:background="@color/accent"
     card_view:cardUseCompatPadding="true">
 
-    <android.support.constraint.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/constraintLayout">
+        android:paddingLeft="@dimen/drinklist_card_padding_horizontal"
+        android:paddingStart="@dimen/drinklist_card_padding_horizontal"
+        android:paddingBottom="@dimen/drinklist_card_padding_vertical">
 
         <TextView
             android:id="@+id/drinkCardName"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/padding_m"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
             android:textSize="@dimen/drinklist_card_name_size"
             android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="@+id/constraintLayout"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-            android:layout_marginTop="8dp"
-            app:layout_constraintRight_toLeftOf="@+id/drinkCardPopupIcon"
-            android:layout_marginRight="16dp"
-            android:layout_marginEnd="16dp" />
+            android:text="Card name"
+            android:paddingTop="@dimen/drinklist_card_name_padding_top" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/drinkCardName"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:paddingRight="@dimen/drinklist_card_padding_horizontal"
+            android:paddingEnd="@dimen/drinklist_card_padding_horizontal">
+
+            <TextView
+                android:id="@+id/drinkCardIndex"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:maxLines="1"
+                android:paddingBottom="@dimen/padding_m"
+                android:paddingRight="@dimen/padding_m"
+                android:shadowColor="@color/drink_index_text_shadow"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="2"
+                android:textColor="@color/drink_index_text"
+                android:textSize="@dimen/text_size_xl"
+                android:text="9999"
+                android:layout_weight="3" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/padding_m">
+
+                <ImageView
+                    android:layout_width="@dimen/drinklist_card_icon_size"
+                    android:layout_height="@dimen/drinklist_card_icon_size"
+                    android:src="@drawable/ic_percent"
+                    android:tint="@color/percent" />
+
+                <TextView
+                    android:id="@+id/drinkCardPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/drinklist_card_name_size"
+                    android:text="25%"
+                    android:textColor="@color/percent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/padding_m">
+
+                <ImageView
+                    android:layout_width="@dimen/drinklist_card_icon_size"
+                    android:layout_height="@dimen/drinklist_card_icon_size"
+                    android:src="@drawable/ic_price"
+                    android:tint="@color/price" />
+
+                <TextView
+                    android:id="@+id/drinkCardPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/drinklist_card_name_size"
+                    android:text="2500 Ft"
+                    android:textColor="@color/price" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/padding_m">
+
+                <ImageView
+                    android:layout_width="@dimen/drinklist_card_icon_size"
+                    android:layout_height="@dimen/drinklist_card_icon_size"
+                    android:src="@drawable/ic_capacity"
+                    android:tint="@color/capacity" />
+
+                <TextView
+                    android:id="@+id/drinkCardCapacity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/drinklist_card_name_size"
+                    android:text="1 l"
+                    android:textColor="@color/capacity" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
 
         <ImageView
             android:id="@+id/drinkCardPopupIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/drinklist_card_popup_icon_size"
+            android:layout_height="@dimen/drinklist_card_popup_icon_size"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:src="@drawable/ic_more_vert_black_24dp"
             android:tint="@color/popup_icon"
-            app:layout_constraintTop_toTopOf="@+id/drinkCardName"
-            app:layout_constraintRight_toRightOf="@+id/constraintLayout"
-            android:layout_marginRight="8dp"
-            android:layout_marginEnd="8dp" />
+            android:padding="8dp"
+            android:clickable="true"
+            android:background="?selectableItemBackgroundBorderless" />
 
-
-        <TextView
-            android:id="@+id/drinkCardIndex"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:paddingBottom="@dimen/padding_m"
-            android:paddingRight="@dimen/padding_m"
-            android:shadowColor="@color/drink_index_text_shadow"
-            android:shadowDx="2"
-            android:shadowDy="2"
-            android:shadowRadius="2"
-            android:textColor="@color/drink_index_text"
-            android:textSize="30sp"
-            app:layout_constraintLeft_toLeftOf="@+id/drinkCardName"
-            app:layout_constraintTop_toBottomOf="@+id/drinkCardName"
-            app:layout_constraintRight_toLeftOf="@+id/guideline"
-            android:layout_marginRight="8dp"
-            android:layout_marginEnd="8dp" />
-
-
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/ic_percent"
-            android:tint="@color/percent"
-            android:id="@+id/imageView"
-            app:layout_constraintLeft_toLeftOf="@+id/guideline"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/drinkCardName"
-            android:layout_marginTop="8dp" />
-
-        <TextView
-            android:id="@+id/drinkCardPercent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/drinklist_card_name_size"
-            android:textColor="@color/percent"
-            app:layout_constraintLeft_toLeftOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            android:layout_marginTop="4dp"
-            app:layout_constraintRight_toRightOf="@+id/imageView"
-            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-            android:layout_marginBottom="8dp" />
-
-
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/ic_price"
-            android:tint="@color/price"
-            android:id="@+id/imageView3"
-            app:layout_constraintLeft_toRightOf="@+id/imageView"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/drinkCardName"
-            android:layout_marginTop="8dp"
-            app:layout_constraintRight_toLeftOf="@+id/imageView2"
-            android:layout_marginRight="8dp"
-            android:layout_marginEnd="8dp" />
-
-        <TextView
-            android:id="@+id/drinkCardPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/drinklist_card_name_size"
-            android:textColor="@color/price"
-            app:layout_constraintLeft_toLeftOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3"
-            android:layout_marginTop="4dp"
-            app:layout_constraintRight_toRightOf="@+id/imageView3"
-            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-            android:layout_marginBottom="8dp" />
-
-
-        <ImageView
-            android:layout_height="18dp"
-            android:src="@drawable/ic_capacity"
-            android:tint="@color/capacity"
-            android:id="@+id/imageView2"
-            android:layout_width="18dp"
-            app:layout_constraintTop_toBottomOf="@+id/drinkCardName"
-            android:layout_marginTop="8dp"
-            app:layout_constraintRight_toRightOf="@+id/drinkCardName"
-            android:layout_marginRight="8dp"
-            android:layout_marginEnd="8dp" />
-
-        <TextView
-            android:id="@+id/drinkCardCapacity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/drinklist_card_name_size"
-            android:textColor="@color/capacity"
-            app:layout_constraintLeft_toLeftOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            android:layout_marginTop="4dp"
-            app:layout_constraintRight_toRightOf="@+id/imageView2"
-            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-            android:layout_marginBottom="8dp" />
-
-        <android.support.constraint.Guideline
-            android:layout_width="0dp"
-            android:layout_height="92dp"
-            android:id="@+id/guideline"
-            android:orientation="vertical"
-            card_view:layout_editor_absoluteX="8dp"
-            card_view:layout_editor_absoluteY="0dp"
-            app:relativePercent="31" />
-
-
-    </android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>
