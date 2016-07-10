@@ -2,11 +2,11 @@ package hu.suppoze.mitigyunkma.calculate
 
 import android.content.Context
 import android.util.AttributeSet
-import android.widget.GridLayout
+import android.widget.RelativeLayout
 import hu.suppoze.mitigyunkma.R
 import kotlinx.android.synthetic.main.numpad_view.view.*
 
-class NumpadView : GridLayout {
+class NumpadView : RelativeLayout {
 
     constructor(context: Context) : this(context, null)
 
@@ -14,8 +14,6 @@ class NumpadView : GridLayout {
 
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
         inflate(context, R.layout.numpad_view, this)
-        orientation = GridLayout.HORIZONTAL
-        columnCount = 3
     }
 
     fun setInputListener(listener: (String) -> Unit) {
