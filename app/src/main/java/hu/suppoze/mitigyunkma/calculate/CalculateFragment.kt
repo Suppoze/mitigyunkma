@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.*
 
 import hu.suppoze.mitigyunkma.R
@@ -167,19 +168,21 @@ class CalculateFragment : BaseFragment() {
     }
 
     private fun showSaveDialog() {
-        alert {
-            title(R.string.dialog_save_title)
+        val dialog =
+            alert {
+                val dialogView = View.inflate(context, R.layout.dialog_save, null)
+                title(R.string.dialog_save_title)
+                customView(dialogView)
 
-            val dialogView = View.inflate(context, R.layout.dialog_save, null)
-            customView(dialogView)
-            showKeyboard(context, dialogView.saveDialogField)
+                positiveButton(R.string.save) {
+                    hideKeyboard(context, dialogView.saveDialogField)
+                    presenter.saveDrink(dialogView.saveDialogField.editText!!.text.toString())
+                }
+                negativeButton(R.string.cancel) { hideKeyboard(context, dialogView.saveDialogField) }
+            }.builder.create()
 
-            positiveButton(R.string.save) {
-                hideKeyboard(context, dialogView.saveDialogField)
-                presenter.saveDrink(dialogView.saveDialogField.editText!!.text.toString())
-            }
-            negativeButton(R.string.cancel) { hideKeyboard(context, dialogView.saveDialogField) }
-        }.show()
+        dialog.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+        dialog.show()
     }
 
     private fun selectNextEmptyField(): TextInputLayout? {
@@ -192,5 +195,4 @@ class CalculateFragment : BaseFragment() {
     enum class ActionButtonState {
         NEXT, DISABLED, SAVE
     }
-
 }

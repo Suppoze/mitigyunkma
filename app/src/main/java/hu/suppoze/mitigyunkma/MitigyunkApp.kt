@@ -11,15 +11,14 @@ class MitigyunkApp : Application() {
         super.onCreate()
 
         ResourceHelper.registerApp(this)
+        val config = RealmConfiguration.Builder(this).build()
 
         if (BuildConfig.BUILD_TYPE == "debug") {
-
             // Debug
-
         } else {
-
             // Relese
-
         }
+
+        Realm.setDefaultConfiguration(config)
     }
 }
