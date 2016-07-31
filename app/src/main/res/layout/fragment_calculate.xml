@@ -2,31 +2,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/fragment_padding"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/fragment_padding">
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/drinkIndex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/drink_index_shadow"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/drink_index_shadow"
         android:gravity="center"
         android:maxLines="1"
-        android:textSize="@dimen/drink_index_text_size"
-        android:textColor="@color/drink_index_text"
         android:shadowColor="@color/drink_index_text_shadow"
         android:shadowDx="2"
         android:shadowDy="2"
-        android:shadowRadius="2" />
+        android:shadowRadius="2"
+        android:textColor="@color/drink_index_text"
+        android:textSize="@dimen/drink_index_text_size" />
 
     <LinearLayout
         android:id="@+id/calculateViewInputRow"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/drinkIndex">
+        android:layout_below="@id/drinkIndex"
+        android:orientation="horizontal">
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/percentField"
@@ -34,11 +34,12 @@
             android:layout_height="@dimen/height_text_input_layout"
             android:layout_weight="1">
 
-            <EditText android:layout_width="match_parent"
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/edit_text_size"
+                android:hint="@string/percentage"
                 android:inputType="numberDecimal"
-                android:hint="@string/percentage" />
+                android:textSize="@dimen/edit_text_size" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -47,11 +48,12 @@
             android:layout_height="@dimen/height_text_input_layout"
             android:layout_weight="1">
 
-            <EditText android:layout_width="match_parent"
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/edit_text_size"
+                android:hint="@string/price"
                 android:inputType="number"
-                android:hint="@string/price" />
+                android:textSize="@dimen/edit_text_size" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -60,30 +62,35 @@
             android:layout_height="@dimen/height_text_input_layout"
             android:layout_weight="1">
 
-            <EditText android:layout_width="match_parent"
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/edit_text_size"
+                android:hint="@string/capacity"
                 android:inputType="numberDecimal"
-                android:hint="@string/capacity" />
+                android:textSize="@dimen/edit_text_size" />
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/calculateViewButtonRow"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:clipToPadding="false"
+        android:orientation="horizontal">
 
-        <include layout="@layout/component_reset_button"
+        <include
             android:id="@+id/resetButton"
+            layout="@layout/component_reset_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="7" />
 
-        <include layout="@layout/component_action_button"
+        <include
             android:id="@+id/actionButton"
+            layout="@layout/component_action_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"

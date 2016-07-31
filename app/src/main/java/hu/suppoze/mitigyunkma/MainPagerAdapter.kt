@@ -12,7 +12,7 @@ import hu.suppoze.mitigyunkma.model.Drink
 
 class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
-        override fun getCount(): Int {
+    override fun getCount(): Int {
         return Navigator.Pages.values().count()
     }
 

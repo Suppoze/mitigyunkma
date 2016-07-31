@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
+import hu.suppoze.mitigyunkma.MainActivity
 
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.base.BaseFragment
@@ -18,6 +19,7 @@ import hu.suppoze.mitigyunkma.util.ResourceHelper
 import kotlinx.android.synthetic.main.dialog_save.view.*
 import kotlinx.android.synthetic.main.component_action_button.*
 import kotlinx.android.synthetic.main.fragment_calculate.*
+import org.jetbrains.anko.design.appBarLayout
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.support.v4.alert
 

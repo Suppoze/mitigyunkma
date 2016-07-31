@@ -31,12 +31,14 @@
     <dimen name="fragment_padding">@dimen/padding_l</dimen>
     <dimen name="edit_text_size">@dimen/text_size_m</dimen>
 
+    <dimen name="drinklist_spacing">@dimen/margin_s</dimen>
+    <dimen name="drinklist_first_and_last_padding_vertical">@dimen/fragment_padding</dimen>
+
     <dimen name="drinklist_card_height">112dp</dimen>
     <dimen name="drinklist_card_padding_horizontal">@dimen/padding_l</dimen>
     <dimen name="drinklist_card_padding_vertical">@dimen/padding_m</dimen>
     <dimen name="drinklist_card_name_size">@dimen/text_size_m</dimen>
     <dimen name="drinklist_card_name_padding_top">@dimen/padding_m</dimen>
-    <dimen name="drinklist_card_margin">@dimen/margin_s</dimen>
     <dimen name="drinklist_card_icon_size">18dp</dimen>
     <dimen name="drinklist_card_popup_icon_size">40dp</dimen>
 

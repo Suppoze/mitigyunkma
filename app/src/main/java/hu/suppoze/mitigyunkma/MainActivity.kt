@@ -3,8 +3,7 @@ package hu.suppoze.mitigyunkma
 import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.support.v4.view.ViewPager
 import kotlinx.android.synthetic.main.activity_main.*
 
 import hu.suppoze.mitigyunkma.base.Navigator
@@ -18,7 +17,6 @@ class MainActivity : AppCompatActivity() {
         initializeActionBar()
         initializeTabLayout()
         initializeViewPager()
-        setListenerForTabLayout()
     }
 
     private fun initializeActionBar() {
@@ -31,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         mainActivityTablayout.addTab(mainActivityTablayout.newTab().setText(R.string.history_view_title))
         mainActivityTablayout.addTab(mainActivityTablayout.newTab().setText(R.string.bestof_view_title))
         mainActivityTablayout.tabGravity = TabLayout.GRAVITY_FILL
+        setListenerForTabLayout()
     }
 
     private fun initializeViewPager() {
@@ -38,11 +37,11 @@ class MainActivity : AppCompatActivity() {
         mainActivityViewpager.adapter = adapter
         mainActivityViewpager.offscreenPageLimit = adapter.count
         mainActivityViewpager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(mainActivityTablayout))
+        setListenerForViewPager()
         Navigator.viewPager = mainActivityViewpager
     }
 
     private fun setListenerForTabLayout() {
-
         mainActivityTablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 mainActivityViewpager.currentItem = tab.position
@@ -50,6 +49,19 @@ class MainActivity : AppCompatActivity() {
 
             override fun onTabUnselected(tab: TabLayout.Tab) { }
             override fun onTabReselected(tab: TabLayout.Tab) { }
+        })
+    }
+
+    private fun setListenerForViewPager() {
+        mainActivityViewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageSelected(position: Int) {
+                if (position == Navigator.Pages.CALCULATE.ordinal) {
+                    mainActivityAppbar.setExpanded(true)
+                }
+            }
+
+            override fun onPageScrollStateChanged(state: Int) { }
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) { }
         })
     }
 }

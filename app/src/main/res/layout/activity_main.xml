@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:background="@color/color_primary"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:layout_scrollFlags="scroll|enterAlways"/>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/mainActivityTablayout"
@@ -26,7 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/mainActivityToolbar"
             android:background="@color/color_primary"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:tabGravity="fill"/>
 
     </android.support.design.widget.AppBarLayout>
 
