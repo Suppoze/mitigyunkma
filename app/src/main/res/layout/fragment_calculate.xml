@@ -98,7 +98,7 @@
 
     </LinearLayout>
 
-    <hu.suppoze.mitigyunkma.calculate.NumpadView
+    <hu.suppoze.mitigyunkma.modules.calculate.NumpadView
         android:id="@+id/numpadView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

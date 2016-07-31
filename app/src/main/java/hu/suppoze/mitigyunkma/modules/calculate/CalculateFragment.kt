@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.calculate
+package hu.suppoze.mitigyunkma.modules.calculate
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
@@ -10,45 +10,41 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.*
-import hu.suppoze.mitigyunkma.MainActivity
 
 import hu.suppoze.mitigyunkma.R
-import hu.suppoze.mitigyunkma.base.BaseFragment
+import hu.suppoze.mitigyunkma.modules.base.BaseFragment
 import hu.suppoze.mitigyunkma.extensions.onFinishedAnimation
+import hu.suppoze.mitigyunkma.model.Drink
 import hu.suppoze.mitigyunkma.util.ResourceHelper
 import kotlinx.android.synthetic.main.dialog_save.view.*
 import kotlinx.android.synthetic.main.component_action_button.*
 import kotlinx.android.synthetic.main.fragment_calculate.*
-import org.jetbrains.anko.design.appBarLayout
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.support.v4.alert
 
-class CalculateFragment : BaseFragment() {
-
+class CalculateFragment : BaseFragment(), CalculateView {
     var currentActionButtonState: ActionButtonState = ActionButtonState.DISABLED
+
     lateinit var colorToState: Map<ActionButtonState, Int>
+
     lateinit var actionButtonTextToState: Map<ActionButtonState, String>
 
     val presenter: CalculatePresenter = CalculatePresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter.onCreate()
+        presenter.onViewCreated()
     }
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_calculate, container, false)
     }
-
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         resetButton.onClick { onResetClicked() }
         actionButton.onClick { onActionButtonClicked() }
 
-        percentField.editText?.addTextChangedListener(presenter)
-        capacityField.editText?.addTextChangedListener(presenter)
-        priceField.editText?.addTextChangedListener(presenter)
+        initializeTextWatcher()
 
         // Disable soft input from appearing
         percentField.editText?.setOnTouchListener { view, motionEvent -> true }
@@ -73,9 +69,17 @@ class CalculateFragment : BaseFragment() {
         switchActionButtonState(ActionButtonState.NEXT)
     }
 
+    private fun initializeTextWatcher() {
+        val textWatcher = DrinkPropertiesTextWatcher(presenter)
+
+        percentField.editText?.addTextChangedListener(textWatcher)
+        capacityField.editText?.addTextChangedListener(textWatcher)
+        priceField.editText?.addTextChangedListener(textWatcher)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        presenter.onDestroy()
+        presenter.onViewDestroyed()
     }
 
     private fun writeInFocused(s: String) {
@@ -161,7 +165,9 @@ class CalculateFragment : BaseFragment() {
 
                 positiveButton(R.string.save) {
                     hideKeyboard(context, dialogView.saveDialogField)
-                    presenter.saveDrink(dialogView.saveDialogField.editText!!.text.toString())
+                    val retDrink = getDrink()
+                    retDrink.name = dialogView.saveDialogField.editText!!.text.toString()
+                    presenter.saveDrink(retDrink)
                 }
                 negativeButton(R.string.cancel) { hideKeyboard(context, dialogView.saveDialogField) }
             }.builder.create()
@@ -179,5 +185,39 @@ class CalculateFragment : BaseFragment() {
 
     enum class ActionButtonState {
         NEXT, DISABLED, SAVE
+    }
+
+    override fun getDrink(): Drink {
+        try {
+            return Drink(
+                    percent = percentField.editText?.text.toString().toDouble(),
+                    capacity = capacityField.editText?.text.toString().toDouble(),
+                    price = priceField.editText?.text.toString().toDouble())
+        } catch (e: Exception) {
+            return Drink()
+        }
+    }
+
+    override fun onAllFieldsValid() {
+        presenter.calculate(getDrink())
+    }
+
+    override fun onAnyFieldInvalid() {
+        drinkIndex.text = ""
+        switchActionButtonState(CalculateFragment.ActionButtonState.DISABLED)
+    }
+
+    override fun onAnyEmptyField() {
+        drinkIndex.text = ""
+        switchActionButtonState(CalculateFragment.ActionButtonState.NEXT)
+    }
+
+    override fun onDrinkCalculated(index: Double) {
+        drinkIndex.text = index.toInt().toString()
+        switchActionButtonState(CalculateFragment.ActionButtonState.SAVE)
+    }
+
+    override fun loadDrinkForEdit(drink: Drink) {
+        // TODO: edit
     }
 }

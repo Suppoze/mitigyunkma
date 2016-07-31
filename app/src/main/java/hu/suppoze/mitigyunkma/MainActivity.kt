@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import kotlinx.android.synthetic.main.activity_main.*
 
-import hu.suppoze.mitigyunkma.base.Navigator
+import hu.suppoze.mitigyunkma.modules.base.Navigator
 
 class MainActivity : AppCompatActivity() {
 

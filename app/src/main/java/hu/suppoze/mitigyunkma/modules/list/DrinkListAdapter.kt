@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.list
+package hu.suppoze.mitigyunkma.modules.list
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

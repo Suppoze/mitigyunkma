@@ -4,10 +4,10 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.util.Log
-import hu.suppoze.mitigyunkma.base.Navigator
+import hu.suppoze.mitigyunkma.modules.base.Navigator
 
-import hu.suppoze.mitigyunkma.calculate.CalculateFragment
-import hu.suppoze.mitigyunkma.list.DrinkListFragment
+import hu.suppoze.mitigyunkma.modules.calculate.CalculateFragment
+import hu.suppoze.mitigyunkma.modules.list.DrinkListFragment
 import hu.suppoze.mitigyunkma.model.Drink
 
 class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {

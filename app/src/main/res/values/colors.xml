@@ -9,7 +9,7 @@
     <color name="button_text_fade">#2dffffff</color>
 
     <color name="action_button_save">#4caf50</color>
-    <color name="action_button_disabled">#666666</color>
+    <color name="action_button_disabled">#9e9e9e</color>
     <color name="action_button_next">@color/accent</color>
     <color name="reset_button_background">#f44336</color>
 
@@ -19,7 +19,7 @@
     <color name="drink_index_text_shadow">#783e3423</color>
 
     <color name="percent">#bf360c</color>
-    <color name="price">#b77700</color>
+    <color name="price">#558b2f</color>
     <color name="capacity">#01579b</color>
 
     <color name="popup_icon">#616161</color>

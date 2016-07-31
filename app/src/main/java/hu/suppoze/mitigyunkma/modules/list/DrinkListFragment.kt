@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.list
+package hu.suppoze.mitigyunkma.modules.list
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -9,9 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import hu.suppoze.mitigyunkma.R
-import hu.suppoze.mitigyunkma.base.BaseFragment
-import hu.suppoze.mitigyunkma.base.Navigator
-import hu.suppoze.mitigyunkma.calculate.CalculatePresenter
+import hu.suppoze.mitigyunkma.modules.base.BaseFragment
+import hu.suppoze.mitigyunkma.modules.base.Navigator
+import hu.suppoze.mitigyunkma.modules.calculate.CalculatePresenter
 import hu.suppoze.mitigyunkma.model.Drink
 import kotlinx.android.synthetic.main.fragment_drinklist.*
 import io.realm.Realm
@@ -82,7 +82,7 @@ class DrinkListItemDecoration(
             outRect.top = firstAndLastVerticalPadding
         }
 
-        if (parent.getChildAdapterPosition(view) == state.itemCount - 1) {
+        if (parent.getChildLayoutPosition(view) == state.itemCount - 1) {
             outRect.bottom = firstAndLastVerticalPadding
         }
     }

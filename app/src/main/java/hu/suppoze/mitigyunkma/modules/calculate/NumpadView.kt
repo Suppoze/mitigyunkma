@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.calculate
+package hu.suppoze.mitigyunkma.modules.calculate
 
 import android.content.Context
 import android.util.AttributeSet
