@@ -21,7 +21,7 @@
             app:layout_scrollFlags="scroll|enterAlways" />
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/mainActivityTablayout"
+            android:id="@+id/mainActivityTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/mainActivityToolbar"
@@ -30,7 +30,24 @@
             app:tabSelectedTextColor="@color/my_white"
             app:tabTextColor="@color/my_white_trasparent"
             app:tabIndicatorColor="@color/my_white"
-            app:tabGravity="fill" />
+            app:tabGravity="fill">
+            
+            <android.support.design.widget.TabItem
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:icon="@drawable/ic_assessment_white_24dp"/>
+
+            <android.support.design.widget.TabItem
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:icon="@drawable/ic_history_white_24dp"/>
+
+            <android.support.design.widget.TabItem
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:icon="@drawable/ic_mood_white_24dp"/>
+            
+        </android.support.design.widget.TabLayout>
 
     </android.support.design.widget.AppBarLayout>
 

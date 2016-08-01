@@ -4,13 +4,13 @@
     <color name="my_dark_cyan">#A6CFEB</color>
     <color name="my_dark_blue">#01579b</color>
     <color name="my_orange_accent">#FFB300</color>
-    <color name="my_orange_dark">#cc8f00</color>
+    <color name="my_orange_dark">#e99300</color>
     <color name="my_light_green">#4caf50</color>
     <color name="my_dark_green">#558b2f</color>
     <color name="my_light_red">#f44336</color>
     <color name="my_dark_red">#bf360c</color>
     <color name="my_white">#fafafa</color>
-    <color name="my_white_trasparent">#b4fafafa</color>
+    <color name="my_white_trasparent">#a0fafafa</color>
 
     <color name="accent">@color/my_orange_accent</color>
     <color name="color_primary">@color/my_orange_accent</color>

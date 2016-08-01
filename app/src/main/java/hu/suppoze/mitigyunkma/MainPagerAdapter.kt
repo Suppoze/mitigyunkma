@@ -3,12 +3,12 @@ package hu.suppoze.mitigyunkma
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import android.util.Log
 import hu.suppoze.mitigyunkma.modules.base.Navigator
 
 import hu.suppoze.mitigyunkma.modules.calculate.CalculateFragment
 import hu.suppoze.mitigyunkma.modules.list.DrinkListFragment
 import hu.suppoze.mitigyunkma.model.Drink
+import hu.suppoze.mitigyunkma.util.ResourceHelper
 
 class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
@@ -27,5 +27,14 @@ class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
         }
     }
 
-
+    override fun getPageTitle(position: Int): CharSequence {
+        when (position) {
+            Navigator.Pages.CALCULATE.ordinal -> return ResourceHelper.getStringRes(R.string.calculate_view_title)
+            Navigator.Pages.HISTORY.ordinal -> return ResourceHelper.getStringRes(R.string.history_view_title)
+            Navigator.Pages.BEST.ordinal -> return ResourceHelper.getStringRes(R.string.bestof_view_title)
+            else -> {
+                throw RuntimeException("Invalid position argument in getPageTitle()!")
+            }
+        }
+    }
 }

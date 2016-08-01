@@ -18,11 +18,11 @@
     </style>
 
     <style name="TextAppearance.Widget.Event.Toolbar.Title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <!--Any text styling can be done here-->
-        <item name="android:shadowColor">@color/button_text_shadow</item>
-        <item name="android:shadowDx">2</item>
-        <item name="android:shadowDy">2</item>
-        <item name="android:shadowRadius">2</item>
+        <item name="android:textColor">@color/my_white</item>
+    </style>
+
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/my_orange_accent</item>
     </style>
 
 </resources>

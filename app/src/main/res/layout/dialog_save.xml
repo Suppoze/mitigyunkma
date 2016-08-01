@@ -12,6 +12,6 @@
         android:layout_height="wrap_content"
         android:hint="@string/dialog_save_hint"
         android:textSize="@dimen/edit_text_size"
-        android:inputType="text" />
+        android:inputType="textAutoComplete|textCapWords" />
 
 </android.support.design.widget.TextInputLayout>

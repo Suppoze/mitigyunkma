@@ -34,10 +34,6 @@
                 android:text="@string/reset"
                 android:textColor="@color/button_text"
                 android:textSize="@dimen/button_text_size"
-                android:shadowColor="@color/button_text_shadow"
-                android:shadowDx="2"
-                android:shadowDy="2"
-                android:shadowRadius="2"
                 android:maxLines="1" />
         </RelativeLayout>
 

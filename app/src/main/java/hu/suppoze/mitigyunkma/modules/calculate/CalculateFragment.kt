@@ -5,6 +5,7 @@ import android.animation.ValueAnimator
 import android.os.Bundle
 import android.support.design.widget.TextInputLayout
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.view.*
 import android.widget.*
 
@@ -17,7 +18,6 @@ import kotlinx.android.synthetic.main.dialog_save.view.*
 import kotlinx.android.synthetic.main.component_action_button.*
 import kotlinx.android.synthetic.main.fragment_calculate.*
 import org.jetbrains.anko.onClick
-import org.jetbrains.anko.support.v4.alert
 
 class CalculateFragment : BaseFragment(), CalculateView {
 
@@ -160,21 +160,20 @@ class CalculateFragment : BaseFragment(), CalculateView {
     }
 
     private fun showSaveDialog() {
-        val dialog =
-            alert {
-                val dialogView = View.inflate(context, R.layout.dialog_save, null)
-                title(R.string.dialog_save_title)
-                customView(dialogView)
-
-                positiveButton(R.string.save) {
-                    hideKeyboard(context, dialogView.saveDialogField)
-                    val retDrink = getDrink()
-                    retDrink.name = dialogView.saveDialogField.editText!!.text.toString()
-                    presenter.saveDrink(retDrink)
-                }
-                negativeButton(R.string.cancel) { hideKeyboard(context, dialogView.saveDialogField) }
-            }.builder.create()
-
+        val dialogContent = View.inflate(context, R.layout.dialog_save, null)
+        val dialog = AlertDialog.Builder(activity, R.style.MyAlertDialogStyle)
+            .setTitle(R.string.dialog_save_title)
+            .setView(dialogContent)
+            .setPositiveButton(R.string.save, { dialogInterface, i ->
+                hideKeyboard(context, dialogContent.saveDialogField)
+                val retDrink = getDrink()
+                retDrink.name = dialogContent.saveDialogField.editText!!.text.toString()
+                presenter.saveDrink(retDrink)
+            })
+            .setNegativeButton(R.string.cancel, { dialogInterface, i ->
+                hideKeyboard(context, dialogContent.saveDialogField)
+            })
+        .create()
         dialog.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         dialog.show()
     }
