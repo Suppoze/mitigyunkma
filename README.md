@@ -3,12 +3,10 @@ Egy app, ami megmondja az alkohol hatékonyságát a százalék, ár és űrtart
 
 ##Funkciók
  - Vidd fel az ital alkoholszázalékát, az árát, és az űrtartalmát, és számold ki az indexet
- - Ital mentése
+ - Ital mentése, szerkesztése és törlése
  - Mentett italok megtekintése mentés ideje és hatékonyság szerint rendezve
- - Mentett italok törlése
 
 ###Tervezett funkciók
- - Ital szerkesztése
  - Lista átalakítása: lehetőség a rendezésre minden szempont alapján
  - Lista index szám színezése hatékonyság alapján
  - Keresés?

@@ -28,9 +28,10 @@ class DrinkListAdapter(
     private fun cachedListComparatorListener() {
         if (cachedDrinkNameList.count() > realmDrinkDataSet.count()) {
             findDeletedIndex()
-        }
-        else if (cachedDrinkNameList.count() < realmDrinkDataSet.count()) {
+        } else if (cachedDrinkNameList.count() < realmDrinkDataSet.count()) {
             findAddedIndex()
+        } else {
+            notifyDataSetChanged()
         }
         cachedDrinkNameList = realmDrinkDataSet.map { it.name }
     }

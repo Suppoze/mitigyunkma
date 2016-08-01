@@ -98,6 +98,14 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/editingDrinkTextView"
+        style="@style/Base.TextAppearance.AppCompat.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/calculateViewButtonRow"
+        android:layout_marginBottom="@dimen/editing_drink_name_margin_bottom" />
+
     <hu.suppoze.mitigyunkma.modules.calculate.NumpadView
         android:id="@+id/numpadView"
         android:layout_width="match_parent"

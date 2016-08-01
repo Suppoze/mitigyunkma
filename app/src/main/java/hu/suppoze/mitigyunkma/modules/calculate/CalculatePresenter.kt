@@ -23,7 +23,7 @@ class CalculatePresenter(val view: CalculateView) : BasePresenter() {
 
     fun saveDrink(drink: Drink) {
         val predicatedName = if (drink.name.isNullOrBlank()) {
-            var unnamedCount = realm.where(Drink::class.java)
+            val unnamedCount = realm.where(Drink::class.java)
                     .contains(Drink::name.name, ResourceHelper.getStringRes(R.string.unnamed_drink))
                     .count()
             if (unnamedCount > 0)
@@ -40,10 +40,25 @@ class CalculatePresenter(val view: CalculateView) : BasePresenter() {
             realm.copyToRealmOrUpdate(drink)
         }
 
+        view.onSuccessfulSave()
+        navigateToHistory()
+    }
+
+    fun editDrink(drink: Drink) {
+        realm.executeTransaction {
+            drink.index = IndexCalculator.calculateIndex(drink)
+            realm.copyToRealmOrUpdate(drink)
+        }
+
+        view.onSuccessfulSave()
+        navigateToHistory()
+    }
+
+    fun loadDrinkForEdit(drink: Drink) = view.loadDrinkForEdit(drink)
+
+    private fun navigateToHistory() {
         Handler().postDelayed(
                 { Navigator.navigate(Navigator.Pages.HISTORY) },
                 250)
     }
-
-    fun editDrink(drink: Drink) = view.loadDrinkForEdit(drink)
 }

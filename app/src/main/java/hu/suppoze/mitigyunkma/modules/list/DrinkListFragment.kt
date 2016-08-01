@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import hu.suppoze.mitigyunkma.MainActivity
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.modules.base.BaseFragment
 import hu.suppoze.mitigyunkma.modules.base.Navigator
@@ -38,6 +39,7 @@ class DrinkListFragment(val sortByField: String) : BaseFragment() {
         drinkRecyclerView.setHasFixedSize(true)
         drinkRecyclerView.layoutManager = LinearLayoutManager(context)
         drinkRecyclerView.itemAnimator = DefaultItemAnimator()
+
         drinkRecyclerView.addItemDecoration(DrinkListItemDecoration(
                 dimen(R.dimen.fragment_padding),
                 dimen(R.dimen.drinklist_spacing),
@@ -52,13 +54,23 @@ class DrinkListFragment(val sortByField: String) : BaseFragment() {
     }
 
     private fun edit(drink: Drink) {
-        CalculatePresenter.instance.editDrink(drink)
+        CalculatePresenter.instance.loadDrinkForEdit(drink)
         Navigator.navigate(Navigator.Pages.CALCULATE)
     }
 
     private fun delete(drink: Drink) {
         realm.executeTransaction {
             drink.deleteFromRealm()
+        }
+    }
+
+    private fun updateToolbarBehaviour(layoutManager: LinearLayoutManager) {
+        val lastPosition = layoutManager.findFirstCompletelyVisibleItemPosition()
+        val lastItemIndex = layoutManager.itemCount - 1
+        if (lastPosition == lastItemIndex) {
+            (activity as MainActivity).turnOffToolbarScrolling()
+        } else {
+            (activity as MainActivity).turnOnToolbarScrolling()
         }
     }
 

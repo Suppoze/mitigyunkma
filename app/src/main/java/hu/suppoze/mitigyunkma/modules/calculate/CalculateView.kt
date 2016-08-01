@@ -15,4 +15,6 @@ interface CalculateView {
     fun onAnyFieldInvalid()
 
     fun onDrinkCalculated(index: Double)
+
+    fun onSuccessfulSave()
 }

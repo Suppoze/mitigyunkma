@@ -22,9 +22,10 @@ class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
             Navigator.Pages.HISTORY.ordinal -> return DrinkListFragment(Drink::lastmod.name)
             Navigator.Pages.BEST.ordinal -> return DrinkListFragment(Drink::index.name)
             else -> {
-                Log.e("Mitigyunkma", "Invalid position argument in getItem()!")
                 throw RuntimeException("Invalid position argument in getItem()!")
             }
         }
     }
+
+
 }
