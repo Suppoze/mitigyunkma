@@ -61,29 +61,31 @@ class DrinkListFragment(val sortByField: String) : BaseFragment() {
             drink.deleteFromRealm()
         }
     }
-}
 
-class DrinkListItemDecoration(
-        val horizontalPadding: Int,
-        val verticalSpacing: Int,
-        val firstAndLastVerticalPadding: Int
-) : RecyclerView.ItemDecoration() {
+    class DrinkListItemDecoration(
+            val horizontalPadding: Int,
+            val verticalSpacing: Int,
+            val firstAndLastVerticalPadding: Int
+    ) : RecyclerView.ItemDecoration() {
 
-    override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
-        if (parent == null || outRect == null || state == null)
-            return
+        override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
+            if (parent == null || outRect == null || state == null || view == null)
+                return
 
-        outRect.left = horizontalPadding
-        outRect.right = horizontalPadding
-        outRect.bottom = verticalSpacing
-        outRect.top = verticalSpacing
+            outRect.left = horizontalPadding
+            outRect.right = horizontalPadding
+            outRect.bottom = verticalSpacing
+            outRect.top = verticalSpacing
 
-        if (parent.getChildAdapterPosition(view) == 0) {
-            outRect.top = firstAndLastVerticalPadding
-        }
+            if ((view.layoutParams as RecyclerView.LayoutParams).isItemRemoved && parent.getChildLayoutPosition(view) == 0) {
+                outRect.top = firstAndLastVerticalPadding
+            } else if (parent.getChildAdapterPosition(view) == 0) {
+                outRect.top = firstAndLastVerticalPadding
+            }
 
-        if (parent.getChildLayoutPosition(view) == state.itemCount - 1) {
-            outRect.bottom = firstAndLastVerticalPadding
+            if (parent.getChildLayoutPosition(view) == state.itemCount - 1) {
+                outRect.bottom = firstAndLastVerticalPadding
+            }
         }
     }
 }
