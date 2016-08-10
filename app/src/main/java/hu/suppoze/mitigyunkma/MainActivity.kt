@@ -6,12 +6,13 @@ import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.support.v4.view.ViewPager
+import hu.suppoze.mitigyunkma.`interface`.ToolbarCollapseController
 import hu.suppoze.mitigyunkma.extensions.setIconColorStateList
 import kotlinx.android.synthetic.main.activity_main.*
 
 import hu.suppoze.mitigyunkma.modules.base.Navigator
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ToolbarCollapseController {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,12 +73,12 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    fun turnOffToolbarScrolling() {
+    override val turnOffToolbarScrolling : () -> Unit = {
         (mainActivityToolbar.layoutParams as AppBarLayout.LayoutParams).scrollFlags = 0
         (mainActivityAppbar.layoutParams as CoordinatorLayout.LayoutParams).behavior = null
     }
 
-    fun turnOnToolbarScrolling() {
+    override val turnOnToolbarScrolling : () -> Unit = {
         (mainActivityToolbar.layoutParams as AppBarLayout.LayoutParams).scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS or AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
         (mainActivityAppbar.layoutParams as CoordinatorLayout.LayoutParams).behavior = AppBarLayout.Behavior()
     }

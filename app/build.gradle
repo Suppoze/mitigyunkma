@@ -1,5 +1,4 @@
 buildscript {
-    ext.realm_version = '1.1.0'
     repositories {
         mavenCentral()
         jcenter()
@@ -16,7 +15,7 @@ apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion '24'
+    buildToolsVersion '24.0.1'
 
     defaultConfig {
         applicationId "hu.suppoze.mitigyunkma"
@@ -27,11 +26,13 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            applicationIdSuffix ".debug"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-DEV"
         }
     }
     sourceSets {
@@ -50,7 +51,7 @@ dependencies {
 
     //Kotlin//
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile "org.jetbrains.kotlin:kotlin-reflect:${kotlin_version}"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     //Anko//
     compile "org.jetbrains.anko:anko-sdk15:0.8.3"
@@ -58,8 +59,6 @@ dependencies {
     compile "org.jetbrains.anko:anko-support-v4:0.8.3"
     compile "org.jetbrains.anko:anko-design:0.8.3"
     compile "org.jetbrains.anko:anko-cardview-v7:0.8.3"
-
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
 }
 
 repositories {

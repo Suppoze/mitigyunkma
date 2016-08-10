@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.RelativeLayout
 import hu.suppoze.mitigyunkma.R
-import kotlinx.android.synthetic.main.numpad_view.view.*
+import kotlinx.android.synthetic.main.component_numpad.view.*
 
 class NumpadView : RelativeLayout {
 
@@ -13,7 +13,7 @@ class NumpadView : RelativeLayout {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
-        inflate(context, R.layout.numpad_view, this)
+        inflate(context, R.layout.component_numpad, this)
     }
 
     fun setInputListener(listener: (String) -> Unit) {

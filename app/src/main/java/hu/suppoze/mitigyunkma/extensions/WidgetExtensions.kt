@@ -14,6 +14,7 @@ fun TabLayout.setIconColorStateList(context: Context, colorStateListId: Int) {
     }
 }
 
+@Suppress("DEPRECATION")
 private fun Context.getColorStateListCompat(colorStateId: Int) : ColorStateList? {
     if (Build.VERSION.SDK_INT >= 23) {
         return resources.getColorStateList(colorStateId, theme)
