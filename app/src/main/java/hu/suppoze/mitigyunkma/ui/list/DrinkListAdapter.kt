@@ -1,13 +1,13 @@
-package hu.suppoze.mitigyunkma.modules.list
+package hu.suppoze.mitigyunkma.ui.list
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import hu.suppoze.mitigyunkma.R
-import hu.suppoze.mitigyunkma.extensions.prettyPrint
-import hu.suppoze.mitigyunkma.extensions.showPopup
-import hu.suppoze.mitigyunkma.model.Drink
+import hu.suppoze.mitigyunkma.extension.prettyPrint
+import hu.suppoze.mitigyunkma.extension.showPopup
+import hu.suppoze.mitigyunkma.entity.Drink
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.drinklist_row_card.view.*
 import org.jetbrains.anko.onClick

@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.modules.calculate
+package hu.suppoze.mitigyunkma.ui.calculate
 
 import android.text.Editable
 import android.text.TextWatcher

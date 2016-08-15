@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.modules.base
+package hu.suppoze.mitigyunkma.ui.base
 
 import android.support.v4.view.ViewPager
 

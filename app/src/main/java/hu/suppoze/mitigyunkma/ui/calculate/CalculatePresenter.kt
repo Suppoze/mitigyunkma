@@ -1,11 +1,11 @@
-package hu.suppoze.mitigyunkma.modules.calculate
+package hu.suppoze.mitigyunkma.ui.calculate
 
 import android.os.Handler
 import hu.suppoze.mitigyunkma.R
-import hu.suppoze.mitigyunkma.modules.base.Navigator
+import hu.suppoze.mitigyunkma.ui.base.Navigator
 import hu.suppoze.mitigyunkma.core.IndexCalculator
-import hu.suppoze.mitigyunkma.model.Drink
-import hu.suppoze.mitigyunkma.modules.base.BasePresenter
+import hu.suppoze.mitigyunkma.entity.Drink
+import hu.suppoze.mitigyunkma.ui.base.BasePresenter
 import hu.suppoze.mitigyunkma.util.ResourceHelper
 import java.util.*
 

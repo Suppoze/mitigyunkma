@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.extensions
+package hu.suppoze.mitigyunkma.extension
 
 fun Double.prettyPrint() : String {
     val i = this.toInt()
