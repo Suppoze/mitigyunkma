@@ -1,6 +1,6 @@
 package hu.suppoze.mitigyunkma.core
 
-import hu.suppoze.mitigyunkma.model.Drink
+import hu.suppoze.mitigyunkma.entity.Drink
 
 object IndexCalculator {
 

@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.model
+package hu.suppoze.mitigyunkma.entity
 
 import io.realm.RealmObject
 import io.realm.annotations.Ignore

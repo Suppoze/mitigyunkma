@@ -1,13 +1,14 @@
-package hu.suppoze.mitigyunkma
+package hu.suppoze.mitigyunkma.ui
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import hu.suppoze.mitigyunkma.modules.base.Navigator
+import hu.suppoze.mitigyunkma.R
+import hu.suppoze.mitigyunkma.ui.base.Navigator
 
-import hu.suppoze.mitigyunkma.modules.calculate.CalculateFragment
-import hu.suppoze.mitigyunkma.modules.list.DrinkListFragment
-import hu.suppoze.mitigyunkma.model.Drink
+import hu.suppoze.mitigyunkma.ui.calculate.CalculateFragment
+import hu.suppoze.mitigyunkma.ui.list.DrinkListFragment
+import hu.suppoze.mitigyunkma.entity.Drink
 import hu.suppoze.mitigyunkma.util.ResourceHelper
 
 class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {

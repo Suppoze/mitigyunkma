@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.extensions
+package hu.suppoze.mitigyunkma.extension
 
 import android.support.v7.widget.PopupMenu
 import android.view.Gravity

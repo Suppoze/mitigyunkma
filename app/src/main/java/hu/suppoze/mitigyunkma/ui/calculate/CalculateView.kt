@@ -1,6 +1,6 @@
-package hu.suppoze.mitigyunkma.modules.calculate
+package hu.suppoze.mitigyunkma.ui.calculate
 
-import hu.suppoze.mitigyunkma.model.Drink
+import hu.suppoze.mitigyunkma.entity.Drink
 
 interface CalculateView {
 

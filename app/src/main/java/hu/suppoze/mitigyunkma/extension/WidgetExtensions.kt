@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.extensions
+package hu.suppoze.mitigyunkma.extension
 
 import android.content.Context
 import android.content.res.ColorStateList

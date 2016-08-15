@@ -59,6 +59,9 @@ dependencies {
     compile "org.jetbrains.anko:anko-support-v4:0.8.3"
     compile "org.jetbrains.anko:anko-design:0.8.3"
     compile "org.jetbrains.anko:anko-cardview-v7:0.8.3"
+
+    //EventBus//
+    compile 'org.greenrobot:eventbus:3.0.0'
 }
 
 repositories {

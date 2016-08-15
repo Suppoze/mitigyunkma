@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma
+package hu.suppoze.mitigyunkma.ui
 
 import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
@@ -6,11 +6,14 @@ import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.support.v4.view.ViewPager
+import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.`interface`.ToolbarCollapseController
-import hu.suppoze.mitigyunkma.extensions.setIconColorStateList
+import hu.suppoze.mitigyunkma.event.MainPagerFragmentChangedEvent
+import hu.suppoze.mitigyunkma.extension.setIconColorStateList
 import kotlinx.android.synthetic.main.activity_main.*
 
-import hu.suppoze.mitigyunkma.modules.base.Navigator
+import hu.suppoze.mitigyunkma.ui.base.Navigator
+import org.greenrobot.eventbus.EventBus
 
 class MainActivity : AppCompatActivity(), ToolbarCollapseController {
 
@@ -63,8 +66,13 @@ class MainActivity : AppCompatActivity(), ToolbarCollapseController {
         mainActivityViewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageSelected(position: Int) {
                 title = mainActivityViewpager.adapter.getPageTitle(position)
+                Navigator.selectedPage = position
+
+                EventBus.getDefault().post(MainPagerFragmentChangedEvent(position))
+
                 if (position == Navigator.Pages.CALCULATE.ordinal) {
                     mainActivityAppbar.setExpanded(true)
+                    turnOnToolbarScrolling()
                 }
             }
 
@@ -73,12 +81,12 @@ class MainActivity : AppCompatActivity(), ToolbarCollapseController {
         })
     }
 
-    override val turnOffToolbarScrolling : () -> Unit = {
+    override val turnOffToolbarScrolling = {
         (mainActivityToolbar.layoutParams as AppBarLayout.LayoutParams).scrollFlags = 0
         (mainActivityAppbar.layoutParams as CoordinatorLayout.LayoutParams).behavior = null
     }
 
-    override val turnOnToolbarScrolling : () -> Unit = {
+    override val turnOnToolbarScrolling = {
         (mainActivityToolbar.layoutParams as AppBarLayout.LayoutParams).scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS or AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
         (mainActivityAppbar.layoutParams as CoordinatorLayout.LayoutParams).behavior = AppBarLayout.Behavior()
     }

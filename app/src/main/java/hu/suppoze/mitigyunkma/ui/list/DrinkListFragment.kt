@@ -1,9 +1,8 @@
-package hu.suppoze.mitigyunkma.modules.list
+package hu.suppoze.mitigyunkma.ui.list
 
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
-import android.os.Handler
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -12,20 +11,22 @@ import android.view.View
 import android.view.ViewGroup
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.`interface`.ToolbarCollapseController
-import hu.suppoze.mitigyunkma.modules.base.BaseFragment
-import hu.suppoze.mitigyunkma.modules.base.Navigator
-import hu.suppoze.mitigyunkma.modules.calculate.CalculatePresenter
-import hu.suppoze.mitigyunkma.model.Drink
+import hu.suppoze.mitigyunkma.ui.base.BaseFragment
+import hu.suppoze.mitigyunkma.ui.base.Navigator
+import hu.suppoze.mitigyunkma.ui.calculate.CalculatePresenter
+import hu.suppoze.mitigyunkma.entity.Drink
+import hu.suppoze.mitigyunkma.event.MainPagerFragmentChangedEvent
 import kotlinx.android.synthetic.main.fragment_drinklist.*
 import io.realm.Realm
 import io.realm.Sort
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.support.v4.dimen
 
 class DrinkListFragment(val sortByField: String) : BaseFragment() {
 
     val realm: Realm
-    private val DOWN: Int = 1
-    private val UP: Int = 0
 
     lateinit var toolbarCollapseController : ToolbarCollapseController
 
@@ -50,15 +51,24 @@ class DrinkListFragment(val sortByField: String) : BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupRecyclerView()
-        Handler().postDelayed({ setToolbarCollapse() }, 100)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
     }
 
     private fun setupRecyclerView() {
         drinkRecyclerView.setHasFixedSize(false)
-        drinkRecyclerView.layoutManager = CollapsingHelperLinearLayoutManager(context) { setToolbarCollapse() }
+        drinkRecyclerView.layoutManager = LinearLayoutManager(context)
         drinkRecyclerView.itemAnimator = DefaultItemAnimator()
+        drinkRecyclerView.setAnimationEndListener { setToolbarCollapse(Navigator.selectedPage) }
 
         drinkRecyclerView.addItemDecoration(DrinkListItemDecoration(
                 dimen(R.dimen.fragment_padding),
@@ -73,11 +83,20 @@ class DrinkListFragment(val sortByField: String) : BaseFragment() {
         drinkRecyclerView.adapter = DrinkListAdapter(realmResultDataSet, { edit(it) }, { delete(it) })
     }
 
-    private fun setToolbarCollapse() {
-        if (drinkRecyclerView.canScrollVertically(DOWN))
-            toolbarCollapseController.turnOnToolbarScrolling()
-        else
-            toolbarCollapseController.turnOffToolbarScrolling()
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMainPagerFragmentChanged(event: MainPagerFragmentChangedEvent) {
+        setToolbarCollapse(event.position)
+    }
+
+    private fun setToolbarCollapse(position: Int? = null) {
+        if (position != Navigator.Pages.CALCULATE.ordinal) {
+            val layoutManager = drinkRecyclerView.layoutManager as LinearLayoutManager
+            if (layoutManager.findLastCompletelyVisibleItemPosition() == layoutManager.itemCount - 1) {
+                toolbarCollapseController.turnOffToolbarScrolling()
+            } else {
+                toolbarCollapseController.turnOnToolbarScrolling()
+            }
+        }
     }
 
     private fun edit(drink: Drink) {
@@ -115,27 +134,6 @@ class DrinkListFragment(val sortByField: String) : BaseFragment() {
             if (parent.getChildLayoutPosition(view) == state.itemCount - 1) {
                 outRect.bottom = firstAndLastVerticalPadding
             }
-        }
-    }
-
-    class CollapsingHelperLinearLayoutManager(
-            context: Context?,
-            val modifyCollapseStatus: () -> Unit)
-    : LinearLayoutManager(context) {
-
-        override fun onItemsAdded(recyclerView: RecyclerView?, positionStart: Int, itemCount: Int) {
-            super.onItemsAdded(recyclerView, positionStart, itemCount)
-            modifyCollapseStatus()
-        }
-
-        override fun onItemsRemoved(recyclerView: RecyclerView?, positionStart: Int, itemCount: Int) {
-            super.onItemsRemoved(recyclerView, positionStart, itemCount)
-            modifyCollapseStatus()
-        }
-
-        override fun onItemsChanged(recyclerView: RecyclerView?) {
-            super.onItemsChanged(recyclerView)
-            modifyCollapseStatus()
         }
     }
 }

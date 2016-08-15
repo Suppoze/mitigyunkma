@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.modules.calculate
+package hu.suppoze.mitigyunkma.ui.calculate
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
@@ -10,13 +10,15 @@ import android.view.*
 import android.widget.*
 
 import hu.suppoze.mitigyunkma.R
-import hu.suppoze.mitigyunkma.modules.base.BaseFragment
-import hu.suppoze.mitigyunkma.extensions.onFinishedAnimation
-import hu.suppoze.mitigyunkma.extensions.prettyPrint
-import hu.suppoze.mitigyunkma.model.Drink
+import hu.suppoze.mitigyunkma.ui.base.BaseFragment
+import hu.suppoze.mitigyunkma.extension.onFinishedAnimation
+import hu.suppoze.mitigyunkma.extension.prettyPrint
+import hu.suppoze.mitigyunkma.entity.Drink
 import kotlinx.android.synthetic.main.dialog_save.view.*
 import kotlinx.android.synthetic.main.component_action_button.*
 import kotlinx.android.synthetic.main.fragment_calculate.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.onClick
 
 class CalculateFragment : BaseFragment(), CalculateView {
