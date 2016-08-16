@@ -1,16 +1,12 @@
 package hu.suppoze.mitigyunkma.ui.list
 
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import hu.suppoze.mitigyunkma.R
-import hu.suppoze.mitigyunkma.extension.prettyPrint
 import hu.suppoze.mitigyunkma.extension.showPopup
 import hu.suppoze.mitigyunkma.entity.Drink
 import io.realm.RealmResults
-import kotlinx.android.synthetic.main.drinklist_row_card.view.*
-import org.jetbrains.anko.onClick
 
 class DrinkListAdapter(
         val realmDrinkDataSet: RealmResults<Drink>,
@@ -61,7 +57,7 @@ class DrinkListAdapter(
     override fun getItemId(position: Int): Long = realmDrinkDataSet[position].index.toLong()
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): DrinkViewHolder? {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.drinklist_row_card, parent, false)
+        val view = DrinkCardView(parent?.context)
         return DrinkViewHolder(view, { optionsIcon, drink ->
             optionsIcon.showPopup(R.menu.drinklist_row_menu) {
                 menuItem ->
@@ -77,12 +73,9 @@ class DrinkListAdapter(
 
     class DrinkViewHolder(view: View, val optionsClick: (View, Drink) -> Unit) : RecyclerView.ViewHolder(view) {
         fun bindDrink(drink: Drink) {
-            itemView.drinkCardIndex.text = "${drink.index.toInt()}"
-            itemView.drinkCardName.text = drink.name
-            itemView.drinkCardPercent.text = "${drink.percent.prettyPrint()}%"
-            itemView.drinkCardPrice.text = "${drink.price.toInt()} Ft"  // TODO: manage currencies
-            itemView.drinkCardCapacity.text = "${drink.capacity.prettyPrint()} l"
-            itemView.drinkCardPopupIcon.onClick { optionsClick(it!!, drink) }
+            itemView as DrinkCardView
+            itemView.drink = drink
+            itemView.popupAction { optionsClick(it!!, drink) }
         }
     }
 }

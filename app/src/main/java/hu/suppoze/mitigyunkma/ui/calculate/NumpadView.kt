@@ -9,9 +9,7 @@ import kotlinx.android.synthetic.main.component_numpad.view.*
 class NumpadView : RelativeLayout {
 
     constructor(context: Context) : this(context, null)
-
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
         inflate(context, R.layout.component_numpad, this)
     }
