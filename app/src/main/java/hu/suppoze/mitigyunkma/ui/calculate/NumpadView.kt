@@ -14,7 +14,7 @@ class NumpadView : RelativeLayout {
         inflate(context, R.layout.component_numpad, this)
     }
 
-    fun setInputListener(listener: (String) -> Unit) {
+    fun onInput(listener: (String) -> Unit) {
         numpad_0.setOnClickListener { listener("0") }
         numpad_2.setOnClickListener { listener("2") }
         numpad_1.setOnClickListener { listener("1") }
@@ -28,7 +28,7 @@ class NumpadView : RelativeLayout {
         numpadDecimal.setOnClickListener { listener(".") }
     }
 
-    fun setDeleteListener(listener: () -> Unit) {
+    fun onDelete(listener: () -> Unit) {
         numpadDelete.setOnClickListener { listener() }
     }
 

@@ -9,6 +9,6 @@ fun View.showPopup(menuId: Int, onMenuItemClick: (item: MenuItem) -> Boolean ) {
     val popup: PopupMenu = PopupMenu(this.context, this)
     popup.setOnMenuItemClickListener(onMenuItemClick)
     popup.menuInflater.inflate(menuId, popup.menu)
-    popup.gravity = Gravity.LEFT
+    popup.gravity = Gravity.LEFT or Gravity.START
     popup.show()
 }

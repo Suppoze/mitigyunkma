@@ -9,24 +9,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import hu.suppoze.mitigyunkma.R
-import hu.suppoze.mitigyunkma.ui.base.BaseFragment
 import hu.suppoze.mitigyunkma.ui.base.Navigator
-import hu.suppoze.mitigyunkma.ui.calculate.CalculatePresenter
 import hu.suppoze.mitigyunkma.entity.Drink
+import hu.suppoze.mitigyunkma.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_drinklist.*
-import io.realm.Realm
-import io.realm.Sort
 import org.jetbrains.anko.support.v4.dimen
 
-class DrinkListFragment(val sortByField: String) : BaseFragment() {
-
-    val realm: Realm
-
-    init {
-        realm = Realm.getDefaultInstance()
-    }
+// TODO: remove sortByField, make lists inherit from a base fragment
+class DrinkListFragment(val sortByField: String) : BaseFragment<DrinkListPresenter, DrinkListView>(), DrinkListView {
 
     constructor() : this(Drink::lastmod.name)
+
+    override fun providePresenter(): DrinkListPresenter {
+        return DrinkListPresenter()
+    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_drinklist, container, false)
@@ -36,6 +32,8 @@ class DrinkListFragment(val sortByField: String) : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
     }
+
+    override fun getTitle(): CharSequence = getString(if (sortByField == Drink::lastmod.name) R.string.history_view_title else R.string.bestof_view_title)
 
     private fun setupRecyclerView() {
         drinkRecyclerView.setHasFixedSize(false)
@@ -47,23 +45,19 @@ class DrinkListFragment(val sortByField: String) : BaseFragment() {
                 dimen(R.dimen.drinklist_spacing),
                 dimen(R.dimen.drinklist_first_and_last_padding_vertical)))
 
-        val realmResultDataSet = realm.where(Drink::class.java)
-                .findAllSorted(
-                        sortByField,
-                        if (sortByField == Drink::lastmod.name) Sort.DESCENDING else Sort.ASCENDING)
+        val realmResultDataSet = presenter.getRealmResultDataSet(sortByField)
 
         drinkRecyclerView.adapter = DrinkListAdapter(realmResultDataSet, { edit(it) }, { delete(it) })
     }
 
     private fun edit(drink: Drink) {
-        CalculatePresenter.instance.loadDrinkForEdit(drink)
+        // TODO: do it some other way.
+        // CalculatePresenter.instance.loadDrinkForEdit(drink)
         Navigator.navigate(Navigator.Pages.CALCULATE)
     }
 
     private fun delete(drink: Drink) {
-        realm.executeTransaction {
-            drink.deleteFromRealm()
-        }
+        presenter.deleteDrink(drink)
     }
 
     class DrinkListItemDecoration(

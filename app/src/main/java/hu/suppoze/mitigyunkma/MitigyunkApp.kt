@@ -1,24 +1,23 @@
 package hu.suppoze.mitigyunkma
 
 import android.app.Application
-import hu.suppoze.mitigyunkma.util.ResourceHelper
-import io.realm.Realm
-import io.realm.RealmConfiguration
+import hu.suppoze.mitigyunkma.di.AppComponent
+import hu.suppoze.mitigyunkma.di.AppModule
+import hu.suppoze.mitigyunkma.di.DaggerAppComponent
 
 class MitigyunkApp : Application() {
+
+    companion object {
+        lateinit var appComponent: AppComponent
+    }
 
     override fun onCreate() {
         super.onCreate()
 
-        ResourceHelper.registerApp(this)
-        val config = RealmConfiguration.Builder(this).build()
+        initializeInjector()
+    }
 
-        if (BuildConfig.BUILD_TYPE == "debug") {
-            // Debug
-        } else {
-            // Relese
-        }
-
-        Realm.setDefaultConfiguration(config)
+    private fun initializeInjector() {
+        appComponent = DaggerAppComponent.builder().appModule(AppModule(this)).build()
     }
 }

@@ -1,37 +1,67 @@
 package hu.suppoze.mitigyunkma.ui.calculate
 
-import android.os.Handler
-import hu.suppoze.mitigyunkma.R
+import hu.suppoze.mitigyunkma.MitigyunkApp
 import hu.suppoze.mitigyunkma.ui.base.Navigator
 import hu.suppoze.mitigyunkma.core.IndexCalculator
+import hu.suppoze.mitigyunkma.core.SharedPreferencesRepository
+
 import hu.suppoze.mitigyunkma.entity.Drink
-import hu.suppoze.mitigyunkma.ui.base.BasePresenter
-import hu.suppoze.mitigyunkma.util.ResourceHelper
+import io.realm.Realm
+import net.grandcentrix.thirtyinch.TiPresenter
 import java.util.*
+import javax.inject.Inject
 
-class CalculatePresenter(val view: CalculateView) : BasePresenter() {
+class CalculatePresenter() : TiPresenter<CalculateView>() {
 
-    companion object {
-        var instance: CalculatePresenter by DelegatesExt.notNullSingleValue()
+    @Inject lateinit var realm: Realm
+    @Inject lateinit var sharedPreferences: SharedPreferencesRepository
+
+    override fun onCreate() {
+        super.onCreate()
+        MitigyunkApp.appComponent.inject(this)
     }
 
-    init {
-        instance = this
+    fun validate(drink: Drink, fieldsFilled: Array<Boolean>) {
+        var validFields: Int = 0
+        val allFieldsFilled = fieldsFilled.all { it == true }
+
+        if (fieldsFilled[0] == true && (drink.percent == .0 || drink.percent > 100))
+            view.onPercentInvalid()
+        else {
+            view.onPercentValid()
+            validFields++
+        }
+
+        if (fieldsFilled[1] == true && drink.price == .0)
+            view.onPriceInvalid()
+        else {
+            view.onPriceValid()
+            validFields++
+        }
+
+        if (fieldsFilled[2] == true && drink.capacity == .0)
+            view.onCapacityInvalid()
+        else {
+            view.onCapacityValid()
+            validFields++
+        }
+
+        if (validFields == 3 && allFieldsFilled) {
+            view.onAllFieldsValid()
+        } else if (validFields < 3 && allFieldsFilled) {
+            view.onHasInvalidFields()
+        } else if (!allFieldsFilled) {
+            view.onHasEmptyFields()
+        }
     }
 
-    fun calculate(drink : Drink) = view.onDrinkCalculated(IndexCalculator.calculateIndex(drink))
+    fun calculate(drink: Drink) = view.onDrinkCalculated(IndexCalculator.calculateIndex(drink))
 
-    fun saveDrink(drink: Drink) {
+    fun saveDrink(drink: Drink, defaultName: String) {
+
         val predicatedName = if (drink.name.isNullOrBlank()) {
-            val unnamedCount = realm.where(Drink::class.java)
-                    .contains(Drink::name.name, ResourceHelper.getStringRes(R.string.unnamed_drink))
-                    .count()
-            if (unnamedCount > 0)
-                "${ResourceHelper.getStringRes(R.string.unnamed_drink)} ($unnamedCount)"
-            else
-                ResourceHelper.getStringRes(R.string.unnamed_drink)
+            "$defaultName #${sharedPreferences.getUnnamedDrinkCountAndIncrement()}"
         } else drink.name
-
 
         realm.executeTransaction {
             drink.name = predicatedName
@@ -57,8 +87,6 @@ class CalculatePresenter(val view: CalculateView) : BasePresenter() {
     fun loadDrinkForEdit(drink: Drink) = view.loadDrinkForEdit(drink)
 
     private fun navigateToHistory() {
-        Handler().postDelayed(
-                { Navigator.navigate(Navigator.Pages.HISTORY) },
-                250)
+        Navigator.navigate(Navigator.Pages.HISTORY)
     }
 }

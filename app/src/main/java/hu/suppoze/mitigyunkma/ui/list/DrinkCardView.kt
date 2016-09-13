@@ -16,7 +16,7 @@ class DrinkCardView : CardView {
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         inflate(context, R.layout.component_drinklist_card, this)
-        useCompatPadding = true
+        useCompatPadding = false
     }
 
     var drink : Drink? = null

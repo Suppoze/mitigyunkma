@@ -21,11 +21,6 @@ class MainActivity : AppCompatActivity() {
         initializeViewPager()
     }
 
-    override fun onResume() {
-        super.onResume()
-        title = mainActivityViewpager.adapter.getPageTitle(mainActivityViewpager.currentItem)
-    }
-
     private fun initializeActionBar() {
         setSupportActionBar(mainActivityToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -60,7 +55,6 @@ class MainActivity : AppCompatActivity() {
     private fun setListenerForViewPager() {
         mainActivityViewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageSelected(position: Int) {
-                title = mainActivityViewpager.adapter.getPageTitle(position)
                 if (position == Navigator.Pages.CALCULATE.ordinal) {
                     mainActivityAppbar.setExpanded(true)
                 }
