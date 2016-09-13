@@ -51,8 +51,8 @@ class DrinkListFragment(val sortByField: String) : BaseFragment<DrinkListPresent
     }
 
     private fun edit(drink: Drink) {
-        // TODO: do it some other way.
-        // CalculatePresenter.instance.loadDrinkForEdit(drink)
+        presenter.editDrink(drink)
+        // TODO: manage navigation using EventBus
         Navigator.navigate(Navigator.Pages.CALCULATE)
     }
 

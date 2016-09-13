@@ -7,7 +7,9 @@ import android.support.design.widget.TabLayout
 import android.support.v4.graphics.drawable.DrawableCompat
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.EditText
+import org.jetbrains.anko.inputMethodManager
 
 fun TabLayout.setIconColorStateList(context: Context, colorStateListId: Int) {
     for (tabIndex in 0..tabCount - 1) {
@@ -24,6 +26,11 @@ private fun Context.getColorStateListCompat(colorStateId: Int) : ColorStateList?
     } else {
         return resources.getColorStateList(colorStateId)
     }
+}
+
+
+fun Context.hideKeyboard(view: View) {
+    this.inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
 fun EditText.doOnTextChanged(action : () -> Unit) {

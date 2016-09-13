@@ -156,6 +156,7 @@
     <orderEntry type="library" exported="" name="appcompat-v7-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="javax.inject-1" level="project" />
     <orderEntry type="library" exported="" name="anko-appcompat-v7-0.9" level="project" />
+    <orderEntry type="library" exported="" name="eventbus-3.0.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-vector-drawable-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="anko-design-0.9" level="project" />

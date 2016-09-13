@@ -15,6 +15,7 @@ import hu.suppoze.mitigyunkma.extension.onFinishedAnimation
 import hu.suppoze.mitigyunkma.extension.prettyPrint
 import hu.suppoze.mitigyunkma.entity.Drink
 import hu.suppoze.mitigyunkma.extension.doOnTextChanged
+import hu.suppoze.mitigyunkma.extension.hideKeyboard
 import kotlinx.android.synthetic.main.dialog_save.view.*
 import kotlinx.android.synthetic.main.component_action_button.*
 import kotlinx.android.synthetic.main.fragment_calculate.*
@@ -168,13 +169,13 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
                 .setTitle(R.string.dialog_save_title)
                 .setView(dialogContent)
                 .setPositiveButton(R.string.save, { dialogInterface, i ->
-                    hideKeyboard(context, dialogContent.saveDialogField)
+                    context.hideKeyboard(dialogContent.saveDialogField)
                     val retDrink = getDrink()
                     retDrink.name = dialogContent.saveDialogField.editText!!.text.toString()
                     presenter.saveDrink(retDrink, getString(R.string.unnamed_drink))
                 })
                 .setNegativeButton(R.string.cancel, { dialogInterface, i ->
-                    hideKeyboard(context, dialogContent.saveDialogField)
+                    context.hideKeyboard(dialogContent.saveDialogField)
                 })
                 .create()
         dialog.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)

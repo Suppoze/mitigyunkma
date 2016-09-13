@@ -68,6 +68,7 @@ dependencies {
     // MVP
     compile "net.grandcentrix.thirtyinch:thirtyinch:0.7.1"
     compile "net.grandcentrix.thirtyinch:thirtyinch-plugin:0.7.1"
+    compile "org.greenrobot:eventbus:3.0.0"
 }
 
 repositories {

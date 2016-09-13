@@ -1,11 +1,13 @@
 package hu.suppoze.mitigyunkma.ui.list
 
+import hu.suppoze.mitigyunkma.EditDrinkEvent
 import hu.suppoze.mitigyunkma.MitigyunkApp
 import hu.suppoze.mitigyunkma.entity.Drink
 import io.realm.Realm
 import io.realm.RealmResults
 import io.realm.Sort
 import net.grandcentrix.thirtyinch.TiPresenter
+import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
 class DrinkListPresenter : TiPresenter<DrinkListView>() {
@@ -17,6 +19,7 @@ class DrinkListPresenter : TiPresenter<DrinkListView>() {
         MitigyunkApp.appComponent.inject(this)
     }
 
+    // TODO: This should go to a repository
     fun getRealmResultDataSet(sortByField: String): RealmResults<Drink> {
         return realm.where(Drink::class.java)
                 .findAllSorted(
@@ -28,5 +31,9 @@ class DrinkListPresenter : TiPresenter<DrinkListView>() {
         realm.executeTransaction {
             drink.deleteFromRealm()
         }
+    }
+
+    fun editDrink(drink: Drink) {
+        EventBus.getDefault().post(EditDrinkEvent(drink))
     }
 }
