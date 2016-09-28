@@ -9,16 +9,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import hu.suppoze.mitigyunkma.R
-import hu.suppoze.mitigyunkma.ui.base.Navigator
 import hu.suppoze.mitigyunkma.entity.Drink
 import hu.suppoze.mitigyunkma.ui.base.BaseFragment
+import hu.suppoze.mitigyunkma.ui.base.Navigator
+import io.realm.RealmResults
 import kotlinx.android.synthetic.main.fragment_drinklist.*
 import org.jetbrains.anko.support.v4.dimen
 
-// TODO: remove sortByField, make lists inherit from a base fragment
-class DrinkListFragment(val sortByField: String) : BaseFragment<DrinkListPresenter, DrinkListView>(), DrinkListView {
+abstract class AbstractDrinkList : BaseFragment<DrinkListPresenter, DrinkListView>(), DrinkListView {
 
-    constructor() : this(Drink::lastmod.name)
+    abstract fun getDrinkList() : List<Drink>
 
     override fun providePresenter(): DrinkListPresenter {
         return DrinkListPresenter()
@@ -33,8 +33,6 @@ class DrinkListFragment(val sortByField: String) : BaseFragment<DrinkListPresent
         setupRecyclerView()
     }
 
-    override fun getTitle(): CharSequence = getString(if (sortByField == Drink::lastmod.name) R.string.history_view_title else R.string.bestof_view_title)
-
     private fun setupRecyclerView() {
         drinkRecyclerView.setHasFixedSize(false)
         drinkRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -45,9 +43,9 @@ class DrinkListFragment(val sortByField: String) : BaseFragment<DrinkListPresent
                 dimen(R.dimen.drinklist_spacing),
                 dimen(R.dimen.drinklist_first_and_last_padding_vertical)))
 
-        val realmResultDataSet = presenter.getRealmResultDataSet(sortByField)
+        val drinkList = getDrinkList()
 
-        drinkRecyclerView.adapter = DrinkListAdapter(realmResultDataSet, { edit(it) }, { delete(it) })
+        drinkRecyclerView.adapter = DrinkListAdapter(drinkList as RealmResults<Drink>, { edit(it) }, { delete(it) })
     }
 
     private fun edit(drink: Drink) {

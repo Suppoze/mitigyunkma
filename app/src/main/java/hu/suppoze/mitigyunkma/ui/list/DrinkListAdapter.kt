@@ -34,7 +34,7 @@ class DrinkListAdapter(
 
     private fun findDeletedIndex() {
         realmDrinkDataSet.forEachIndexed { i, drink ->
-            if (!cachedDrinkNameList[i].equals(drink.name)) {
+            if (cachedDrinkNameList[i] != drink.name) {
                 notifyItemRemoved(i)
                 return
             }
@@ -44,7 +44,7 @@ class DrinkListAdapter(
 
     private fun findAddedIndex() {
         cachedDrinkNameList.forEachIndexed { i, drinkName ->
-            if (!realmDrinkDataSet[i].name.equals(drinkName)) {
+            if (realmDrinkDataSet[i].name != drinkName) {
                 notifyItemInserted(i)
                 return
             }

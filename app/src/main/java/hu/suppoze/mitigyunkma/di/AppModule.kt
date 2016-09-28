@@ -9,7 +9,6 @@ import hu.suppoze.mitigyunkma.MitigyunkApp
 import hu.suppoze.mitigyunkma.core.SharedPreferencesManager
 import hu.suppoze.mitigyunkma.core.SharedPreferencesRepository
 import io.realm.Realm
-import io.realm.RealmConfiguration
 import javax.inject.Singleton
 
 @Module class AppModule(private val app: MitigyunkApp) {
@@ -43,13 +42,12 @@ import javax.inject.Singleton
     @Provides
     @Singleton
     fun provideRealm(application: MitigyunkApp): Realm {
-        val config = RealmConfiguration.Builder(application).build()
+        Realm.init(application)
         if (BuildConfig.BUILD_TYPE == "debug") {
             // Debug
         } else {
             // Relese
         }
-        Realm.setDefaultConfiguration(config)
         return Realm.getDefaultInstance()
     }
 }
