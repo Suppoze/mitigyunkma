@@ -1,12 +1,12 @@
 package hu.suppoze.mitigyunkma.ui.calculate
 
-import hu.suppoze.mitigyunkma.EditDrinkEvent
+import hu.suppoze.mitigyunkma.ui.EditDrinkEvent
 import hu.suppoze.mitigyunkma.MitigyunkApp
-import hu.suppoze.mitigyunkma.ui.base.Navigator
 import hu.suppoze.mitigyunkma.core.IndexCalculator
 import hu.suppoze.mitigyunkma.core.SharedPreferencesRepository
 
 import hu.suppoze.mitigyunkma.entity.Drink
+import hu.suppoze.mitigyunkma.ui.NavigateToHistoryEvent
 import io.realm.Realm
 import net.grandcentrix.thirtyinch.TiPresenter
 import org.greenrobot.eventbus.EventBus
@@ -81,7 +81,6 @@ class CalculatePresenter() : TiPresenter<CalculateView>() {
         }
 
         view.onSuccessfulSave()
-        navigateToHistory()
     }
 
     fun editDrink(drink: Drink) {
@@ -91,15 +90,10 @@ class CalculatePresenter() : TiPresenter<CalculateView>() {
         }
 
         view.onSuccessfulSave()
-        navigateToHistory()
     }
 
     @Subscribe(threadMode = ThreadMode.POSTING)
     fun onEditDrinkEvent(editDrinkEvent: EditDrinkEvent) {
         view.loadDrinkForEdit(editDrinkEvent.drink)
-    }
-
-    private fun navigateToHistory() {
-        Navigator.navigate(Navigator.Pages.HISTORY)
     }
 }

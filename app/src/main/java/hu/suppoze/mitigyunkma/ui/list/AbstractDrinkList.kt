@@ -10,10 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.entity.Drink
+import hu.suppoze.mitigyunkma.ui.NavigateToCalculateEvent
 import hu.suppoze.mitigyunkma.ui.base.BaseFragment
-import hu.suppoze.mitigyunkma.ui.base.Navigator
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.fragment_drinklist.*
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.support.v4.dimen
 
 abstract class AbstractDrinkList : BaseFragment<DrinkListPresenter, DrinkListView>(), DrinkListView {
@@ -50,8 +51,7 @@ abstract class AbstractDrinkList : BaseFragment<DrinkListPresenter, DrinkListVie
 
     private fun edit(drink: Drink) {
         presenter.editDrink(drink)
-        // TODO: manage navigation using EventBus
-        Navigator.navigate(Navigator.Pages.CALCULATE)
+        EventBus.getDefault().post(NavigateToCalculateEvent())
     }
 
     private fun delete(drink: Drink) {

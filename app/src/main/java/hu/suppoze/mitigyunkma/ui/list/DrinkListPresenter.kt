@@ -1,6 +1,6 @@
 package hu.suppoze.mitigyunkma.ui.list
 
-import hu.suppoze.mitigyunkma.EditDrinkEvent
+import hu.suppoze.mitigyunkma.ui.EditDrinkEvent
 import hu.suppoze.mitigyunkma.MitigyunkApp
 import hu.suppoze.mitigyunkma.entity.Drink
 import io.realm.Realm

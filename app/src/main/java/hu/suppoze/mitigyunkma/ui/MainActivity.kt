@@ -7,8 +7,9 @@ import android.support.v4.view.ViewPager
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.extension.setIconColorStateList
 import kotlinx.android.synthetic.main.activity_main.*
-
-import hu.suppoze.mitigyunkma.ui.base.Navigator
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +20,16 @@ class MainActivity : AppCompatActivity() {
         initializeActionBar()
         initializeTabLayout()
         initializeViewPager()
+    }
+
+    override fun onStart() {
+        EventBus.getDefault().register(this)
+        super.onStart()
+    }
+
+    override fun onStop() {
+        EventBus.getDefault().unregister(this)
+        super.onStop()
     }
 
     private fun initializeActionBar() {
@@ -38,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         mainActivityViewpager.offscreenPageLimit = adapter.count
         mainActivityViewpager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(mainActivityTabLayout))
         setListenerForViewPager()
-        Navigator.viewPager = mainActivityViewpager
     }
 
     private fun setListenerForTabLayout() {
@@ -55,7 +65,7 @@ class MainActivity : AppCompatActivity() {
     private fun setListenerForViewPager() {
         mainActivityViewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageSelected(position: Int) {
-                if (position == Navigator.Pages.CALCULATE.ordinal) {
+                if (position == MainPagerAdapter.Position.CALCULATE.ordinal) {
                     mainActivityAppbar.setExpanded(true)
                 }
             }
@@ -64,4 +74,15 @@ class MainActivity : AppCompatActivity() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) { }
         })
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onNavigateToHistoryEvent(event: NavigateToHistoryEvent) {
+        mainActivityViewpager.currentItem = MainPagerAdapter.Position.HISTORY.ordinal
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onNavigateToCalculateEvent(event: NavigateToCalculateEvent) {
+        mainActivityViewpager.currentItem = MainPagerAdapter.Position.CALCULATE.ordinal
+    }
+
 }

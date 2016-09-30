@@ -16,9 +16,11 @@ import hu.suppoze.mitigyunkma.extension.prettyPrint
 import hu.suppoze.mitigyunkma.entity.Drink
 import hu.suppoze.mitigyunkma.extension.doOnTextChanged
 import hu.suppoze.mitigyunkma.extension.hideKeyboard
+import hu.suppoze.mitigyunkma.ui.NavigateToHistoryEvent
 import kotlinx.android.synthetic.main.dialog_save.view.*
 import kotlinx.android.synthetic.main.component_action_button.*
 import kotlinx.android.synthetic.main.fragment_calculate.*
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.onClick
 
 class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), CalculateView {
@@ -197,9 +199,9 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
 
         return Drink(
                 name = editingDrinkName,
-                percent = if (percentText.isNullOrEmpty() || percentText.equals(".")) .0 else percentText.toDouble(),
-                capacity = if (capacityText.isNullOrEmpty() || capacityText.equals(".")) .0 else capacityText.toDouble(),
-                price = if (priceText.isNullOrEmpty()|| priceText.equals(".")) .0 else priceText.toDouble())
+                percent = if (percentText.isNullOrEmpty() || percentText == ".") .0 else percentText.toDouble(),
+                capacity = if (capacityText.isNullOrEmpty() || capacityText == ".") .0 else capacityText.toDouble(),
+                price = if (priceText.isNullOrEmpty()|| priceText == ".") .0 else priceText.toDouble())
     }
 
     // TODO: another method of this
@@ -271,6 +273,7 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
 
     override fun onSuccessfulSave() {
         resetState()
+        EventBus.getDefault().post(NavigateToHistoryEvent())
     }
 
     enum class ActionButtonState {
