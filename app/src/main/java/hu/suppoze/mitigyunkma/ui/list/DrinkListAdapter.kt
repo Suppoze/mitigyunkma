@@ -4,15 +4,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import hu.suppoze.mitigyunkma.R
-import hu.suppoze.mitigyunkma.extension.showPopup
 import hu.suppoze.mitigyunkma.entity.Drink
+import hu.suppoze.mitigyunkma.extension.showPopup
 import io.realm.RealmResults
 
 class DrinkListAdapter(
         val realmDrinkDataSet: RealmResults<Drink>,
         val editAction: (Drink) -> Unit,
         val deleteAction: (Drink) -> Unit) :
-            RecyclerView.Adapter<DrinkListAdapter.DrinkViewHolder>() {
+        RecyclerView.Adapter<DrinkListAdapter.DrinkViewHolder>() {
 
     var cachedDrinkNameList: List<String>
 
@@ -61,12 +61,13 @@ class DrinkListAdapter(
         return DrinkViewHolder(view, { optionsIcon, drink ->
             optionsIcon.showPopup(R.menu.drinklist_row_menu) {
                 menuItem ->
-                    when (menuItem.itemId) {
-                        R.id.drinklist_row_menu_edit -> editAction(drink)
-                        R.id.drinklist_row_menu_delete -> deleteAction(drink)
-                    }
-                    true
-        }})
+                when (menuItem.itemId) {
+                    R.id.drinklist_row_menu_edit -> editAction(drink)
+                    R.id.drinklist_row_menu_delete -> deleteAction(drink)
+                }
+                false
+            }
+        })
     }
 
     override fun onBindViewHolder(holder: DrinkViewHolder, position: Int) = holder.bindDrink(realmDrinkDataSet[position])

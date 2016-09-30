@@ -6,7 +6,7 @@ import hu.suppoze.mitigyunkma.entity.Drink
 class DrinkListBest : AbstractDrinkList(), DrinkListView {
 
     override fun getDrinkList(): List<Drink> {
-        return presenter.getRealmResultDataSet(Drink::index.name)
+        return presenter.getDrinks(Drink::index.name)
     }
 
     override fun getTitle(): CharSequence {

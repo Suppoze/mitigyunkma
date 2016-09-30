@@ -1,8 +1,8 @@
 package hu.suppoze.mitigyunkma.ui.list
 
-import hu.suppoze.mitigyunkma.ui.EditDrinkEvent
 import hu.suppoze.mitigyunkma.MitigyunkApp
 import hu.suppoze.mitigyunkma.entity.Drink
+import hu.suppoze.mitigyunkma.ui.EditDrinkEvent
 import io.realm.Realm
 import io.realm.RealmResults
 import io.realm.Sort
@@ -20,7 +20,7 @@ class DrinkListPresenter : TiPresenter<DrinkListView>() {
     }
 
     // TODO: This should go to a repository
-    fun getRealmResultDataSet(sortByField: String): RealmResults<Drink> {
+    fun getDrinks(sortByField: String): RealmResults<Drink> {
         return realm.where(Drink::class.java)
                 .findAllSorted(
                         sortByField,
