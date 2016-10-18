@@ -6,19 +6,21 @@ import android.os.Bundle
 import android.support.design.widget.TextInputLayout
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
-import android.view.*
-import android.widget.*
-
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.EditText
 import hu.suppoze.mitigyunkma.R
-import hu.suppoze.mitigyunkma.ui.base.BaseFragment
-import hu.suppoze.mitigyunkma.extension.onFinishedAnimation
-import hu.suppoze.mitigyunkma.extension.prettyPrint
 import hu.suppoze.mitigyunkma.entity.Drink
 import hu.suppoze.mitigyunkma.extension.doOnTextChanged
 import hu.suppoze.mitigyunkma.extension.hideKeyboard
+import hu.suppoze.mitigyunkma.extension.onFinishedAnimation
+import hu.suppoze.mitigyunkma.extension.prettyPrint
 import hu.suppoze.mitigyunkma.ui.NavigateToHistoryEvent
-import kotlinx.android.synthetic.main.dialog_save.view.*
+import hu.suppoze.mitigyunkma.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.component_action_button.*
+import kotlinx.android.synthetic.main.dialog_save.view.*
 import kotlinx.android.synthetic.main.fragment_calculate.*
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.onClick
@@ -35,6 +37,8 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
     override fun providePresenter(): CalculatePresenter {
         return CalculatePresenter()
     }
+
+    override fun getTitle(): CharSequence = getString(R.string.calculate_view_title)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +63,7 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
         super.onViewCreated(view, savedInstanceState)
 
         initializeTextWatchers()
-        initializeTILOnTouchListeners()
+        initializeTilOnTouchListeners()
 
         resetButton.onClick { resetState() }
         actionButton.onClick { onActionButtonClicked() }
@@ -70,15 +74,13 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
         switchActionButtonState(ActionButtonState.NEXT)
     }
 
-    override fun getTitle(): CharSequence = getString(R.string.calculate_view_title)
-
-    private fun initializeTextWatchers() {
+    fun initializeTextWatchers() {
         percentField.editText?.doOnTextChanged { presenter.validate(getDrink(), getFilledFields()) }
         capacityField.editText?.doOnTextChanged { presenter.validate(getDrink(), getFilledFields()) }
         priceField.editText?.doOnTextChanged { presenter.validate(getDrink(), getFilledFields()) }
     }
 
-    private fun initializeTILOnTouchListeners() {
+    private fun initializeTilOnTouchListeners() {
         val blockSoftInputTouchListener = View.OnTouchListener { view, motionEvent ->
             view?.requestFocus()
             view?.requestFocusFromTouch()
@@ -201,7 +203,7 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
                 name = editingDrinkName,
                 percent = if (percentText.isNullOrEmpty() || percentText == ".") .0 else percentText.toDouble(),
                 capacity = if (capacityText.isNullOrEmpty() || capacityText == ".") .0 else capacityText.toDouble(),
-                price = if (priceText.isNullOrEmpty()|| priceText == ".") .0 else priceText.toDouble())
+                price = if (priceText.isNullOrEmpty() || priceText == ".") .0 else priceText.toDouble())
     }
 
     // TODO: another method of this

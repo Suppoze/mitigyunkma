@@ -1,9 +1,9 @@
 package hu.suppoze.mitigyunkma.ui
 
-import android.support.design.widget.TabLayout
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AppCompatActivity
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.extension.setIconColorStateList
 import kotlinx.android.synthetic.main.activity_main.*
@@ -52,13 +52,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setListenerForTabLayout() {
-        mainActivityTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        mainActivityTabLayout.setOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 mainActivityViewpager.currentItem = tab.position
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab) { }
-            override fun onTabReselected(tab: TabLayout.Tab) { }
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab) {
+            }
         })
     }
 
@@ -66,15 +69,18 @@ class MainActivity : AppCompatActivity() {
         mainActivityViewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageSelected(position: Int) {
                 if (position == MainPagerAdapter.Position.CALCULATE.ordinal) {
-                    mainActivityAppbar.setExpanded(true)
+                    mainActivityAppbar.setExpanded(true, true)
                 }
             }
 
-            override fun onPageScrollStateChanged(state: Int) { }
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) { }
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+            }
         })
     }
-
+    
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onNavigateToHistoryEvent(event: NavigateToHistoryEvent) {
         mainActivityViewpager.currentItem = MainPagerAdapter.Position.HISTORY.ordinal
@@ -84,5 +90,4 @@ class MainActivity : AppCompatActivity() {
     fun onNavigateToCalculateEvent(event: NavigateToCalculateEvent) {
         mainActivityViewpager.currentItem = MainPagerAdapter.Position.CALCULATE.ordinal
     }
-
 }
