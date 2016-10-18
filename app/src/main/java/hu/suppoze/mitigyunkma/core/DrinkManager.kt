@@ -26,12 +26,14 @@ class DrinkManager(private val realm: Realm,
             drink.index = calculateIndex(drink)
             drink.lastmod = Date()
             realm.copyToRealmOrUpdate(drink)
+            updateRatings()
         }
     }
 
     override fun deleteDrink(drink: Drink) {
         realm.executeTransaction {
             drink.deleteFromRealm()
+            updateRatings()
         }
     }
 
@@ -41,5 +43,12 @@ class DrinkManager(private val realm: Realm,
 
     override fun getDrinksHistory(): List<Drink> {
         return realm.where(Drink::class.java).findAllSorted(Drink::lastmod.name, Sort.DESCENDING)
+    }
+
+    private fun updateRatings() {
+        val max = realm.where(Drink::class.java).max(Drink::index.name) as Double
+        val min = realm.where(Drink::class.java).min(Drink::index.name) as Double
+
+        realm.where(Drink::class.java).findAll().forEach { it.rating = (it.index - min) / (max - min) }
     }
 }

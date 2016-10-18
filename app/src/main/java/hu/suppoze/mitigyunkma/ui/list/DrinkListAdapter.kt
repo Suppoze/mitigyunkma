@@ -36,20 +36,24 @@ class DrinkListAdapter(
         realmDrinkDataSet.forEachIndexed { i, drink ->
             if (cachedDrinkNameList[i] != drink.name) {
                 notifyItemRemoved(i)
+                notifyDataSetChanged()
                 return
             }
         }
         notifyItemRemoved(realmDrinkDataSet.count())
+        notifyDataSetChanged()
     }
 
     private fun findAddedIndex() {
         cachedDrinkNameList.forEachIndexed { i, drinkName ->
             if (realmDrinkDataSet[i].name != drinkName) {
                 notifyItemInserted(i)
+                notifyDataSetChanged()
                 return
             }
         }
         notifyItemInserted(cachedDrinkNameList.count())
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = realmDrinkDataSet.size

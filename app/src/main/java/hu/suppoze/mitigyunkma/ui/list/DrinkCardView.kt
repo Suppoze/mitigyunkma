@@ -1,6 +1,7 @@
 package hu.suppoze.mitigyunkma.ui.list
 
 import android.content.Context
+import android.graphics.Color
 import android.support.v7.widget.CardView
 import android.util.AttributeSet
 import android.view.View
@@ -19,7 +20,7 @@ class DrinkCardView : CardView {
         useCompatPadding = false
     }
 
-    var drink : Drink? = null
+    var drink: Drink? = null
         set(value) {
             if (value == null) return
             field = value
@@ -28,8 +29,16 @@ class DrinkCardView : CardView {
             drinkCardPercent.text = "${value.percent.prettyPrint()}%"
             drinkCardPrice.text = "${value.price.toInt()} Ft"
             drinkCardCapacity.text = "${value.capacity.prettyPrint()} l"
+
+            setIndexColor(value.rating)
         }
 
     fun popupAction(onClick: (View?) -> Unit) = drinkCardPopupIcon.onClick(onClick)
+
+    fun setIndexColor(rating: Double) {
+        val red = rating * 255
+        val green = (1 - rating) * 255
+        drinkCardIndex.setTextColor(Color.rgb(red.toInt(), green.toInt(), 0))
+    }
 
 }

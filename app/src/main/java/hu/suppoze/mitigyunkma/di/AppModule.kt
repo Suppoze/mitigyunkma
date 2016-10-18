@@ -46,11 +46,13 @@ import javax.inject.Singleton
     @Singleton
     fun provideRealm(application: MitigyunkApp): Realm {
         Realm.init(application)
+
         if (BuildConfig.BUILD_TYPE == "debug") {
             // Debug
         } else {
             // Relese
         }
+
         return Realm.getDefaultInstance()
     }
 
