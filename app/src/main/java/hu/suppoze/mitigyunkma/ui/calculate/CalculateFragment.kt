@@ -160,7 +160,7 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
         when (currentActionButtonState) {
             ActionButtonState.NEXT -> findEmptyField()?.requestFocus()
             ActionButtonState.SAVE -> showSaveDialog()
-            ActionButtonState.EDIT -> presenter.editDrink(getDrink())
+            ActionButtonState.EDIT -> presenter.saveOrEditDrink(getDrink())
             else -> {
                 throw RuntimeException()
             }
@@ -176,7 +176,7 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
                     context.hideKeyboard(dialogContent.saveDialogField)
                     val retDrink = getDrink()
                     retDrink.name = dialogContent.saveDialogField.editText!!.text.toString()
-                    presenter.saveDrink(retDrink, getString(R.string.unnamed_drink))
+                    presenter.saveOrEditDrink(retDrink)
                 })
                 .setNegativeButton(R.string.cancel, { dialogInterface, i ->
                     context.hideKeyboard(dialogContent.saveDialogField)
@@ -273,7 +273,7 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
         capacityField.editText?.setText(drink.capacity.prettyPrint())
     }
 
-    override fun onSuccessfulSave() {
+    override fun onSuccessfulSaveOrEdit() {
         resetState()
         EventBus.getDefault().post(NavigateToHistoryEvent())
     }

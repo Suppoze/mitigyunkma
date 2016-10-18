@@ -29,5 +29,5 @@ interface CalculateView : TiView {
 
     fun onDrinkCalculated(index: Double)
 
-    fun onSuccessfulSave()
+    fun onSuccessfulSaveOrEdit()
 }

@@ -1,23 +1,19 @@
 package hu.suppoze.mitigyunkma.ui.calculate
 
-import hu.suppoze.mitigyunkma.ui.EditDrinkEvent
 import hu.suppoze.mitigyunkma.MitigyunkApp
-import hu.suppoze.mitigyunkma.core.IndexCalculator
+import hu.suppoze.mitigyunkma.core.DrinkRepository
 import hu.suppoze.mitigyunkma.core.SharedPreferencesRepository
-
 import hu.suppoze.mitigyunkma.entity.Drink
-import hu.suppoze.mitigyunkma.ui.NavigateToHistoryEvent
-import io.realm.Realm
+import hu.suppoze.mitigyunkma.ui.EditDrinkEvent
 import net.grandcentrix.thirtyinch.TiPresenter
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.util.*
 import javax.inject.Inject
 
 class CalculatePresenter() : TiPresenter<CalculateView>() {
 
-    @Inject lateinit var realm: Realm
+    @Inject lateinit var drinkRepository: DrinkRepository
     @Inject lateinit var sharedPreferences: SharedPreferencesRepository
 
     override fun onCreate() {
@@ -65,31 +61,11 @@ class CalculatePresenter() : TiPresenter<CalculateView>() {
         }
     }
 
-    fun calculate(drink: Drink) = view.onDrinkCalculated(IndexCalculator.calculateIndex(drink))
+    fun calculate(drink: Drink) = view.onDrinkCalculated(drinkRepository.calculateIndex(drink))
 
-    fun saveDrink(drink: Drink, defaultName: String) {
-
-        val predicatedName = if (drink.name.isNullOrBlank()) {
-            "$defaultName #${sharedPreferences.getUnnamedDrinkCountAndIncrement()}"
-        } else drink.name
-
-        realm.executeTransaction {
-            drink.name = predicatedName
-            drink.index = IndexCalculator.calculateIndex(drink)
-            drink.lastmod = Date()
-            realm.copyToRealmOrUpdate(drink)
-        }
-
-        view.onSuccessfulSave()
-    }
-
-    fun editDrink(drink: Drink) {
-        realm.executeTransaction {
-            drink.index = IndexCalculator.calculateIndex(drink)
-            realm.copyToRealmOrUpdate(drink)
-        }
-
-        view.onSuccessfulSave()
+    fun saveOrEditDrink(drink: Drink) {
+        drinkRepository.addOrEditDrink(drink)
+        view.onSuccessfulSaveOrEdit()
     }
 
     @Subscribe(threadMode = ThreadMode.POSTING)

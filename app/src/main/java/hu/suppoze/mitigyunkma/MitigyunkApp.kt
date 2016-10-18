@@ -18,6 +18,9 @@ class MitigyunkApp : Application() {
     }
 
     private fun initializeInjector() {
-        appComponent = DaggerAppComponent.builder().appModule(AppModule(this)).build()
+        appComponent = DaggerAppComponent
+                .builder()
+                .appModule(AppModule(this, getString(R.string.default_drink_name)))
+                .build()
     }
 }

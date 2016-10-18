@@ -12,7 +12,7 @@
     <string name="percentage">Százalék</string>
     <string name="capacity">Űrtartalom</string>
     <string name="price">Ár</string>
-    <string name="unnamed_drink">Névtelen ital</string>
+    <string name="default_drink_name">Névtelen ital</string>
 
     <string name="dialog_save_title">Adj nevet az italnak</string>
     <string name="dialog_save_hint">Név</string>

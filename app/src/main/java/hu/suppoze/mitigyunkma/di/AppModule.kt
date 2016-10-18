@@ -6,14 +6,17 @@ import dagger.Module
 import dagger.Provides
 import hu.suppoze.mitigyunkma.BuildConfig
 import hu.suppoze.mitigyunkma.MitigyunkApp
+import hu.suppoze.mitigyunkma.core.DrinkManager
+import hu.suppoze.mitigyunkma.core.DrinkRepository
 import hu.suppoze.mitigyunkma.core.SharedPreferencesManager
 import hu.suppoze.mitigyunkma.core.SharedPreferencesRepository
 import io.realm.Realm
+import javax.inject.Named
 import javax.inject.Singleton
 
-@Module class AppModule(private val app: MitigyunkApp) {
+@Module class AppModule(private val app: MitigyunkApp, private val defaultDrinkName: String) {
 
-    val SHARED_PREF_KEY = "GLOBAL_PREF_KEY"
+    @Provides @Named("SharedPreferencesKey") fun provideSharedPreferencesKey(): String = "SHARED_PREFERENCES_KEY"
 
     @Provides
     @Singleton
@@ -29,8 +32,8 @@ import javax.inject.Singleton
 
     @Provides
     @Singleton
-    fun provideSharedPreferences(context: Context): SharedPreferences {
-        return context.getSharedPreferences(SHARED_PREF_KEY, Context.MODE_PRIVATE)
+    fun provideSharedPreferences(context: Context, @Named("SharedPreferencesKey") prefKey: String): SharedPreferences {
+        return context.getSharedPreferences(prefKey, Context.MODE_PRIVATE)
     }
 
     @Provides
@@ -49,5 +52,11 @@ import javax.inject.Singleton
             // Relese
         }
         return Realm.getDefaultInstance()
+    }
+
+    @Provides
+    @Singleton
+    fun provideDrinkRepository(realm: Realm, sharedPreferencesRepository: SharedPreferencesRepository): DrinkRepository {
+        return DrinkManager(realm, sharedPreferencesRepository, defaultDrinkName)
     }
 }
