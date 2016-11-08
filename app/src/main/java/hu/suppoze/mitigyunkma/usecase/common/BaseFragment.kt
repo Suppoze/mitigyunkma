@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.ui.base
+package hu.suppoze.mitigyunkma.usecase.common
 
 import net.grandcentrix.thirtyinch.TiFragment
 import net.grandcentrix.thirtyinch.TiPresenter

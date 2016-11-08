@@ -14,4 +14,6 @@ interface DrinkRepository {
 
     fun getDrinksHistory(): List<Drink>
 
+    fun getRatingForIndex(index: Double): Double
+
 }

@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.ui.calculate
+package hu.suppoze.mitigyunkma.usecase.calculate
 
 import android.content.Context
 import android.util.AttributeSet

@@ -1,10 +1,10 @@
-package hu.suppoze.mitigyunkma.ui.calculate
+package hu.suppoze.mitigyunkma.usecase.calculate
 
 import hu.suppoze.mitigyunkma.MitigyunkApp
 import hu.suppoze.mitigyunkma.core.DrinkRepository
 import hu.suppoze.mitigyunkma.core.SharedPreferencesRepository
 import hu.suppoze.mitigyunkma.entity.Drink
-import hu.suppoze.mitigyunkma.ui.EditDrinkEvent
+import hu.suppoze.mitigyunkma.usecase.EditDrinkEvent
 import net.grandcentrix.thirtyinch.TiPresenter
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -61,7 +61,10 @@ class CalculatePresenter() : TiPresenter<CalculateView>() {
         }
     }
 
-    fun calculate(drink: Drink) = view.onDrinkCalculated(drinkRepository.calculateIndex(drink))
+    fun calculate(drink: Drink) {
+        val index = drinkRepository.calculateIndex(drink)
+        view.onDrinkCalculated(index, drinkRepository.getRatingForIndex(index))
+    }
 
     fun saveOrEditDrink(drink: Drink) {
         drinkRepository.addOrEditDrink(drink)

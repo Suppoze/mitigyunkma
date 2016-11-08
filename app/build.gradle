@@ -66,8 +66,8 @@ dependencies {
     provided "org.glassfish:javax.annotation:10.0-b28"
 
     // MVP
-    compile "net.grandcentrix.thirtyinch:thirtyinch:0.7.1"
-    compile "net.grandcentrix.thirtyinch:thirtyinch-plugin:0.7.1"
+    compile "net.grandcentrix.thirtyinch:thirtyinch:$thirty_inch_version"
+    compile "net.grandcentrix.thirtyinch:thirtyinch-plugin:$thirty_inch_version"
     compile "org.greenrobot:eventbus:3.0.0"
 }
 

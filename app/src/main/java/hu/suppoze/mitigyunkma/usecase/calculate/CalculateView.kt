@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.ui.calculate
+package hu.suppoze.mitigyunkma.usecase.calculate
 
 import hu.suppoze.mitigyunkma.entity.Drink
 import net.grandcentrix.thirtyinch.TiView
@@ -7,7 +7,7 @@ interface CalculateView : TiView {
 
     fun loadDrinkForEdit(drink: Drink)
 
-    fun getDrink() : Drink
+    fun getDrink(): Drink
 
     fun onHasEmptyFields()
 
@@ -27,7 +27,7 @@ interface CalculateView : TiView {
 
     fun onHasInvalidFields()
 
-    fun onDrinkCalculated(index: Double)
+    fun onDrinkCalculated(index: Double, rating: Double)
 
     fun onSuccessfulSaveOrEdit()
 }

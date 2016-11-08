@@ -35,4 +35,14 @@
     <color name="capacity">@color/my_dark_blue</color>
 
     <color name="popup_icon">#616161</color>
+
+    <color name="rating_0">#388E3C</color>
+    <color name="rating_1">#689F38</color>
+    <color name="rating_2">#AFB42B</color>
+    <color name="rating_3">#FBC02D</color>
+    <color name="rating_4">#FFA000</color>
+    <color name="rating_5">#F57C00</color>
+    <color name="rating_6">#E64A19</color>
+    <color name="rating_7">#d32f2f</color>
+    <color name="rating_none">#212121</color>
 </resources>

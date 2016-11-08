@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.ui
+package hu.suppoze.mitigyunkma.usecase
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout

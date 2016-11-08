@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.ui.list
+package hu.suppoze.mitigyunkma.usecase.list
 
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.entity.Drink

@@ -1,13 +1,13 @@
-package hu.suppoze.mitigyunkma.ui
+package hu.suppoze.mitigyunkma.usecase
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 
-import hu.suppoze.mitigyunkma.ui.calculate.CalculateFragment
-import hu.suppoze.mitigyunkma.ui.list.DrinkListHistory
-import hu.suppoze.mitigyunkma.ui.base.BaseFragment
-import hu.suppoze.mitigyunkma.ui.list.DrinkListBest
+import hu.suppoze.mitigyunkma.usecase.calculate.CalculateFragment
+import hu.suppoze.mitigyunkma.usecase.list.DrinkListHistory
+import hu.suppoze.mitigyunkma.usecase.common.BaseFragment
+import hu.suppoze.mitigyunkma.usecase.list.DrinkListBest
 import java.util.*
 
 class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {

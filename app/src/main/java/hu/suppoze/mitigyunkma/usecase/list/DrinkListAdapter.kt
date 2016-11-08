@@ -1,5 +1,6 @@
-package hu.suppoze.mitigyunkma.ui.list
+package hu.suppoze.mitigyunkma.usecase.list
 
+import android.os.Handler
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -36,24 +37,28 @@ class DrinkListAdapter(
         realmDrinkDataSet.forEachIndexed { i, drink ->
             if (cachedDrinkNameList[i] != drink.name) {
                 notifyItemRemoved(i)
-                notifyDataSetChanged()
+                notifyDataSetChangedDelayed()
                 return
             }
         }
         notifyItemRemoved(realmDrinkDataSet.count())
-        notifyDataSetChanged()
+        notifyDataSetChangedDelayed()
     }
 
     private fun findAddedIndex() {
         cachedDrinkNameList.forEachIndexed { i, drinkName ->
             if (realmDrinkDataSet[i].name != drinkName) {
                 notifyItemInserted(i)
-                notifyDataSetChanged()
+                notifyDataSetChangedDelayed()
                 return
             }
         }
         notifyItemInserted(cachedDrinkNameList.count())
-        notifyDataSetChanged()
+        notifyDataSetChangedDelayed()
+    }
+
+    private fun notifyDataSetChangedDelayed() {
+        Handler().postDelayed({ notifyDataSetChanged() }, 500)
     }
 
     override fun getItemCount(): Int = realmDrinkDataSet.size

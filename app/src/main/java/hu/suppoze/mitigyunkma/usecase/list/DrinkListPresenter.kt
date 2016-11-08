@@ -1,9 +1,9 @@
-package hu.suppoze.mitigyunkma.ui.list
+package hu.suppoze.mitigyunkma.usecase.list
 
 import hu.suppoze.mitigyunkma.MitigyunkApp
 import hu.suppoze.mitigyunkma.core.DrinkRepository
 import hu.suppoze.mitigyunkma.entity.Drink
-import hu.suppoze.mitigyunkma.ui.EditDrinkEvent
+import hu.suppoze.mitigyunkma.usecase.EditDrinkEvent
 import io.realm.RealmResults
 import net.grandcentrix.thirtyinch.TiPresenter
 import org.greenrobot.eventbus.EventBus

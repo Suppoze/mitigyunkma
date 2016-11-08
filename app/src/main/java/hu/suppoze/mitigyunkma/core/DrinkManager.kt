@@ -8,10 +8,9 @@ import java.util.*
 class DrinkManager(private val realm: Realm,
                    private val sharedPreferences: SharedPreferencesRepository,
                    private val defaultDrinkName: String) : DrinkRepository {
-
     val density: Double = 0.80207
-    val molecularWeight: Double = 46.06844
 
+    val molecularWeight: Double = 46.06844
     override fun calculateIndex(drink: Drink): Double {
         return drink.price / (drink.capacity * drink.percent * (density / molecularWeight) * 100) * 100
     }
@@ -43,6 +42,13 @@ class DrinkManager(private val realm: Realm,
 
     override fun getDrinksHistory(): List<Drink> {
         return realm.where(Drink::class.java).findAllSorted(Drink::lastmod.name, Sort.DESCENDING)
+    }
+
+    override fun getRatingForIndex(index: Double): Double {
+        val max = Math.max(realm.where(Drink::class.java).max(Drink::index.name) as Double, index)
+        val min = Math.min(realm.where(Drink::class.java).min(Drink::index.name) as Double, index)
+
+        return (index - min) / (max - min)
     }
 
     private fun updateRatings() {

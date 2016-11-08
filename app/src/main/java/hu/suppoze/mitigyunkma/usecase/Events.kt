@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.ui
+package hu.suppoze.mitigyunkma.usecase
 
 import hu.suppoze.mitigyunkma.entity.Drink
 

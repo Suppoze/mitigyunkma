@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.ui.list
+package hu.suppoze.mitigyunkma.usecase.list
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -10,8 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.entity.Drink
-import hu.suppoze.mitigyunkma.ui.NavigateToCalculateEvent
-import hu.suppoze.mitigyunkma.ui.base.BaseFragment
+import hu.suppoze.mitigyunkma.usecase.NavigateToCalculateEvent
+import hu.suppoze.mitigyunkma.usecase.common.BaseFragment
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.fragment_drinklist.*
 import org.greenrobot.eventbus.EventBus

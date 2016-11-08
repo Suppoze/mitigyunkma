@@ -1,4 +1,4 @@
-package hu.suppoze.mitigyunkma.ui.calculate
+package hu.suppoze.mitigyunkma.usecase.calculate
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
@@ -13,12 +13,9 @@ import android.view.WindowManager
 import android.widget.EditText
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.entity.Drink
-import hu.suppoze.mitigyunkma.extension.doOnTextChanged
-import hu.suppoze.mitigyunkma.extension.hideKeyboard
-import hu.suppoze.mitigyunkma.extension.onFinishedAnimation
-import hu.suppoze.mitigyunkma.extension.prettyPrint
-import hu.suppoze.mitigyunkma.ui.NavigateToHistoryEvent
-import hu.suppoze.mitigyunkma.ui.base.BaseFragment
+import hu.suppoze.mitigyunkma.extension.*
+import hu.suppoze.mitigyunkma.usecase.NavigateToHistoryEvent
+import hu.suppoze.mitigyunkma.usecase.common.BaseFragment
 import kotlinx.android.synthetic.main.component_action_button.*
 import kotlinx.android.synthetic.main.dialog_save.view.*
 import kotlinx.android.synthetic.main.fragment_calculate.*
@@ -256,8 +253,9 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
         capacityField.error = null
     }
 
-    override fun onDrinkCalculated(index: Double) {
+    override fun onDrinkCalculated(index: Double, rating: Double) {
         drinkIndex.text = index.toInt().toString()
+        drinkIndex.setTextColorBasedOnRating(rating, context)
         switchActionButtonState(if (isEditing) ActionButtonState.EDIT else ActionButtonState.SAVE)
     }
 

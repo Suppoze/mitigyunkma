@@ -1,8 +1,8 @@
 package hu.suppoze.mitigyunkma.di
 
 import dagger.Component
-import hu.suppoze.mitigyunkma.ui.calculate.CalculatePresenter
-import hu.suppoze.mitigyunkma.ui.list.DrinkListPresenter
+import hu.suppoze.mitigyunkma.usecase.calculate.CalculatePresenter
+import hu.suppoze.mitigyunkma.usecase.list.DrinkListPresenter
 import javax.inject.Singleton
 
 @Singleton
