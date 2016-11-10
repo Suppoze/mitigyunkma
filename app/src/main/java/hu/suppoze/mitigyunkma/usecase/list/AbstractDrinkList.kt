@@ -10,7 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.entity.Drink
-import hu.suppoze.mitigyunkma.usecase.NavigateToCalculateEvent
+import hu.suppoze.mitigyunkma.usecase.MainPagerAdapter
+import hu.suppoze.mitigyunkma.usecase.NavigateToPageEvent
 import hu.suppoze.mitigyunkma.usecase.common.BaseFragment
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.fragment_drinklist.*
@@ -19,7 +20,7 @@ import org.jetbrains.anko.support.v4.dimen
 
 abstract class AbstractDrinkList : BaseFragment<DrinkListPresenter, DrinkListView>(), DrinkListView {
 
-    abstract fun getDrinkList() : List<Drink>
+    abstract fun getDrinkList(): List<Drink>
 
     override fun providePresenter(): DrinkListPresenter {
         return DrinkListPresenter()
@@ -51,7 +52,7 @@ abstract class AbstractDrinkList : BaseFragment<DrinkListPresenter, DrinkListVie
 
     private fun edit(drink: Drink) {
         presenter.editDrink(drink)
-        EventBus.getDefault().post(NavigateToCalculateEvent())
+        EventBus.getDefault().post(NavigateToPageEvent(MainPagerAdapter.Page.CALCULATE, drink.name))
     }
 
     private fun delete(drink: Drink) {

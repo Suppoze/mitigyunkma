@@ -14,7 +14,8 @@ import android.widget.EditText
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.entity.Drink
 import hu.suppoze.mitigyunkma.extension.*
-import hu.suppoze.mitigyunkma.usecase.NavigateToHistoryEvent
+import hu.suppoze.mitigyunkma.usecase.MainPagerAdapter
+import hu.suppoze.mitigyunkma.usecase.NavigateToPageEvent
 import hu.suppoze.mitigyunkma.usecase.common.BaseFragment
 import kotlinx.android.synthetic.main.component_action_button.*
 import kotlinx.android.synthetic.main.dialog_save.view.*
@@ -34,8 +35,6 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
     override fun providePresenter(): CalculatePresenter {
         return CalculatePresenter()
     }
-
-    override fun getTitle(): CharSequence = getString(R.string.calculate_view_title)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -263,7 +262,8 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
         isEditing = true
 
         editingDrinkName = drink.name
-        editingDrinkTextView.text = "${getString(R.string.editing)} $editingDrinkName"
+        val concatenated = "${getString(R.string.editing)} $editingDrinkName"
+        editingDrinkTextView.text = concatenated
 
         drinkIndex.text = drink.index.toInt().toString()
         percentField.editText?.setText(drink.percent.prettyPrint())
@@ -273,7 +273,7 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
 
     override fun onSuccessfulSaveOrEdit() {
         resetState()
-        EventBus.getDefault().post(NavigateToHistoryEvent())
+        EventBus.getDefault().post(NavigateToPageEvent(MainPagerAdapter.Page.HISTORY))
     }
 
     enum class ActionButtonState {

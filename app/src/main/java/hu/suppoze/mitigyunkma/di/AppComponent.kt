@@ -1,6 +1,7 @@
 package hu.suppoze.mitigyunkma.di
 
 import dagger.Component
+import hu.suppoze.mitigyunkma.usecase.MainPagerAdapter
 import hu.suppoze.mitigyunkma.usecase.calculate.CalculatePresenter
 import hu.suppoze.mitigyunkma.usecase.list.DrinkListPresenter
 import javax.inject.Singleton
@@ -13,4 +14,5 @@ interface AppComponent {
 
     fun inject(drinkListPresenter: DrinkListPresenter)
 
+    fun inject(mainPagerAdapter: MainPagerAdapter)
 }

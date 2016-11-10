@@ -6,6 +6,4 @@ import net.grandcentrix.thirtyinch.TiView
 
 abstract class BaseFragment<P : TiPresenter<V>, V : TiView> : TiFragment<P, V>() {
 
-    abstract fun getTitle(): CharSequence
-
 }

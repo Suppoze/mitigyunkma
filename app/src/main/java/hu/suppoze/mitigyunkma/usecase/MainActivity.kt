@@ -66,11 +66,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setListenerForViewPager() {
-        mainActivityViewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        val onPageChangeListener = object : ViewPager.OnPageChangeListener {
             override fun onPageSelected(position: Int) {
-                if (position == MainPagerAdapter.Position.CALCULATE.ordinal) {
+                if (position == MainPagerAdapter.Page.CALCULATE.ordinal) {
                     mainActivityAppbar.setExpanded(true, true)
                 }
+                title = mainActivityViewpager.adapter.getPageTitle(position)
             }
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
@@ -78,16 +79,16 @@ class MainActivity : AppCompatActivity() {
 
             override fun onPageScrollStateChanged(state: Int) {
             }
-        })
-    }
-    
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onNavigateToHistoryEvent(event: NavigateToHistoryEvent) {
-        mainActivityViewpager.currentItem = MainPagerAdapter.Position.HISTORY.ordinal
+        }
+        mainActivityViewpager.addOnPageChangeListener(onPageChangeListener)
+        mainActivityViewpager.post { onPageChangeListener.onPageSelected(MainPagerAdapter.Page.CALCULATE.ordinal) }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onNavigateToCalculateEvent(event: NavigateToCalculateEvent) {
-        mainActivityViewpager.currentItem = MainPagerAdapter.Position.CALCULATE.ordinal
+    fun onNavigateToPage(event: NavigateToPageEvent) {
+        mainActivityViewpager.currentItem = event.page.ordinal
+        if (event.customTitle != null) {
+            title = event.customTitle
+        }
     }
 }

@@ -1,6 +1,7 @@
 package hu.suppoze.mitigyunkma
 
 import android.app.Application
+import com.squareup.leakcanary.LeakCanary
 import hu.suppoze.mitigyunkma.di.AppComponent
 import hu.suppoze.mitigyunkma.di.AppModule
 import hu.suppoze.mitigyunkma.di.DaggerAppComponent
@@ -14,7 +15,15 @@ class MitigyunkApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        initializeLeakCanary()
         initializeInjector()
+    }
+
+    private fun initializeLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return
+        }
+        LeakCanary.install(this)
     }
 
     private fun initializeInjector() {

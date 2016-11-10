@@ -1,35 +1,50 @@
 package hu.suppoze.mitigyunkma.usecase
 
+import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-
+import hu.suppoze.mitigyunkma.MitigyunkApp
+import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.usecase.calculate.CalculateFragment
-import hu.suppoze.mitigyunkma.usecase.list.DrinkListHistory
-import hu.suppoze.mitigyunkma.usecase.common.BaseFragment
 import hu.suppoze.mitigyunkma.usecase.list.DrinkListBest
+import hu.suppoze.mitigyunkma.usecase.list.DrinkListHistory
 import java.util.*
+import javax.inject.Inject
 
 class MainPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
+    @Inject lateinit var context: Context
+
+    init {
+        MitigyunkApp.appComponent.inject(this)
+    }
+
     // Lazy implementation
-    private val pages: HashMap<Int, () -> Fragment> = hashMapOf(
-            Pair(Position.CALCULATE.ordinal, { CalculateFragment() }),
-            Pair(Position.HISTORY.ordinal, { DrinkListHistory() }),
-            Pair(Position.BEST.ordinal, { DrinkListBest() })
+    private val pageFragments: HashMap<Int, () -> Fragment> = hashMapOf(
+            Pair(Page.CALCULATE.ordinal, { CalculateFragment() }),
+            Pair(Page.HISTORY.ordinal, { DrinkListHistory() }),
+            Pair(Page.BEST.ordinal, { DrinkListBest() })
     )
 
     override fun getCount(): Int {
-        return pages.count()
+        return pageFragments.count()
     }
 
     override fun getItem(position: Int): Fragment {
-        return pages[position]!!.invoke()
+        return pageFragments[position]!!.invoke()
     }
 
-    override fun getPageTitle(position: Int): CharSequence = (getItem(position) as BaseFragment<*, *>).getTitle()
+    override fun getPageTitle(position: Int): CharSequence {
+        return when (position) {
+            Page.CALCULATE.ordinal -> context.getString(R.string.calculate_view_title)
+            Page.HISTORY.ordinal -> context.getString(R.string.history_view_title)
+            Page.BEST.ordinal -> context.getString(R.string.bestof_view_title)
+            else -> context.getString(R.string.calculate_view_drink_index)
+        }
+    }
 
-    enum class Position {
+    enum class Page {
         CALCULATE,
         HISTORY,
         BEST
