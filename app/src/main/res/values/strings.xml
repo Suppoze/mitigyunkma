@@ -4,6 +4,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="calculate_view_title">Index kalkulátor</string>
+    <string name="calculate_view_title_edit_prefix">Szerkeszt:</string>
     <string name="history_view_title">Előzmények</string>
     <string name="bestof_view_title">Leghatékonyabb italok</string>
 

@@ -68,11 +68,16 @@ class CalculatePresenter() : TiPresenter<CalculateView>() {
 
     fun saveOrEditDrink(drink: Drink) {
         drinkRepository.addOrEditDrink(drink)
+        cancelEditDrink()
         view.onSuccessfulSaveOrEdit()
     }
 
     @Subscribe(threadMode = ThreadMode.POSTING)
     fun onEditDrinkEvent(editDrinkEvent: EditDrinkEvent) {
         view.loadDrinkForEdit(editDrinkEvent.drink)
+    }
+
+    fun cancelEditDrink() {
+        sharedPreferences.cancelEditingDrink()
     }
 }

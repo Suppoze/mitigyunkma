@@ -2,6 +2,7 @@ package hu.suppoze.mitigyunkma.usecase.list
 
 import hu.suppoze.mitigyunkma.MitigyunkApp
 import hu.suppoze.mitigyunkma.core.DrinkRepository
+import hu.suppoze.mitigyunkma.core.SharedPreferencesRepository
 import hu.suppoze.mitigyunkma.entity.Drink
 import hu.suppoze.mitigyunkma.usecase.EditDrinkEvent
 import io.realm.RealmResults
@@ -12,6 +13,7 @@ import javax.inject.Inject
 class DrinkListPresenter : TiPresenter<DrinkListView>() {
 
     @Inject lateinit var drinkRepository: DrinkRepository
+    @Inject lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
     override fun onCreate() {
         super.onCreate()
@@ -31,6 +33,7 @@ class DrinkListPresenter : TiPresenter<DrinkListView>() {
     }
 
     fun editDrink(drink: Drink) {
+        sharedPreferencesRepository.setEditingDrinkName(drink.name)
         EventBus.getDefault().post(EditDrinkEvent(drink))
     }
 }

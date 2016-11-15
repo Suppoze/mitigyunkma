@@ -52,7 +52,7 @@ abstract class AbstractDrinkList : BaseFragment<DrinkListPresenter, DrinkListVie
 
     private fun edit(drink: Drink) {
         presenter.editDrink(drink)
-        EventBus.getDefault().post(NavigateToPageEvent(MainPagerAdapter.Page.CALCULATE, drink.name))
+        EventBus.getDefault().post(NavigateToPageEvent(MainPagerAdapter.Page.CALCULATE))
     }
 
     private fun delete(drink: Drink) {

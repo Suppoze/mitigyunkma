@@ -14,6 +14,7 @@ import android.widget.EditText
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.entity.Drink
 import hu.suppoze.mitigyunkma.extension.*
+import hu.suppoze.mitigyunkma.usecase.MainActivity
 import hu.suppoze.mitigyunkma.usecase.MainPagerAdapter
 import hu.suppoze.mitigyunkma.usecase.NavigateToPageEvent
 import hu.suppoze.mitigyunkma.usecase.common.BaseFragment
@@ -61,7 +62,7 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
         initializeTextWatchers()
         initializeTilOnTouchListeners()
 
-        resetButton.onClick { resetState() }
+        resetButton.onClick { resetFieldsAndCancelEditing() }
         actionButton.onClick { onActionButtonClicked() }
 
         numpadView.onInput { writeInFocused(it) }
@@ -141,9 +142,11 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
         textColorAnimation.start()
     }
 
-    private fun resetState() {
+    private fun resetFieldsAndCancelEditing() {
+        presenter.cancelEditDrink()
+        if (activity is MainActivity) (activity as MainActivity).refreshTitle()
+
         isEditing = false
-        editingDrinkTextView.text = ""
         drinkIndex.text = ""
         percentField.editText!!.text.clear()
         capacityField.editText!!.text.clear()
@@ -263,7 +266,6 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
 
         editingDrinkName = drink.name
         val concatenated = "${getString(R.string.editing)} $editingDrinkName"
-        editingDrinkTextView.text = concatenated
 
         drinkIndex.text = drink.index.toInt().toString()
         percentField.editText?.setText(drink.percent.prettyPrint())
@@ -272,7 +274,7 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
     }
 
     override fun onSuccessfulSaveOrEdit() {
-        resetState()
+        resetFieldsAndCancelEditing()
         EventBus.getDefault().post(NavigateToPageEvent(MainPagerAdapter.Page.HISTORY))
     }
 

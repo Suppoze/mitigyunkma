@@ -32,6 +32,10 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
     }
 
+    fun refreshTitle() {
+        title = mainActivityViewpager.adapter.getPageTitle(mainActivityViewpager.currentItem)
+    }
+
     private fun initializeActionBar() {
         setSupportActionBar(mainActivityToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -87,8 +91,5 @@ class MainActivity : AppCompatActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onNavigateToPage(event: NavigateToPageEvent) {
         mainActivityViewpager.currentItem = event.page.ordinal
-        if (event.customTitle != null) {
-            title = event.customTitle
-        }
     }
 }
