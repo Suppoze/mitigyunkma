@@ -44,5 +44,5 @@
     <color name="rating_5">#F57C00</color>
     <color name="rating_6">#E64A19</color>
     <color name="rating_7">#d32f2f</color>
-    <color name="rating_none">#212121</color>
+    <color name="rating_none">#BDBDBD</color>
 </resources>

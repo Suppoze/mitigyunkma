@@ -65,10 +65,10 @@ fun TextView.setTextColorBasedOnRating(rating: Double, context: Context) {
         7 -> R.color.rating_7
         else -> R.color.rating_none
     }
-    this.setTextColorWithAnimation(ContextCompat.getColor(context, colorId), 200)
+    this.setTextColorWithAnimation(ContextCompat.getColor(context, colorId))
 }
 
-fun TextView.setTextColorWithAnimation(toTextColor: Int, duration: Long) {
+fun TextView.setTextColorWithAnimation(toTextColor: Int, duration: Long = 200) {
     val textColorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), this.currentTextColor, toTextColor)
     textColorAnimation.duration = duration
     textColorAnimation.addUpdateListener { this.setTextColor(it.animatedValue as Int) }

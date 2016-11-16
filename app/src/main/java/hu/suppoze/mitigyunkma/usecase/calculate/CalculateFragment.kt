@@ -69,6 +69,7 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
         numpadView.onDelete { deleteFromFocused() }
 
         switchActionButtonState(ActionButtonState.NEXT)
+        resetDrinkIndex()
     }
 
     fun initializeTextWatchers() {
@@ -211,8 +212,13 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
                     !priceField.editText?.text.isNullOrEmpty(),
                     !capacityField.editText?.text.isNullOrEmpty())
 
+    private fun resetDrinkIndex() {
+        drinkIndex.text = getString(R.string.invalid_drink_index)
+        drinkIndex.setTextColorWithAnimation(ContextCompat.getColor(context, R.color.rating_none))
+    }
+
     override fun onHasEmptyFields() {
-        drinkIndex.text = ""
+        resetDrinkIndex()
         switchActionButtonState(CalculateFragment.ActionButtonState.NEXT)
     }
 
@@ -221,7 +227,7 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
     }
 
     override fun onHasInvalidFields() {
-        drinkIndex.text = ""
+        resetDrinkIndex()
         switchActionButtonState(CalculateFragment.ActionButtonState.DISABLED)
     }
 
