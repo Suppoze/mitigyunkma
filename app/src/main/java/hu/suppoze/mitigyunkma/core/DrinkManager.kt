@@ -45,15 +45,22 @@ class DrinkManager(private val realm: Realm,
     }
 
     override fun getRatingForIndex(index: Double): Double {
-        val max = Math.max(realm.where(Drink::class.java).max(Drink::index.name) as Double, index)
-        val min = Math.min(realm.where(Drink::class.java).min(Drink::index.name) as Double, index)
+        var max = realm.where(Drink::class.java).max(Drink::index.name)
+        var min = realm.where(Drink::class.java).min(Drink::index.name)
+
+        if (max == null || min == null) return .0
+
+        max = Math.max(max as Double, index)
+        min = Math.min(min as Double, index)
 
         return (index - min) / (max - min)
     }
 
     private fun updateRatings() {
-        val max = realm.where(Drink::class.java).max(Drink::index.name) as Double
-        val min = realm.where(Drink::class.java).min(Drink::index.name) as Double
+        val max = realm.where(Drink::class.java).max(Drink::index.name) as Double?
+        val min = realm.where(Drink::class.java).min(Drink::index.name) as Double?
+
+        if (max == null || min == null) return
 
         realm.where(Drink::class.java).findAll().forEach { it.rating = (it.index - min) / (max - min) }
     }
