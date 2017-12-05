@@ -52,7 +52,9 @@ fun EditText.doOnTextChanged(action: () -> Unit) {
     })
 }
 
-fun TextView.setTextColorBasedOnRating(rating: Double, context: Context) {
+fun TextView.setTextColorBasedOnRating(rating: Double, context: Context?) {
+    if (context == null) return
+
     val ratingClass = Math.round(rating * 7).toInt()
     val colorId = when (ratingClass) {
         0 -> R.color.rating_0

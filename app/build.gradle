@@ -2,6 +2,7 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
+        google()
     }
     dependencies {
         classpath "io.realm:realm-gradle-plugin:$realm_version"
@@ -14,14 +15,14 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'realm-android'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '24.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.1'
 
     defaultConfig {
         applicationId "hu.suppoze.mitigyunkma"
         minSdkVersion 15
-        targetSdkVersion 23
-        versionCode 20151213
+        targetSdkVersion 27
+        versionCode 20161204
         versionName "0.9"
     }
     buildTypes {

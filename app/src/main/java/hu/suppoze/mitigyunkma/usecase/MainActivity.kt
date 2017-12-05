@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun refreshTitle() {
-        title = mainActivityViewpager.adapter.getPageTitle(mainActivityViewpager.currentItem)
+        title = mainActivityViewpager.adapter?.getPageTitle(mainActivityViewpager.currentItem)
     }
 
     private fun initializeActionBar() {
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                 if (position == MainPagerAdapter.Page.CALCULATE.ordinal) {
                     mainActivityAppbar.setExpanded(true, true)
                 }
-                title = mainActivityViewpager.adapter.getPageTitle(position)
+                title = mainActivityViewpager.adapter?.getPageTitle(position)
             }
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {

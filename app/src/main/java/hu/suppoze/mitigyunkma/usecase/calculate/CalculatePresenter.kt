@@ -11,7 +11,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
 
-class CalculatePresenter() : TiPresenter<CalculateView>() {
+class CalculatePresenter : TiPresenter<CalculateView>() {
 
     @Inject lateinit var drinkRepository: DrinkRepository
     @Inject lateinit var sharedPreferences: SharedPreferencesRepository
@@ -28,53 +28,53 @@ class CalculatePresenter() : TiPresenter<CalculateView>() {
     }
 
     fun validate(drink: Drink, fieldsFilled: Array<Boolean>) {
-        var validFields: Int = 0
-        val allFieldsFilled = fieldsFilled.all { it == true }
+        var validFields = 0
+        val allFieldsFilled = fieldsFilled.all { it }
 
-        if (fieldsFilled[0] == true && (drink.percent == .0 || drink.percent > 100))
-            view.onPercentInvalid()
+        if (fieldsFilled[0] && (drink.percent == .0 || drink.percent > 100))
+            view?.onPercentInvalid()
         else {
-            view.onPercentValid()
+            view?.onPercentValid()
             validFields++
         }
 
-        if (fieldsFilled[1] == true && drink.price == .0)
-            view.onPriceInvalid()
+        if (fieldsFilled[1] && drink.price == .0)
+            view?.onPriceInvalid()
         else {
-            view.onPriceValid()
+            view?.onPriceValid()
             validFields++
         }
 
-        if (fieldsFilled[2] == true && drink.capacity == .0)
-            view.onCapacityInvalid()
+        if (fieldsFilled[2] && drink.capacity == .0)
+            view?.onCapacityInvalid()
         else {
-            view.onCapacityValid()
+            view?.onCapacityValid()
             validFields++
         }
 
         if (validFields == 3 && allFieldsFilled) {
-            view.onAllFieldsValid()
+            view?.onAllFieldsValid()
         } else if (validFields < 3 && allFieldsFilled) {
-            view.onHasInvalidFields()
+            view?.onHasInvalidFields()
         } else if (!allFieldsFilled) {
-            view.onHasEmptyFields()
+            view?.onHasEmptyFields()
         }
     }
 
     fun calculate(drink: Drink) {
         val index = drinkRepository.calculateIndex(drink)
-        view.onDrinkCalculated(index, drinkRepository.getRatingForIndex(index))
+        view?.onDrinkCalculated(index, drinkRepository.getRatingForIndex(index))
     }
 
     fun saveOrEditDrink(drink: Drink) {
         drinkRepository.addOrEditDrink(drink)
         cancelEditDrink()
-        view.onSuccessfulSaveOrEdit()
+        view?.onSuccessfulSaveOrEdit()
     }
 
     @Subscribe(threadMode = ThreadMode.POSTING)
     fun onEditDrinkEvent(editDrinkEvent: EditDrinkEvent) {
-        view.loadDrinkForEdit(editDrinkEvent.drink)
+        view?.loadDrinkForEdit(editDrinkEvent.drink)
     }
 
     fun cancelEditDrink() {

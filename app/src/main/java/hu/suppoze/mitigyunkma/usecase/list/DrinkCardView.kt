@@ -9,13 +9,12 @@ import hu.suppoze.mitigyunkma.entity.Drink
 import hu.suppoze.mitigyunkma.extension.prettyPrint
 import hu.suppoze.mitigyunkma.extension.setTextColorBasedOnRating
 import kotlinx.android.synthetic.main.component_drinklist_card.view.*
-import org.jetbrains.anko.onClick
 
 class DrinkCardView : CardView {
 
-    constructor(context: Context?) : this(context, null)
-    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context) : this(context, null)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         inflate(context, R.layout.component_drinklist_card, this)
         useCompatPadding = false
     }
@@ -32,5 +31,5 @@ class DrinkCardView : CardView {
             drinkCardCapacity.text = "${value.capacity.prettyPrint()} l"
         }
 
-    fun popupAction(onClick: (View?) -> Unit) = drinkCardPopupIcon.onClick(onClick)
+    fun popupAction(onClick: (View?) -> Unit) = drinkCardPopupIcon.setOnClickListener(onClick)
 }

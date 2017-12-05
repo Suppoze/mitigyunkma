@@ -7,28 +7,29 @@ import android.view.ViewGroup
 import hu.suppoze.mitigyunkma.R
 import hu.suppoze.mitigyunkma.entity.Drink
 import hu.suppoze.mitigyunkma.extension.showPopup
+import io.realm.RealmChangeListener
 import io.realm.RealmResults
 
 class DrinkListAdapter(
-        val realmDrinkDataSet: RealmResults<Drink>,
-        val editAction: (Drink) -> Unit,
-        val deleteAction: (Drink) -> Unit) :
+        private val realmDrinkDataSet: RealmResults<Drink>,
+        private val editAction: (Drink) -> Unit,
+        private val deleteAction: (Drink) -> Unit) :
         RecyclerView.Adapter<DrinkListAdapter.DrinkViewHolder>() {
 
-    var cachedDrinkNameList: List<String>
+    private var cachedDrinkNameList: List<String>
 
     init {
         cachedDrinkNameList = realmDrinkDataSet.map { it.name }
-        realmDrinkDataSet.addChangeListener { cachedListComparatorListener() }
+
+        // TODO Realm might provide better way of doing this
+        realmDrinkDataSet.addChangeListener(RealmChangeListener { cachedListComparatorListener() })
     }
 
     private fun cachedListComparatorListener() {
-        if (cachedDrinkNameList.count() > realmDrinkDataSet.count()) {
-            findDeletedIndex()
-        } else if (cachedDrinkNameList.count() < realmDrinkDataSet.count()) {
-            findAddedIndex()
-        } else {
-            notifyDataSetChanged()
+        when {
+            cachedDrinkNameList.count() > realmDrinkDataSet.count() -> findDeletedIndex()
+            cachedDrinkNameList.count() < realmDrinkDataSet.count() -> findAddedIndex()
+            else -> notifyDataSetChanged()
         }
         cachedDrinkNameList = realmDrinkDataSet.map { it.name }
     }
@@ -47,7 +48,7 @@ class DrinkListAdapter(
 
     private fun findAddedIndex() {
         cachedDrinkNameList.forEachIndexed { i, drinkName ->
-            if (realmDrinkDataSet[i].name != drinkName) {
+            if (realmDrinkDataSet[i]?.name != drinkName) {
                 notifyItemInserted(i)
                 notifyDataSetChangedDelayed()
                 return
@@ -63,10 +64,11 @@ class DrinkListAdapter(
 
     override fun getItemCount(): Int = realmDrinkDataSet.size
 
-    override fun getItemId(position: Int): Long = realmDrinkDataSet[position].index.toLong()
+    override fun getItemId(position: Int): Long =
+            realmDrinkDataSet[position]?.index?.toLong() ?: throw IndexOutOfBoundsException()
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): DrinkViewHolder? {
-        val view = DrinkCardView(parent?.context)
+        val view = DrinkCardView(parent!!.context)
         return DrinkViewHolder(view, { optionsIcon, drink ->
             optionsIcon.showPopup(R.menu.drinklist_row_menu) {
                 menuItem ->
@@ -81,8 +83,9 @@ class DrinkListAdapter(
 
     override fun onBindViewHolder(holder: DrinkViewHolder, position: Int) = holder.bindDrink(realmDrinkDataSet[position])
 
-    class DrinkViewHolder(view: View, val optionsClick: (View, Drink) -> Unit) : RecyclerView.ViewHolder(view) {
-        fun bindDrink(drink: Drink) {
+    class DrinkViewHolder(view: View, private val optionsClick: (View, Drink) -> Unit) : RecyclerView.ViewHolder(view) {
+        fun bindDrink(drink: Drink?) {
+            if (drink == null) return
             itemView as DrinkCardView
             itemView.drink = drink
             itemView.popupAction { optionsClick(it!!, drink) }

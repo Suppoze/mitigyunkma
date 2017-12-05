@@ -22,16 +22,15 @@ import kotlinx.android.synthetic.main.component_action_button.*
 import kotlinx.android.synthetic.main.dialog_save.view.*
 import kotlinx.android.synthetic.main.fragment_calculate.*
 import org.greenrobot.eventbus.EventBus
-import org.jetbrains.anko.onClick
 
 class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), CalculateView {
 
-    lateinit var colorToState: Map<ActionButtonState, Int>
-    lateinit var actionButtonTextToState: Map<ActionButtonState, String>
+    private lateinit var colorToState: HashMap<ActionButtonState, Int>
+    private lateinit var actionButtonTextToState: HashMap<ActionButtonState, String>
 
-    var currentActionButtonState: ActionButtonState = ActionButtonState.DISABLED
-    var isEditing: Boolean = false
-    var editingDrinkName: String = ""
+    private var currentActionButtonState: ActionButtonState = ActionButtonState.DISABLED
+    private var isEditing: Boolean = false
+    private var editingDrinkName: String = ""
 
     override fun providePresenter(): CalculatePresenter {
         return CalculatePresenter()
@@ -41,29 +40,30 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
         super.onCreate(savedInstanceState)
 
         colorToState = hashMapOf(
-                Pair(ActionButtonState.DISABLED, ContextCompat.getColor(context, R.color.action_button_disabled)),
-                Pair(ActionButtonState.NEXT, ContextCompat.getColor(context, R.color.action_button_next)),
-                Pair(ActionButtonState.SAVE, ContextCompat.getColor(context, R.color.action_button_save)),
-                Pair(ActionButtonState.EDIT, ContextCompat.getColor(context, R.color.action_button_save)))
+                Pair(ActionButtonState.DISABLED, ContextCompat.getColor(context!!, R.color.action_button_disabled)),
+                Pair(ActionButtonState.NEXT, ContextCompat.getColor(context!!, R.color.action_button_next)),
+                Pair(ActionButtonState.SAVE, ContextCompat.getColor(context!!, R.color.action_button_save)),
+                Pair(ActionButtonState.EDIT, ContextCompat.getColor(context!!, R.color.action_button_save)))
         actionButtonTextToState = hashMapOf(
-                Pair(ActionButtonState.DISABLED, activity.getString(R.string.next)),
-                Pair(ActionButtonState.NEXT, activity.getString(R.string.next)),
-                Pair(ActionButtonState.SAVE, activity.getString(R.string.save)),
-                Pair(ActionButtonState.EDIT, activity.getString(R.string.edit)))
+                Pair(ActionButtonState.DISABLED, activity!!.getString(R.string.next)),
+                Pair(ActionButtonState.NEXT, activity!!.getString(R.string.next)),
+                Pair(ActionButtonState.SAVE, activity!!.getString(R.string.save)),
+                Pair(ActionButtonState.EDIT, activity!!.getString(R.string.edit)))
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_calculate, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+        return inflater.inflate(R.layout.fragment_calculate, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initializeTextWatchers()
         initializeTilOnTouchListeners()
 
-        resetButton.onClick { resetFieldsAndCancelEditing() }
-        actionButton.onClick { onActionButtonClicked() }
+        resetButton.setOnClickListener { resetFieldsAndCancelEditing() }
+        actionButton.setOnClickListener { onActionButtonClicked() }
 
         numpadView.onInput { writeInFocused(it) }
         numpadView.onDelete { deleteFromFocused() }
@@ -72,7 +72,7 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
         resetDrinkIndex()
     }
 
-    fun initializeTextWatchers() {
+    private fun initializeTextWatchers() {
         percentField.editText?.doOnTextChanged { presenter.validate(getDrink(), getFilledFields()) }
         capacityField.editText?.doOnTextChanged { presenter.validate(getDrink(), getFilledFields()) }
         priceField.editText?.doOnTextChanged { presenter.validate(getDrink(), getFilledFields()) }
@@ -124,8 +124,8 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
         colorAnimation.addUpdateListener { actionButtonBackground.setBackgroundColor(it.animatedValue as Int) }
         colorAnimation.start()
 
-        val textColor = ContextCompat.getColor(context, R.color.button_text)
-        val textFadeColor = ContextCompat.getColor(context, R.color.button_text_fade)
+        val textColor = ContextCompat.getColor(context!!, R.color.button_text)
+        val textFadeColor = ContextCompat.getColor(context!!, R.color.button_text_fade)
         animateActionButtonText(newState, textColor, textFadeColor)
     }
 
@@ -169,17 +169,17 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
 
     private fun showSaveDialog() {
         val dialogContent = View.inflate(context, R.layout.dialog_save, null)
-        val dialog = AlertDialog.Builder(activity, R.style.MyAlertDialogStyle)
+        val dialog = AlertDialog.Builder(context!!, R.style.MyAlertDialogStyle)
                 .setTitle(R.string.dialog_save_title)
                 .setView(dialogContent)
                 .setPositiveButton(R.string.save, { dialogInterface, i ->
-                    context.hideKeyboard(dialogContent.saveDialogField)
+                    context?.hideKeyboard(dialogContent.saveDialogField)
                     val retDrink = getDrink()
                     retDrink.name = dialogContent.saveDialogField.editText!!.text.toString()
                     presenter.saveOrEditDrink(retDrink)
                 })
                 .setNegativeButton(R.string.cancel, { dialogInterface, i ->
-                    context.hideKeyboard(dialogContent.saveDialogField)
+                    context?.hideKeyboard(dialogContent.saveDialogField)
                 })
                 .create()
         dialog.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
@@ -214,7 +214,7 @@ class CalculateFragment : BaseFragment<CalculatePresenter, CalculateView>(), Cal
 
     private fun resetDrinkIndex() {
         drinkIndex.text = getString(R.string.invalid_drink_index)
-        drinkIndex.setTextColorWithAnimation(ContextCompat.getColor(context, R.color.rating_none))
+        drinkIndex.setTextColorWithAnimation(ContextCompat.getColor(context!!, R.color.rating_none))
     }
 
     override fun onHasEmptyFields() {

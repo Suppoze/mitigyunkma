@@ -17,4 +17,4 @@ open class Drink(
 
         open var lastmod: Date = Date()
 
-) : RealmObject() {}
+) : RealmObject()
